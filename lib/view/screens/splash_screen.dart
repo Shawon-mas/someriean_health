@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color:  Color(0xFFff004c),
+              color:  Color(0xFFFF1744),
             ),
           ),
           Center(
