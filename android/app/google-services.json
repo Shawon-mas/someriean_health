@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "65506809218",
+    "project_id": "somerian-health-fc9ba",
+    "storage_bucket": "somerian-health-fc9ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65506809218:android:a386de5c1cfcc25028eb9b",
+        "android_client_info": {
+          "package_name": "com.app.somerian_health.somerian_health"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65506809218-l05sdotgp9mi2hbmetnffidh8u5oij13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx7WewPyqXD2cvloV6f1v1ruuRasg1r7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65506809218-l05sdotgp9mi2hbmetnffidh8u5oij13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
