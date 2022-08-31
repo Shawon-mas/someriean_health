@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TextWidget extends StatelessWidget {
   final String value;
   const TextWidget({
@@ -11,7 +12,7 @@ class TextWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Text(value, style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 18
+          fontSize: 18.sp
       ),
       ),
     );

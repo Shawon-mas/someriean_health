@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:somerian_health/global/properties.dart';
 
 import 'auth_screen.dart';
 
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color:  Color(0xFFFF1744),
+              color:  Properties.primaryColor,
             ),
           ),
           Center(

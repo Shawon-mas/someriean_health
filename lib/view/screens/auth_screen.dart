@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/login_screen.dart';
 import '../widget/custom_button.dart';
 class AuthScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color:  Colors.redAccent[400],
+              color:  Properties.primaryColor,
             ),
           ),
           Center(
