@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(11)
         ),
         child: Text(value, style: TextStyle(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w400,
             fontSize: 18,
             color: textColor,
         ),
