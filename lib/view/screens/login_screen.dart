@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:somerian_health/routes/routes.dart';
 import 'package:somerian_health/view/widget/custom_button.dart';
 
+import '../../global/properties.dart';
 import '../widget/primary_toolbar.dart';
 import '../widget/text_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -22,14 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-
-
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //assets/images/doctors.jpg
             Image.asset('assets/images/doctors.jpg'),
             SizedBox(height: 20,),
-            TextWidget(value: "Login",),
+            TextWidget(value: "Login", size: 18.sp,),
             SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
@@ -38,13 +40,24 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
               child: CustomButton(
+                textColor: Colors.white,
                 value: "Login",
-                buttonColor: Colors.pinkAccent,onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                buttonColor: Properties.primaryColor,onPressed: ()
+              {
 
               },),
             ),
             SizedBox(height: 10,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextWidget(value: "Don't have account?", size: 14.sp,),
+                SizedBox(width: 5.w,),
+                TextWidget(value: "Register", size: 14.sp,textColor: Properties.primaryColor,onPressed: (){
+                  Get.toNamed(signup);
+                },),
+              ],
+            )
 
 
           ],
