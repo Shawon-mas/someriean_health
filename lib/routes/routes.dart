@@ -4,18 +4,19 @@ import 'package:somerian_health/view/screens/auth_screen.dart';
 import 'package:somerian_health/view/screens/login_screen.dart';
 import 'package:somerian_health/view/screens/splash_screen.dart';
 
-import '../view/screens/signup_screen.dart';
+import '../view/screens/otp_screen.dart';
+
 
 const splash = "/";
 const home = "/home";
 const login = "/login";
-const signup = "/signup";
+const otp = "/signup";
 
 final pages = [
   page(splash, SplashScreen(),),
   page(home, SplashScreen(),),
   page(login, LoginScreen(),),
-  page(signup, SignUpScreen(),),
+  page(otp, OtpScreen(),),
 ];
 
 GetPage page(String name, Widget page) {

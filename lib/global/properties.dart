@@ -7,4 +7,5 @@ class Properties{
   static const homeStrokeColor = Color(0xFFDAECFF);
   static const homeBoxColor = Color(0xFFFBFDFF);
   static const aboutUs = Color(0xFFFFF5EF);
+  static const Color colorTextBlue= Color(0xFF003049);
 }

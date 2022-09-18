@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:somerian_health/global/properties.dart';
+import 'package:somerian_health/view/screens/login_screen.dart';
 
 import 'auth_screen.dart';
 
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   _navigatetoauth() async{
     await Future.delayed(Duration(milliseconds: 2500),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AuthScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
 
   }
 
