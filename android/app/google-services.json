@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:65506809218:android:a386de5c1cfcc25028eb9b",
+        "mobilesdk_app_id": "1:65506809218:android:01d6e7875cdbf98b28eb9b",
         "android_client_info": {
           "package_name": "com.app.somerian_health.somerian_health"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "65506809218-l05sdotgp9mi2hbmetnffidh8u5oij13.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "65506809218-dp46cc5ua9oo1h63v8pivmm5456nahr9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.somerianhealth.somerianHealth"
+              }
             }
           ]
         }

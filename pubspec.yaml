@@ -36,11 +36,15 @@ dependencies:
   cupertino_icons: ^1.0.5
   intl_phone_number_input: ^0.7.0+2
   get: ^4.6.5
-  firebase_core: ^1.21.1
-  cloud_firestore: ^3.4.6
-  firebase_auth: ^3.7.0
+  firebase_core: ^1.22.0
+  cloud_firestore: ^3.4.8
+  firebase_auth: ^3.9.0
+  firebase_messaging: ^13.0.2
   google_fonts: ^3.0.1
   pinput: ^2.2.12
+  hive_flutter: ^1.1.0
+  http: ^0.13.5
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

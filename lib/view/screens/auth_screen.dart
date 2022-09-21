@@ -32,7 +32,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   CustomButton(
                     value: "Login",
                     buttonColor: Colors.white,onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                      /*Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));*/
 
                   },),
                   SizedBox(height: 10,),

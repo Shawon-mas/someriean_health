@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAx7WewPyqXD2cvloV6f1v1ruuRasg1r7s',
-    appId: '1:65506809218:android:a386de5c1cfcc25028eb9b',
+    appId: '1:65506809218:android:01d6e7875cdbf98b28eb9b',
     messagingSenderId: '65506809218',
     projectId: 'somerian-health-fc9ba',
     storageBucket: 'somerian-health-fc9ba.appspot.com',
@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA3GjtK8A5HkIm7JU7ALwe5ip5O5KsrlVk',
-    appId: '1:65506809218:ios:e2cf665db916f7e928eb9b',
+    appId: '1:65506809218:ios:b40b4fd48eb6d05a28eb9b',
     messagingSenderId: '65506809218',
     projectId: 'somerian-health-fc9ba',
     storageBucket: 'somerian-health-fc9ba.appspot.com',

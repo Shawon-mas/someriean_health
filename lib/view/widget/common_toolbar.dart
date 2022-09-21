@@ -16,7 +16,7 @@ class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
       centerTitle: true,
       title: TextWidget(
         textColor: Colors.white,
-        value: "Otp Verification",
+        value: title,
         size: 18.sp,
         fontWeight: FontWeight.w500,
       ),
@@ -24,7 +24,7 @@ class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back_ios_rounded,
           color: Colors.white,
         ),
@@ -33,5 +33,5 @@ class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
     );
   }
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
