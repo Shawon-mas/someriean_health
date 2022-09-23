@@ -44,7 +44,7 @@ class OtpScreen extends StatelessWidget {
               ),
               TextWidget(
                 textColor: Properties.colorTextBlue,
-                value: "to mobile number",
+                value: "${controller.phoneNumber}",
                 size: 14.sp,
                 fontWeight: FontWeight.w500,
               ),

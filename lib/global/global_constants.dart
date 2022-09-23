@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:somerian_health/global/properties.dart';
+
+
 
 const hiveBox = "hiveBox";
 const userExists = "userExists";

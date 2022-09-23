@@ -94,19 +94,13 @@ class LoginScreen extends StatelessWidget {
             textFieldController: _controller.phoneController,
             initialValue: PhoneNumber(isoCode: 'BD'),
             onInputChanged: (PhoneNumber number) {
-              /* _numberController.isoCode.value = number.isoCode!;
-              print(number.phoneNumber);
-              _logger.d(number.isoCode);
-              _logger.d(number.dialCode);
-              _logger.d(number.phoneNumber);
-              _numberController.mobileNumber.value = number.phoneNumber!;*/
+
               _controller.phoneNumber = number.phoneNumber!;
             },
             onInputValidated: (bool value) {
               _controller.isValidNumber = value;
               logger.d(value);
-              /*_numberController.isNumberValid.value = value;
-              print(value);*/
+
             },
             selectorConfig: const SelectorConfig(
               selectorType: PhoneInputSelectorType.DIALOG,
