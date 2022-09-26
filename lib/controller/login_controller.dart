@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
+import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 import 'package:somerian_health/view/screens/otp_screen.dart';
 
 import '../global/global_constants.dart';
@@ -48,15 +49,19 @@ class LoginController extends GetxController {
     );
   }
 
-  registerUser(String otp, String verificationId,  BuildContext context) async {
+  registerUser(String otp, String verificationId, BuildContext context) async {
     isVerifyingOtp.value = true;
     logger.d(verificationId);
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: otp);
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: otp);
     var result = await auth.signInWithCredential(credential);
     isVerifyingOtp.value = false;
     User? user = result.user;
     if (user != null) {
-      FirebaseFirestore.instance.collection(DbCollections.collectionPatients).get().then((value) {
+      FirebaseFirestore.instance
+          .collection(DbCollections.collectionPatients)
+          .get()
+          .then((value) {
         List<String> numbers = [];
         for (var patient in value.docs) {
           numbers.add(patient.id);
@@ -66,7 +71,12 @@ class LoginController extends GetxController {
           Get.offAllNamed(home);
         } else {
           infoSnackBar(context, "Complete your profile to proceed");
-          Get.offAllNamed(completeYourProfile);
+          Get.to(
+            () => CompleteProfileScreen(
+              mobileNumber: phoneNumber,
+              uid: user.uid,
+            ),
+          );
         }
       });
     }

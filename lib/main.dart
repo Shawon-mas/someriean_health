@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/routes/routes.dart';
-
 import 'firebase_options.dart';
-import 'view/screens/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

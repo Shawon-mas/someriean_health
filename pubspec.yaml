@@ -38,14 +38,15 @@ dependencies:
   get: ^4.6.5
   firebase_core: ^1.22.0
   cloud_firestore: ^3.4.8
-  firebase_auth: ^3.9.0
+  firebase_auth: ^3.10.0
   firebase_messaging: ^13.0.2
   google_fonts: ^3.0.1
   pinput: ^2.2.12
   hive_flutter: ^1.1.0
   http: ^0.13.5
   logger: ^1.1.0
-
+dependency_overrides:
+   collection: ^1.16.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

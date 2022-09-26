@@ -18,7 +18,7 @@ final pages = [
   page(splash, SplashScreen()),
   page(home, HomeScreen()),
   page(login, LoginScreen()),
-  page(completeYourProfile, CompleteProfileScreen()),
+  //page(completeYourProfile, CompleteProfileScreen()),
   //page(otp, OtpScreen(),),
 ];
 

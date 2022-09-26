@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../global/properties.dart';
+
 class CustomButton extends StatelessWidget {
   final Color buttonColor;
-  final Color? textColor;
+  final Color textColor;
   final String value;
   final bool isLoading;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   const CustomButton({
     Key? key,
-    required this.buttonColor,
-    this.onPressed,
+    this.buttonColor = Properties.primaryColor,
+    required this.onPressed,
     required this.value,
-    this.textColor,
+    this.textColor = Colors.white,
     this.isLoading = false,
   }) : super(key: key);
 
