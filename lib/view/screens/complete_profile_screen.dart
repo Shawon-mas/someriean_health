@@ -18,6 +18,7 @@ class CompleteProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _controller.mobileController.text = mobileNumber;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const CommonToolbar(
         title: 'Complete your profile',
       ),
