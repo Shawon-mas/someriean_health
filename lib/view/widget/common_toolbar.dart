@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:somerian_health/view/widget/text_widget.dart';
 
 import '../../global/properties.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
+
+class CommonToolbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const CommonToolbar({
-    Key? key, required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -22,7 +25,8 @@ class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
       ),
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          //Navigator.pop(context);
+          Get.back();
         },
         icon: const Icon(
           Icons.arrow_back_ios_rounded,
@@ -32,6 +36,7 @@ class CommonToolbar extends StatelessWidget implements PreferredSizeWidget{
       elevation: 0,
     );
   }
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

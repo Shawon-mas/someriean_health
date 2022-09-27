@@ -65,8 +65,7 @@ class LoginScreen extends StatelessWidget {
                   errorSnackBar(context, "Input fields can not be empty");
                 } else if (!_controller.isValidNumber) {
                   errorSnackBar(context, "Invalid number");
-                }
-                else {
+                } else {
                   _controller.sendOtp(context, _controller);
                   //Get.to(()=>OtpScreen(controller: _controller));
                 }
@@ -89,38 +88,39 @@ class LoginScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           padding: EdgeInsets.only(left: 10.h),
-          child: InternationalPhoneNumberInput(
-            isEnabled: true,
-            textFieldController: _controller.phoneController,
-            initialValue: PhoneNumber(isoCode: 'BD'),
-            onInputChanged: (PhoneNumber number) {
-
-              _controller.phoneNumber = number.phoneNumber!;
-            },
-            onInputValidated: (bool value) {
-              _controller.isValidNumber = value;
-              logger.d(value);
-
-            },
-            selectorConfig: const SelectorConfig(
-              selectorType: PhoneInputSelectorType.DIALOG,
-              setSelectorButtonAsPrefixIcon: true,
+          child: Obx(() => InternationalPhoneNumberInput(
+                isEnabled: true,
+                textFieldController: _controller.phoneController,
+                initialValue: PhoneNumber(
+                  isoCode: _controller.countryCode.value,
+                ),
+                onInputChanged: (PhoneNumber number) {
+                  _controller.phoneNumber = number.phoneNumber!;
+                },
+                onInputValidated: (bool value) {
+                  _controller.isValidNumber = value;
+                  logger.d(value);
+                },
+                selectorConfig: const SelectorConfig(
+                  selectorType: PhoneInputSelectorType.DIALOG,
+                  setSelectorButtonAsPrefixIcon: true,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: const TextStyle(color: Colors.black),
+                formatInput: false,
+                keyboardType: const TextInputType.numberWithOptions(
+                  signed: true,
+                  decimal: true,
+                ),
+                hintText: "0123456789101",
+                inputBorder: const OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+                onSaved: (PhoneNumber number) {
+                  print('On Saved: ');
+                },
             ),
-            ignoreBlank: false,
-            autoValidateMode: AutovalidateMode.disabled,
-            selectorTextStyle: const TextStyle(color: Colors.black),
-            formatInput: false,
-            keyboardType: const TextInputType.numberWithOptions(
-              signed: true,
-              decimal: true,
-            ),
-            hintText: "0123456789101",
-            inputBorder: const OutlineInputBorder(
-              borderSide: BorderSide.none,
-            ),
-            onSaved: (PhoneNumber number) {
-              print('On Saved: $number');
-            },
           ),
         ),
         /*const SizedBox(

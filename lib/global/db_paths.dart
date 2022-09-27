@@ -13,8 +13,14 @@ class DbDocs {
   static const fieldGender = "gender";
   static const fieldNationality = "nationality";
   static const fieldPassport = "passport";
+
+  /*Slider Image*/
+  static const fieldImageUrl = "imageUrl";
+  static const fieldUrl = "url";
+  static const fieldTitle = "title";
 }
 
 class DbCollections {
   static const collectionPatients = "patients";
+  static const collectionImages = "images";
 }

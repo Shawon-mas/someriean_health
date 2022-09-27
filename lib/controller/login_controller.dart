@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/view/screens/complete_profile_screen.dart';
@@ -19,6 +21,18 @@ class LoginController extends GetxController {
   var isVerifyingOtp = false.obs;
   final auth = FirebaseAuth.instance;
   String verificationId = "";
+  var countryCode = "AE".obs;
+
+  initPlatformState() async {
+    String platformVersionin;
+    try {
+      platformVersionin = await FlutterSimCountryCode.simCountryCode ?? "AE";
+      countryCode.value = platformVersionin.toUpperCase();
+    } on PlatformException {
+      countryCode.value = "AE";
+    }
+    logger.d(countryCode.value);
+  }
 
   sendOtp(BuildContext context, LoginController _controller) async {
     isSendingOtp.value = true;
@@ -80,6 +94,12 @@ class LoginController extends GetxController {
         }
       });
     }
+  }
+
+  @override
+  void onInit() {
+    initPlatformState();
+    super.onInit();
   }
 
 /*final defaultPinTheme = PinTheme(

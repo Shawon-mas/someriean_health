@@ -13,6 +13,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _controller.getCurrentUser();
     return Scaffold(
         body: Stack(
       children: [

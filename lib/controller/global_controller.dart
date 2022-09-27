@@ -41,7 +41,7 @@ class GlobalController extends GetxController {
 
   @override
   void onInit() {
-    getCurrentUser();
+    //getCurrentUser();
     super.onInit();
   }
 }
