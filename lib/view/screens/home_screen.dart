@@ -365,6 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
+                          Spacer(),
                           TextWidget(
                             value: "Manage Appointment",
                             size: 12.sp,
@@ -384,6 +385,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 70.h,
                             width: 100.h,
                             color: Properties.primaryColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/images/splash.png',
+                                height: 80,
+                                width: 100,
+                              ),
+                            ),
                           ),
                           Spacer(),
                           TextWidget(
