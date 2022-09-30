@@ -6,7 +6,7 @@ import 'package:somerian_health/view/screens/home_screen.dart';
 import 'package:somerian_health/view/screens/login_screen.dart';
 import 'package:somerian_health/view/screens/splash_screen.dart';
 
-import '../view/screens/menu_screens/doctors_menu.dart';
+import '../view/screens/menu_screens/doctors_menu_screens/doctors_menu.dart';
 import '../view/screens/otp_screen.dart';
 
 const splash = "/";

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/properties.dart';
-import '../../widget/common_toolbar.dart';
-import '../../widget/general_button.dart';
-import '../../widget/text_widget.dart';
+import 'package:somerian_health/view/screens/menu_screens/doctors_menu_screens/time_date.dart';
+import '../../../widget/common_toolbar.dart';
+import '../../../widget/general_button.dart';
+import '../../../widget/text_widget.dart';
 class DoctorsMenuScreen extends StatefulWidget {
   const DoctorsMenuScreen({Key? key}) : super(key: key);
 
@@ -75,7 +76,9 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                 ],
                               ),
                               AppointmentButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TimeDateScreen()));
+                                },
                                 value:'Book an Appointment' ,
                               ),
                               Divider(

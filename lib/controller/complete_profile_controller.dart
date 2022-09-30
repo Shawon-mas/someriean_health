@@ -8,6 +8,7 @@ import '../routes/routes.dart';
 
 class CompleteProfileController extends GetxController {
   var selectedDate = DateTime.now().obs;
+  var selectedTime = TimeOfDay(hour: 8, minute: 30).obs;
   var valueChoose = "".obs;
   var valueNationality = "".obs;
   final gender = ['Male', 'Female', 'Others'];
@@ -26,6 +27,12 @@ class CompleteProfileController extends GetxController {
         firstDate: DateTime(1950, 8),
         lastDate: DateTime(2101));
     selectedDate.value = picked!;
+  }
+  selectTime(BuildContext context) async{
+    TimeOfDay? picked =await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: 8, minute: 30),);
+      selectedTime.value=picked!;
   }
 
   storeValues(

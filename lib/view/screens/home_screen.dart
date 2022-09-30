@@ -19,7 +19,7 @@ import '../widget/primary_toolbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widget/text_widget.dart';
-import 'menu_screens/doctors_menu.dart';
+import 'menu_screens/doctors_menu_screens/doctors_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -139,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   HomeMenu(menuTittle: "Doctors",onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+
                   }),
                   Container(
                       height: 115.h,
