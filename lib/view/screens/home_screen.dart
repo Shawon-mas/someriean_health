@@ -14,10 +14,12 @@ import '../../controller/carousel_controller.dart';
 import '../../controller/controllers.dart';
 import '../widget/carousel_loading.dart';
 import '../widget/carousel_with_indicator.dart';
+import '../widget/homeMenu.dart';
 import '../widget/primary_toolbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widget/text_widget.dart';
+import 'menu_screens/doctors_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -135,35 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                      height: 115.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Doctors",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
+                  HomeMenu(menuTittle: "Doctors",onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                  }),
                   Container(
                       height: 115.h,
                       width: 100.h,
@@ -447,6 +423,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
 /*
 Obx(
                 () {
