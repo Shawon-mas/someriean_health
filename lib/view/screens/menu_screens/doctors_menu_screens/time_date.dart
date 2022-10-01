@@ -8,9 +8,12 @@ import '../../../../controller/complete_profile_controller.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
+import 'basic_details.dart';
 class TimeDateScreen extends StatefulWidget {
+  final String image,name,title,location;
 
-   TimeDateScreen({Key? key}) : super(key: key);
+
+   TimeDateScreen({Key? key, required this.image, required this.name, required this.title, required this.location}) : super(key: key);
 
   @override
   State<TimeDateScreen> createState() => _TimeDateScreenState();
@@ -37,8 +40,40 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
       body: Column(
         children: [
           Container(
-            height: 100.h,
+            height: 110.h,
             color: Colors.grey,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.network(widget.image,height:100,width: 100,fit: BoxFit.cover,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        value: widget.name,
+                        size: 18.sp,
+                        fontWeight: FontWeight.w700,
+                        textColor: Properties.fontColor,
+                      ),
+                      TextWidget(
+                        value: widget.title,
+                        size: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        textColor: Properties.fontColor,
+                      ),
+                      TextWidget(
+                        value: widget.location,
+                        size: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        textColor: Properties.fontColor,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -138,6 +173,7 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
             padding: const EdgeInsets.all(10.0),
             child: AppointmentButton(
               onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>BasicDetailsScreen()));
               },
               value:'Next' ,
             ),

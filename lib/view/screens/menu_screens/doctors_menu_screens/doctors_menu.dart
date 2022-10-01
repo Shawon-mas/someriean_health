@@ -77,7 +77,9 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                               ),
                               AppointmentButton(
                                 onPressed: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TimeDateScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TimeDateScreen(
+                                    title: documentSnapshot['title'],image: documentSnapshot['image'],location: documentSnapshot['location'],name: documentSnapshot['name'],
+                                  )));
                                 },
                                 value:'Book an Appointment' ,
                               ),
