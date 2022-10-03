@@ -151,10 +151,8 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
                           ),
 
                         const Spacer(),
-                        const Icon(
-                          Icons.timer,
-                          color: Colors.grey,
-                        )
+                        Image.asset('assets/images/clock.png')
+
                       ],
                     ),
                     decoration: BoxDecoration(
