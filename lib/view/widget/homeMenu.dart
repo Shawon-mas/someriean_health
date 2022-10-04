@@ -6,8 +6,9 @@ import '../../global/properties.dart';
 class HomeMenu extends StatelessWidget {
   final String menuTittle;
   final VoidCallback onPressed;
+  final String imageMenu;
   const HomeMenu({
-    Key? key, required this.menuTittle, required this.onPressed,
+    Key? key, required this.menuTittle, required this.onPressed, required this.imageMenu,
   }) : super(key: key);
 
   @override
@@ -29,7 +30,7 @@ class HomeMenu extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
-                    'assets/images/splash.png',
+                    imageMenu,
                     height: 80,
                     width: 100,
                   ),

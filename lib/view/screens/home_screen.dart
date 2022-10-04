@@ -10,10 +10,6 @@ import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/model/slider_model.dart';
 import 'package:somerian_health/routes/routes.dart';
 
-import '../../controller/carousel_controller.dart';
-import '../../controller/controllers.dart';
-import '../widget/carousel_loading.dart';
-import '../widget/carousel_with_indicator.dart';
 import '../widget/homeMenu.dart';
 import '../widget/primary_toolbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -137,39 +133,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  HomeMenu(menuTittle: "Doctors",onPressed: (){
+                  HomeMenu(
+                      menuTittle: "Doctors",
+                      imageMenu: 'assets/images/doctor.png',
+                      onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
 
                   }),
-                  Container(
-                      height: 115.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Specialties",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
+                  HomeMenu(
+                      menuTittle: "Specialties",
+                      imageMenu: 'assets/images/stethoscope.png',
+                      onPressed: (){
+                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
                 ],
               ),
             ),
@@ -181,64 +158,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                      height: 115.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Insurance",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
-                  Container(
-                      height: 115.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Health Packages",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
+                  HomeMenu(
+                      menuTittle: "Insurance",
+                      imageMenu: 'assets/images/insurance.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Health Packages",
+                      imageMenu: 'assets/images/health_packages.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
                 ],
               ),
             ),
@@ -250,66 +183,21 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                      height: 125.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          TextWidget(
-                            value: "Find Hospitals & Clinics",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          )
-                        ],
-                      )),
-                  Container(
-                      height: 125.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Book Appointment",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
+                  HomeMenu(
+                      menuTittle: "Find Hospitals & Clinics",
+                      imageMenu: 'assets/images/clinic.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Book Appointment",
+                      imageMenu: 'assets/images/booking_appointment.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+
                 ],
               ),
             ),
@@ -321,64 +209,122 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                      height: 125.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Manage Appointment",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
-                  Container(
-                      height: 125.h,
-                      width: 100.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Properties.primaryColor)),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 100.h,
-                            color: Properties.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                height: 80,
-                                width: 100,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          TextWidget(
-                            value: "Vaccination Appointment",
-                            size: 12.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )),
+                  HomeMenu(
+                      menuTittle: "Manage Appointment",
+                      imageMenu: 'assets/images/manage_appointment.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Vaccination Appointment",
+                      imageMenu: 'assets/images/vaccination_appointment.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HomeMenu(
+                      menuTittle: "Covid-19 Screening Appointment",
+                      imageMenu: 'assets/images/covid_19.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Visa Screening Appointment",
+                      imageMenu: 'assets/images/visa.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HomeMenu(
+                      menuTittle: "Home Care",
+                      imageMenu: 'assets/images/care.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Teleconsultation",
+                      imageMenu: 'assets/images/teleconsultation.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HomeMenu(
+                      menuTittle: "Medical History",
+                      imageMenu: 'assets/images/medical_history.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Reports",
+                      imageMenu: 'assets/images/reports.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HomeMenu(
+                      menuTittle: "Health Tip",
+                      imageMenu: 'assets/images/health_tip.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
+                  HomeMenu(
+                      menuTittle: "Contact Us",
+                      imageMenu: 'assets/images/contact.png',
+                      onPressed: (){
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        infoSnackBar(context,'Coming soon');
+                      }),
                 ],
               ),
             ),
@@ -388,6 +334,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+
+
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
