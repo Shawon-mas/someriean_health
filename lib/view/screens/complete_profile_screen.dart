@@ -4,6 +4,7 @@ import 'package:somerian_health/controller/complete_profile_controller.dart';
 import 'package:somerian_health/view/widget/common_toolbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:somerian_health/view/widget/custom_button.dart';
+import '../widget/custom_container.dart';
 import '../widget/text_widget.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
@@ -24,20 +25,7 @@ class CompleteProfileScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            color: Colors.grey,
-            width: double.infinity,
-            height: 50.h,
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: TextWidget(
-                value: "Please provide basic detalis",
-                size: 14.sp,
-                fontWeight: FontWeight.w700,
-                textColor: Colors.black,
-              ),
-            ),
-          ),
+          CustomContainer(value: "Please provide basic details"),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -270,3 +258,4 @@ class CompleteProfileScreen extends StatelessWidget {
     );
   }
 }
+

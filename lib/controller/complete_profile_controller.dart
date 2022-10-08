@@ -45,7 +45,8 @@ class CompleteProfileController extends GetxController {
       required String nationality,
       required String passport,
       required String uid,
-      required BuildContext context}) {
+      required BuildContext context})
+  {
     isUploading.value = true;
     FirebaseFirestore.instance
         .collection(DbCollections.collectionPatients)
