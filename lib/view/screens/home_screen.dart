@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widget/text_widget.dart';
 import 'menu_screens/doctors_menu_screens/doctors_menu.dart';
+import 'menu_screens/insurance/insurance.dart';
 import 'menu_screens/specialties_menu/choose_specialty.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -163,8 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Insurance",
                       imageMenu: 'assets/images/insurance.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Insurance()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Health Packages",

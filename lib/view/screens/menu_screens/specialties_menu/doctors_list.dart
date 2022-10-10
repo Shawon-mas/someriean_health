@@ -93,6 +93,7 @@ class _DoctorsListState extends State<DoctorsList> {
                                           fontWeight: FontWeight.w500,
                                           textColor: Properties.fontColor,
                                         ),
+                                        
                                       ],
                                     )
                                   ],
