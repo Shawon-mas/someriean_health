@@ -40,41 +40,66 @@ class DoctorsMenuScreen extends StatelessWidget {
                       color: Colors.grey,
                       height: 100.h,
                       width: double.infinity,
-                      child: Column(
-                        children: [
-                          Obx(
-                            () => DropdownButton(
-                              value: _controller.selectedLocation.value,
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: _controller.locations.map((items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                _controller.selectedLocation.value =
-                                    newValue as String;
-                              },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+
+                              child: Obx(
+                                () => DropdownButton(
+                                  isExpanded: true,
+                                  underline: const SizedBox(),
+                                  value: _controller.selectedLocation.value==""?null:_controller.selectedLocation.value,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: _controller.locations.map((items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    _controller.selectedLocation.value =
+                                        newValue as String;
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
-                          Obx(
-                            () => DropdownButton(
-                              value: _controller.selectedSpeciality.value,
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: _controller.speciality.map((items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                _controller.selectedSpeciality.value =
-                                    newValue as String;
-                              },
+                            SizedBox(
+                              height: 10.h,
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+                              child: Obx(
+                                () => DropdownButton(
+                                  underline: const SizedBox(),
+                                  isExpanded: true,
+                                  value: _controller.selectedSpeciality.value,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: _controller.speciality.map((items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    _controller.selectedSpeciality.value =
+                                        newValue as String;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
