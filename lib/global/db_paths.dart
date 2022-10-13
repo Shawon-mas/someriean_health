@@ -24,4 +24,5 @@ class DbCollections {
   static const collectionPatients = "patients";
   static const collectionImages = "images";
   static const collectionDoctors = "doctors";
+  static const collectionHealthPackages= "health_packages";
 }

@@ -31,8 +31,8 @@ class HomeMenu extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     imageMenu,
-                    height: 80,
-                    width: 100,
+                    height: 80.h,
+                    width: 100.w,
                   ),
                 ),
               ),

@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widget/text_widget.dart';
 import 'menu_screens/doctors_menu_screens/doctors_menu.dart';
+import 'menu_screens/health_packages/packages_list.dart';
 import 'menu_screens/insurance/insurance.dart';
 import 'menu_screens/specialties_menu/choose_specialty.dart';
 
@@ -171,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Health Packages",
                       imageMenu: 'assets/images/health_packages.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>PackagesListScreen()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
