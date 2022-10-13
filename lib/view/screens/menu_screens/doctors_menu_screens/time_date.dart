@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/global/properties.dart';
-
-import '../../../../controller/complete_profile_controller.dart';
+import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 import 'basic_details.dart';
-class TimeDateScreen extends StatefulWidget {
-  final String image,name,title,location;
 
-
-   TimeDateScreen({Key? key, required this.image, required this.name, required this.title, required this.location}) : super(key: key);
-
-  @override
-  State<TimeDateScreen> createState() => _TimeDateScreenState();
-}
-
-class _TimeDateScreenState extends State<TimeDateScreen> {
-  TimeOfDay _timeOfDay=TimeOfDay(hour: 8, minute: 30);
-  final _controller = Get.put(CompleteProfileController());
-  void _selectTime(){
-    showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),).then((value) {
-          setState(() {
-            _timeOfDay=value!;
-          });
-
-    });
-  }
+class TimeDateScreen extends StatelessWidget {
+  final DoctorAppointmentController controller;
+  TimeDateScreen(
+      {Key? key,
+      required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,24 +29,29 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(widget.image,height:100,width: 100,fit: BoxFit.cover,),
+                  Image.network(
+                    controller.selectedDoctor.image,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextWidget(
-                        value: widget.name,
+                        value: controller.selectedDoctor.name,
                         size: 18.sp,
                         fontWeight: FontWeight.w700,
                         textColor: Properties.fontColor,
                       ),
                       TextWidget(
-                        value: widget.title,
+                        value: controller.selectedDoctor.title,
                         size: 14.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
                       ),
                       TextWidget(
-                        value: widget.location,
+                        value: controller.selectedDoctor.location,
                         size: 14.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
@@ -82,16 +69,17 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextWidget(
-                  value:
-                  'Select Preferred Date',
+                  value: 'Select Preferred Date',
                   size: 14.sp,
                   fontWeight: FontWeight.w700,
                   textColor: Properties.colorTextBlue,
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 InkWell(
                   onTap: () {
-                    _controller.selectDate(context);
+                    controller.selectDate(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.only(right: 10),
@@ -100,9 +88,9 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
                     child: Row(
                       children: [
                         Obx(
-                              () => TextWidget(
+                          () => TextWidget(
                             value:
-                            '${_controller.selectedDate.value.day}/${_controller.selectedDate.value.month}/${_controller.selectedDate.value.year}',
+                                '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
                             size: 14.sp,
                             fontWeight: FontWeight.w700,
                             textColor: Colors.grey,
@@ -120,21 +108,24 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
                           color: Colors.grey,
                         ),
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(10))),
+                            const BorderRadius.all(Radius.circular(10))),
                   ),
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 TextWidget(
-                  value:
-                  'Select Preferred Time',
+                  value: 'Select Preferred Time',
                   size: 14.sp,
                   fontWeight: FontWeight.w700,
-                  textColor:Properties.colorTextBlue,
+                  textColor: Properties.colorTextBlue,
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 InkWell(
                   onTap: () {
-                    _selectTime();
+                    controller.selectTime(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.only(right: 10),
@@ -142,17 +133,18 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
                     width: double.infinity,
                     child: Row(
                       children: [
-                        TextWidget(
-                            value:
-                            _timeOfDay.format(context).toString(),
+                        Obx(
+                          () => TextWidget(
+                            value: controller.selectedTime.value
+                                .format(context)
+                                .toString(),
                             size: 14.sp,
                             fontWeight: FontWeight.w700,
                             textColor: Colors.grey,
                           ),
-
+                        ),
                         const Spacer(),
                         Image.asset('assets/images/clock.png')
-
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -160,7 +152,7 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
                           color: Colors.grey,
                         ),
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(10))),
+                            const BorderRadius.all(Radius.circular(10))),
                   ),
                 ),
               ],
@@ -170,13 +162,24 @@ class _TimeDateScreenState extends State<TimeDateScreen> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: AppointmentButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>BasicDetailsScreen()));
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BasicDetailsScreen(
+                              controller: controller,
+                            )));
+                controller.timeAndDateController.text =
+                    '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}, ${controller.selectedTime.value
+                                .format(context)
+                                .toString()}';
               },
-              value:'Next' ,
+              value: 'Next',
             ),
           ),
-          SizedBox(height:20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
         ],
       ),
     );

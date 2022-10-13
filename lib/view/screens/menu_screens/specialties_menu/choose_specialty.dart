@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:somerian_health/global/properties.dart';
-
+import 'package:somerian_health/model/selected_doctor_model.dart';
+import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../global/db_paths.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
@@ -10,14 +12,16 @@ import '../../../widget/text_widget.dart';
 import 'doctors_list.dart';
 
 class ChooseSpecialty extends StatefulWidget {
-  const ChooseSpecialty({Key? key}) : super(key: key);
+  final _controller = Get.put(DoctorAppointmentController());
+  ChooseSpecialty({Key? key}) : super(key: key);
 
   @override
   State<ChooseSpecialty> createState() => _ChooseSpecialtyState();
 }
 
 class _ChooseSpecialtyState extends State<ChooseSpecialty> {
-  final CollectionReference _doctors=FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
+  final CollectionReference _doctors =
+      FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +33,55 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
           Expanded(
             child: StreamBuilder(
                 stream: _doctors.snapshots(),
-                builder:(context,AsyncSnapshot<QuerySnapshot> snapshot){
-                  if(snapshot.hasData){
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    List<SelectedDoctorModel> doctors = [];
+                    for (var data in snapshot.data!.docs) {
+                      doctors.add(SelectedDoctorModel(
+                          uid: data.id,
+                          name: data['name'],
+                          image: data['image'],
+                          location: data['location'],
+                          title: data['title'],
+                        ),
+                      );
+                    }
+                    final ids = doctors.map((e) => e.title).toSet();
+                    doctors.retainWhere((x) => ids.remove(x.title));
                     return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context,index){
-                          final DocumentSnapshot documentSnapshot=snapshot.data!.docs[index];
+                        itemCount: doctors.length,
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              snapshot.data!.docs[index];
                           return InkWell(
-                            onTap: (){
+                            onTap: () {
                               //DoctorsList
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsList(speciality: documentSnapshot['title'],)));
-
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DoctorsList(
+                                            speciality:
+                                                doctors[index].title,
+                                            controller: widget._controller,
+                                  ),
+                                ),
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
                                   color: Properties.primaryColor,
                                 ),
                                 width: double.maxFinite,
                                 height: 50.h,
-
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Center(
                                   child: TextWidget(
-                                    value: documentSnapshot['title'],
+                                    value: doctors[index].title,
                                     size: 14.sp,
                                     fontWeight: FontWeight.w500,
                                     textColor: Colors.white,
@@ -63,18 +90,15 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                               ),
                             ),
                           );
-                        }
-                    );
+                        });
                   }
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-
                 }),
           )
         ],
       ),
-
     );
   }
 }

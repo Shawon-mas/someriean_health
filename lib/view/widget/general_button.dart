@@ -6,7 +6,7 @@ class AppointmentButton extends StatelessWidget {
   final Color buttonColor;
   final Color textColor;
   final String value;
-
+  final bool isLoading;
   final VoidCallback onPressed;
 
   const AppointmentButton({
@@ -15,7 +15,7 @@ class AppointmentButton extends StatelessWidget {
     required this.onPressed,
     required this.value,
     this.textColor = Colors.white,
-
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -26,12 +26,18 @@ class AppointmentButton extends StatelessWidget {
       color: buttonColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
-      child: Text(
+      child: !isLoading
+          ? Text(
               value,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 18,
                 color: textColor,
+              ),
+            )
+          : Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
             ),
       onPressed: onPressed,

@@ -18,6 +18,18 @@ class DbDocs {
   static const fieldImageUrl = "imageUrl";
   static const fieldUrl = "url";
   static const fieldTitle = "title";
+
+  /* Appointment */
+  static const fieldDoctorId = "doctorId";
+  static const fieldPatientNumber = "patientNumber";
+  static const fieldPaymentMethod = "paymentMethod";
+  static const fieldFile = "file";
+  static const fieldMessage = "message";
+  static const fieldTime = "time";
+  static const fieldDate = "date";
+  static const fieldDateEpoch = "dateEpoch";
+  /* AppointmentId */
+  static const fieldAppointmentId = "appointmentId";
 }
 
 class DbCollections {
@@ -25,4 +37,5 @@ class DbCollections {
   static const collectionImages = "images";
   static const collectionDoctors = "doctors";
   static const collectionHealthPackages= "health_packages";
+  static const collectionAppointments = "appointments";
 }

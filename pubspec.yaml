@@ -50,6 +50,8 @@ dependencies:
   shimmer: ^2.0.0
   flutter_sim_country_code: ^0.1.2
   flutter_screenutil: ^5.5.3+2
+  file_picker: ^5.2.1
+  firebase_storage: ^10.3.11
 
 dependency_overrides:
    collection: ^1.16.0

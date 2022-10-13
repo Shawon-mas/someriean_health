@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
@@ -19,6 +20,12 @@ class CompleteProfileController extends GetxController {
   var mobileController = TextEditingController();
   var emailController = TextEditingController();
   var passportController = TextEditingController();
+  var currentUser = FirebaseAuth.instance.currentUser;
+  var locations = <String>[].obs;
+  var selectedLocation = "".obs;
+  var speciality = <String>[].obs;
+  var selectedSpeciality = "".obs;
+  final CollectionReference doctors =FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -28,11 +35,13 @@ class CompleteProfileController extends GetxController {
         lastDate: DateTime(2101));
     selectedDate.value = picked!;
   }
-  selectTime(BuildContext context) async{
-    TimeOfDay? picked =await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay(hour: 8, minute: 30),);
-      selectedTime.value=picked!;
+
+  selectTime(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: 8, minute: 30),
+    );
+    selectedTime.value = picked!;
   }
 
   storeValues(
@@ -45,8 +54,7 @@ class CompleteProfileController extends GetxController {
       required String nationality,
       required String passport,
       required String uid,
-      required BuildContext context})
-  {
+      required BuildContext context}) {
     isUploading.value = true;
     FirebaseFirestore.instance
         .collection(DbCollections.collectionPatients)
