@@ -29,72 +29,86 @@ class DoctorsMenuScreen extends StatelessWidget {
                 _controller.locations.toSet().toList(); //Remove duplicate items
             _controller.speciality.value =
                 _controller.speciality.toSet().toList();
-            _controller.selectedLocation.value =
+            /* _controller.selectedLocation.value =
                 _controller.locations.first; //Taking first value
-            _controller.selectedSpeciality.value = _controller.speciality.first;
+            _controller.selectedSpeciality.value = _controller.speciality.first; */
           }
           return snapshot.hasData
               ? Column(
                   children: [
                     Container(
                       color: Colors.grey,
-                      height: 100.h,
+                      //height: 100.h,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Column(
+                        child: Row(
                           children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-
-                              child: Obx(
-                                () => DropdownButton(
-                                  isExpanded: true,
-                                  underline: const SizedBox(),
-                                  value: _controller.selectedLocation.value==""?null:_controller.selectedLocation.value,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: _controller.locations.map((items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    _controller.selectedLocation.value =
-                                        newValue as String;
-                                  },
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Obx(
+                                  () => DropdownButton(
+                                    isExpanded: true,
+                                    underline: const SizedBox(),
+                                    value: _controller.selectedLocation.value ==
+                                            ""
+                                        ? null
+                                        : _controller.selectedLocation.value,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: _controller.locations.map((items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      _controller.selectedLocation.value =
+                                          newValue as String;
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 10.h,
+                              width: 10.h,
                             ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                              child: Obx(
-                                () => DropdownButton(
-                                  underline: const SizedBox(),
-                                  isExpanded: true,
-                                  value: _controller.selectedSpeciality.value,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: _controller.speciality.map((items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    _controller.selectedSpeciality.value =
-                                        newValue as String;
-                                  },
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Obx(
+                                  () => DropdownButton(
+                                    underline: const SizedBox(),
+                                    isExpanded: true,
+                                    value: _controller
+                                                .selectedSpeciality.value ==
+                                            ""
+                                        ? null
+                                        : _controller.selectedSpeciality.value,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: _controller.speciality.map((items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      _controller.selectedSpeciality.value =
+                                          newValue as String;
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
@@ -114,84 +128,18 @@ class DoctorsMenuScreen extends StatelessWidget {
                           String location = documentSnapshot['location'];
                           String speciality = documentSnapshot['title'];
                           return Obx(
-                            () => Visibility(
-                              visible: _controller.selectedLocation.value ==
-                                      location &&
-                                  _controller.selectedSpeciality.value ==
-                                      speciality,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.network(
-                                          documentSnapshot['image'],
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            TextWidget(
-                                              value: documentSnapshot['name'],
-                                              size: 18.sp,
-                                              fontWeight: FontWeight.w700,
-                                              textColor: Properties.fontColor,
-                                            ),
-                                            TextWidget(
-                                              value: documentSnapshot['title'],
-                                              size: 14.sp,
-                                              fontWeight: FontWeight.w500,
-                                              textColor: Properties.fontColor,
-                                            ),
-                                            TextWidget(
-                                              value:
-                                                  documentSnapshot['location'],
-                                              size: 14.sp,
-                                              fontWeight: FontWeight.w500,
-                                              textColor: Properties.fontColor,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    AppointmentButton(
-                                      onPressed: () {
-                                        _controller.selectedDoctor =
-                                            SelectedDoctorModel(
-                                                uid: documentSnapshot.id,
-                                                name: documentSnapshot['name'],
-                                                image:
-                                                    documentSnapshot['image'],
-                                                location: documentSnapshot[
-                                                    'location'],
-                                                title:
-                                                    documentSnapshot['title']);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TimeDateScreen(
-                                              controller: _controller,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      value: 'Book an Appointment',
-                                    ),
-                                    Divider(
-                                      color: Colors.black54,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            () => (_controller.selectedLocation.value == "" &&
+                                    _controller.selectedSpeciality.value == "")
+                                ? doctorsList(documentSnapshot, context)
+                                : Visibility(
+                                    visible: _controller
+                                                .selectedLocation.value ==
+                                            location &&
+                                        _controller.selectedSpeciality.value ==
+                                            speciality,
+                                    child:
+                                        doctorsList(documentSnapshot, context),
+                                  ),
                           );
                         },
                       ),
@@ -202,6 +150,73 @@ class DoctorsMenuScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
         },
+      ),
+    );
+  }
+
+  Widget doctorsList(
+      DocumentSnapshot<Object?> documentSnapshot, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.network(
+                documentSnapshot['image'],
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget(
+                    value: documentSnapshot['name'],
+                    size: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    textColor: Properties.fontColor,
+                  ),
+                  TextWidget(
+                    value: documentSnapshot['title'],
+                    size: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    textColor: Properties.fontColor,
+                  ),
+                  TextWidget(
+                    value: documentSnapshot['location'],
+                    size: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    textColor: Properties.fontColor,
+                  ),
+                ],
+              )
+            ],
+          ),
+          AppointmentButton(
+            onPressed: () {
+              _controller.selectedDoctor = SelectedDoctorModel(
+                  uid: documentSnapshot.id,
+                  name: documentSnapshot['name'],
+                  image: documentSnapshot['image'],
+                  location: documentSnapshot['location'],
+                  title: documentSnapshot['title']);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TimeDateScreen(
+                    controller: _controller,
+                  ),
+                ),
+              );
+            },
+            value: 'Book an Appointment',
+          ),
+          Divider(
+            color: Colors.black54,
+          )
+        ],
       ),
     );
   }
