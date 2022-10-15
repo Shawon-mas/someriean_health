@@ -1,70 +1,34 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:somerian_health/global/db_paths.dart';
-import 'package:somerian_health/global/global_constants.dart';
-import 'package:somerian_health/global/properties.dart';
-import 'package:somerian_health/model/slider_model.dart';
-import 'package:somerian_health/routes/routes.dart';
-
-import '../widget/homeMenu.dart';
-import '../widget/primary_toolbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-import '../widget/text_widget.dart';
-import 'menu_screens/doctors_menu_screens/doctors_menu.dart';
-import 'menu_screens/health_packages/packages_list.dart';
-import 'menu_screens/insurance/insurance.dart';
-import 'menu_screens/specialties_menu/choose_specialty.dart';
-
+import '../../../global/db_paths.dart';
+import '../../../global/global_constants.dart';
+import '../../../model/slider_model.dart';
+import '../../../routes/routes.dart';
+import '../../widget/homeMenu.dart';
+import '../../widget/primary_toolbar.dart';
+import '../home_screens/doctors_menu_screens/doctors_menu.dart';
+import '../home_screens/health_packages/packages_list.dart';
+import '../home_screens/insurance/insurance.dart';
+import '../home_screens/specialties_menu/choose_specialty.dart';
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //final _controller = Get.put(CarouselController());
-  final List<String> imageList = [
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-  ];
-
-  final List<String> menuList = [
-    'Doctors',
-    'Specialties',
-    'Insurance',
-    'Health Packages',
-    'Find Hospitals & Clinics',
-  ];
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+  int _current = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PrimaryToolbar(
-        appbarIcons: [
-          TextButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Get.offAllNamed(splash);
-            },
-            child: const Text(
-              'Logout',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection(DbCollections.collectionImages)
@@ -90,42 +54,71 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     }
                     return snapshot.hasData
-                        ? CarouselSlider(
-                            options: CarouselOptions(
-                              enlargeCenterPage: true,
-                              enableInfiniteScroll: false,
-                              autoPlay: true,
-                            ),
-                            items: sliders
-                                .map(
-                                  (e) => ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            infoSnackBar(context,
-                                                "Onclick event: ${e.title}");
-                                          },
-                                          child: SizedBox(
-                                            height: 100.h,
-                                            child: Image.network(
-                                              e.imageUrl,
-                                              height: 100.h,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                        ? Column(
+                          children: [
+                            CarouselSlider(
+                      options: CarouselOptions(
+                            enlargeCenterPage: true,
+                            enableInfiniteScroll: false,
+                            autoPlay: true,
+                            aspectRatio: 16/9,
+                            viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }
+
+                      ),
+                      items: sliders
+                              .map(
+                                (e) => ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      infoSnackBar(context,
+                                          "Onclick event: ${e.title}");
+                                    },
+                                    child: SizedBox(
+                                      height: 100.h,
+                                      child: Image.network(
+                                        e.imageUrl,
+                                        height: 100.h,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                )
-                                .toList(),
-                          )
+                                ],
+                              ),
+                            ),
+                      )
+                              .toList(),
+                    ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: sliders.map((url) {
+                                int index = sliders.indexOf(url);
+                                return Container(
+                                  width: 8.0,
+                                  height: 8.0,
+                                  margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _current == index
+                                        ? const Color.fromRGBO(0, 0, 0, 0.9)
+                                        : const Color.fromRGBO(0, 0, 0, 0.4),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        )
                         : const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                      child: CircularProgressIndicator(),
+                    );
                   }),
             ),
             const SizedBox(
@@ -140,15 +133,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Doctors",
                       imageMenu: 'assets/images/doctor.png',
                       onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
 
-                  }),
+                      }),
                   HomeMenu(
                       menuTittle: "Specialties",
                       imageMenu: 'assets/images/stethoscope.png',
                       onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseSpecialty()));
-                       // infoSnackBar(context,'Coming soon');
+                        // infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
@@ -165,15 +158,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Insurance",
                       imageMenu: 'assets/images/insurance.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Insurance()));
-                       // infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Insurance()));
+                      //   infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Health Packages",
                       imageMenu: 'assets/images/health_packages.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>PackagesListScreen()));
-                      //  infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>PackagesListScreen()));
+                        //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
@@ -337,71 +330,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-
-
-
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-            backgroundColor: Properties.primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-            backgroundColor: Properties.primaryColor,
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.report),
-              label: 'Report',
-              backgroundColor: Properties.primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
-              label: 'Menu',
-              backgroundColor: Properties.primaryColor),
-        ],
-        //type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        backgroundColor: Properties.primaryColor,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        iconSize: 40,
-        onTap: _onItemTapped,
-        elevation: 5,
-      ),
     );
   }
 }
-
-
-/*
-Obx(
-                () {
-              if (_controller.isLoading.value) {
-                return const Center(
-                  child: CarouselLoading(),
-                );
-              } else {
-                if (_controller.carouselItemList.isNotEmpty) {
-                  return CarouselWithIndicator(
-                      data: _controller.carouselItemList);
-                } else {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.hourglass_empty),
-                        Text("Data not found!")
-                      ],
-                    ),
-                  );
-                }
-              }
-            },
-          )
- */

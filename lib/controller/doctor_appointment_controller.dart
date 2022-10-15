@@ -10,8 +10,8 @@ import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
-import 'package:somerian_health/view/screens/menu_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../routes/routes.dart';
+import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/widget/general_button.dart';
 
 class DoctorAppointmentController extends GetxController {
@@ -95,7 +95,7 @@ class DoctorAppointmentController extends GetxController {
     }).then((value) {
       isUploading.value = false;
       successSnackBar(context, "Submitted successfully");
-      Get.offAllNamed(home);
+      Get.offAllNamed(bottom);
     }).onError((error, stackTrace) {
       isUploading.value = false;
       errorSnackBar(context, "Something went wrong");

@@ -82,7 +82,7 @@ class LoginController extends GetxController {
         }
         if (numbers.contains(phoneNumber)) {
           successSnackBar(context, "Logged in successfully");
-          Get.offAllNamed(home);
+          Get.offAllNamed(bottom);
         } else {
           infoSnackBar(context, "Complete your profile to proceed");
           Get.to(

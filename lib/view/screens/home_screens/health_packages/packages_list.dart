@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:somerian_health/global/properties.dart';
-import 'package:somerian_health/view/screens/menu_screens/health_packages/package_details.dart';
+import 'package:somerian_health/view/screens/home_screens/health_packages/package_details.dart';
 
 import '../../../../global/db_paths.dart';
 import '../../../widget/common_toolbar.dart';
@@ -69,7 +69,11 @@ class _PackagesListScreenState extends State<PackagesListScreen> {
                           ),
                           InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PackageDetails(Image: documentSnapshot['image'],Title: documentSnapshot['name'],)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PackageDetails(
+                                Image: documentSnapshot['image'],
+                                Title: documentSnapshot['name'],
+                                docId: documentSnapshot.id,
+                              )));
                             },
                             child: Row(
                               children: [

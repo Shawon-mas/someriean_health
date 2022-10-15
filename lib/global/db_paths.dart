@@ -29,6 +29,7 @@ class DbDocs {
   static const fieldDate = "date";
   static const fieldDateEpoch = "dateEpoch";
   /* AppointmentId */
+
   static const fieldAppointmentId = "appointmentId";
 }
 
@@ -37,5 +38,6 @@ class DbCollections {
   static const collectionImages = "images";
   static const collectionDoctors = "doctors";
   static const collectionHealthPackages= "health_packages";
+  static const collectionHealthPackagesDetails= "health_packages_list";
   static const collectionAppointments = "appointments";
 }

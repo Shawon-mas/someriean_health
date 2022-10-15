@@ -45,14 +45,7 @@ class _DoctorsListState extends State<DoctorsList> {
       appBar: CommonToolbar(title: 'Doctors'),
       body: Column(
         children: [
-          Container(
-            color: Colors.grey,
-            height: 100.h,
-            width: double.infinity,
-            child: Column(
-              children: [],
-            ),
-          ),
+
           Expanded(
             child: StreamBuilder(
                 stream: _doctors

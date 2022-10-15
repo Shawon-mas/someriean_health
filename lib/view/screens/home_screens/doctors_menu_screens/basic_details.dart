@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+
 import 'package:somerian_health/global/properties.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
+
 
 class BasicDetailsScreen extends StatelessWidget {
   final DoctorAppointmentController controller;

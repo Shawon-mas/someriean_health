@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
-import 'package:somerian_health/view/screens/menu_screens/doctors_menu_screens/time_date.dart';
+import 'package:somerian_health/view/screens/home_screens/doctors_menu_screens/time_date.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
@@ -55,6 +55,7 @@ class DoctorsMenuScreen extends StatelessWidget {
                                         Radius.circular(10))),
                                 child: Obx(
                                   () => DropdownButton(
+                                    hint: Text('Location'),
                                     isExpanded: true,
                                     underline: const SizedBox(),
                                     value: _controller.selectedLocation.value ==
@@ -90,6 +91,7 @@ class DoctorsMenuScreen extends StatelessWidget {
                                         Radius.circular(10))),
                                 child: Obx(
                                   () => DropdownButton(
+                                    hint: Text('Specialty'),
                                     underline: const SizedBox(),
                                     isExpanded: true,
                                     value: _controller

@@ -39,9 +39,9 @@ class CompleteAppointmentScreen extends StatelessWidget {
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-
                     children: [
                       Image.network(controller.selectedDoctor.image,height: 100.h,width: 100.w,),
+
                       TextWidget(
                         value:
                         controller.selectedDoctor.name,

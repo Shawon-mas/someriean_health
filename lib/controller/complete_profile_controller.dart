@@ -74,7 +74,7 @@ class CompleteProfileController extends GetxController {
     }).then((value) {
       isUploading.value = false;
       successSnackBar(context, "Submitted successfully");
-      Get.offAllNamed(home);
+      Get.offAllNamed(bottom);
     }).onError((error, stackTrace) {
       isUploading.value = false;
       errorSnackBar(context, "Something went wrong");

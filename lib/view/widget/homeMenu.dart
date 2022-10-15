@@ -16,23 +16,23 @@ class HomeMenu extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-          height: 115.h,
-          width: 100.h,
+          height: 130.h,
+          width: 130.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Properties.primaryColor)),
           child: Column(
             children: [
               Container(
-                height: 70.h,
-                width: 100.h,
+                height: 90.h,
+                width: 130.h,
                 color: Properties.primaryColor,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     imageMenu,
                     height: 80.h,
-                    width: 100.w,
+                    width: 130.h,
                   ),
                 ),
               ),
