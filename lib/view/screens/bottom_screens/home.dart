@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   HomeMenu(
-                      menuTittle: "Find Hospitals & Clinics",
+                      menuTittle: "Find us",
                       imageMenu: 'assets/images/clinic.png',
                       onPressed: (){
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));

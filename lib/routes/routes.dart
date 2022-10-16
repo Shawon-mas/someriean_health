@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:somerian_health/view/screens/auth_screen.dart';
-import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import 'package:somerian_health/view/screens/login_screen.dart';
 import 'package:somerian_health/view/screens/splash_screen.dart';

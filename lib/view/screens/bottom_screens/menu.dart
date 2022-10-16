@@ -11,6 +11,7 @@ import '../../../global/properties.dart';
 import '../../../routes/routes.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
+import '../menu_screen/my_profile/my_profile.dart';
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
@@ -63,6 +64,22 @@ class _MenuScreenState extends State<MenuScreen> {
           Container(
             color: Colors.grey,
             height: 200.h,
+            width: double.maxFinite,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 80,
+                  backgroundImage: NetworkImage('https://cutt.ly/yVi8MKf'),
+                ),
+                TextWidget(
+                  value: 'Mohammad Ali Jitendra',
+                  textColor: Colors.white,
+                  size: 24.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -72,7 +89,10 @@ class _MenuScreenState extends State<MenuScreen> {
               return InkWell(
                 onTap: (){
                   if(index==0){
-                    infoSnackBar(context,'Coming soon');
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfileScreen()));
+
+
                   }
                 },
                 child: ListTile(
