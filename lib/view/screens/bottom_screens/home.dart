@@ -13,6 +13,7 @@ import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
+import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/insurance/insurance.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
@@ -183,8 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Find us",
                       imageMenu: 'assets/images/clinic.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationScreen()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Book Appointment",
