@@ -50,6 +50,7 @@ class LocationOneScreen extends StatelessWidget {
               ),
             ),
           );
+
         }),
       ),
 
