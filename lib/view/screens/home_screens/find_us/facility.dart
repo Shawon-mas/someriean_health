@@ -4,36 +4,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
-import 'facility.dart';
-class LocationTwoScreen extends StatelessWidget {
+import '../doctors_menu_screens/doctors_menu.dart';
+import '../specialties_menu/choose_specialty.dart';
+class FacilityScreen extends StatelessWidget {
   final String title;
-  const LocationTwoScreen({Key? key, required this.title}) : super(key: key);
+  const FacilityScreen({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<String> _center=[
-      'Somerian Clinic',
-      'Somerian Hospital',
-      'Somerian Visa Screening Center',
-      'Covid-19 Testing Center',
-      'Vaccination Center',
+    List<String> _faclity=[
+      'Doctors',
+      'Specialty',
+
     ];
     return Scaffold(
-      appBar:  CommonToolbar(title: title),
+      appBar: CommonToolbar(title: title),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
         child: ListView.builder(
-            itemCount: _center.length,
+            itemCount: _faclity.length,
             itemBuilder: (context,index)
             {
               return InkWell(
                 onTap: (){
-                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
+                //   Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
                   if(index==0){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
                   }if(index==1){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseSpecialty()));
+                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
                   }
+
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
@@ -47,7 +48,7 @@ class LocationTwoScreen extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 10),
                   child: Center(
                     child: TextWidget(
-                      value: _center[index],
+                      value: _faclity[index],
                       size: 14.sp,
                       fontWeight: FontWeight.w500,
                       textColor: Colors.white,
@@ -55,6 +56,7 @@ class LocationTwoScreen extends StatelessWidget {
                   ),
                 ),
               );
+
             }),
       ),
     );

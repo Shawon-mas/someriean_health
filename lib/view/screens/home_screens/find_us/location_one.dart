@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
+import 'facility.dart';
 class LocationOneScreen extends StatelessWidget {
   final String title;
   const LocationOneScreen({Key? key, required this.title}) : super(key: key);
@@ -28,6 +29,11 @@ class LocationOneScreen extends StatelessWidget {
           return InkWell(
             onTap: (){
              // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
+              if(index==0){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+              }if(index==1){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+              }
 
             },
             child: Container(

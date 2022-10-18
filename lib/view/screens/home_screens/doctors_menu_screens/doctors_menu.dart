@@ -10,11 +10,19 @@ import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 
-class DoctorsMenuScreen extends StatelessWidget {
-  final _controller = Get.put(DoctorAppointmentController());
+class DoctorsMenuScreen extends StatefulWidget {
   DoctorsMenuScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DoctorsMenuScreen> createState() => _DoctorsMenuScreenState();
+}
+
+class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
+  final _controller = Get.put(DoctorAppointmentController());
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: CommonToolbar(title: 'Doctors'),
       body: StreamBuilder(
@@ -42,78 +50,128 @@ class DoctorsMenuScreen extends StatelessWidget {
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
+                        child: Column(
                           children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
-                                child: Obx(
-                                  () => DropdownButton(
-                                    hint: Text('Location'),
-                                    isExpanded: true,
-                                    underline: const SizedBox(),
-                                    value: _controller.selectedLocation.value ==
-                                            ""
-                                        ? null
-                                        : _controller.selectedLocation.value,
-                                    icon: const Icon(Icons.keyboard_arrow_down),
-                                    items: _controller.locations.map((items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: Text(items),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newValue) {
-                                      _controller.selectedLocation.value =
-                                          newValue as String;
-                                    },
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Obx(
+                                      () => DropdownButton(
+                                        hint: Text('Location'),
+                                        isExpanded: true,
+                                        underline: const SizedBox(),
+                                        value: _controller
+                                                    .selectedLocation.value ==
+                                                ""
+                                            ? null
+                                            : _controller
+                                                .selectedLocation.value,
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        items:
+                                            _controller.locations.map((items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        onChanged: (newValue) {
+                                          _controller.selectedLocation.value =
+                                              newValue as String;
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                SizedBox(
+                                  width: 10.h,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Obx(
+                                      () => DropdownButton(
+                                        hint: Text('Specialty'),
+                                        underline: const SizedBox(),
+                                        isExpanded: true,
+                                        value: _controller
+                                                    .selectedSpeciality.value ==
+                                                ""
+                                            ? null
+                                            : _controller
+                                                .selectedSpeciality.value,
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        items:
+                                            _controller.speciality.map((items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        onChanged: (newValue) {
+                                          _controller.selectedSpeciality.value =
+                                              newValue as String;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
-                              width: 10.h,
+                              height: 10.h,
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
-                                child: Obx(
-                                  () => DropdownButton(
-                                    hint: Text('Specialty'),
-                                    underline: const SizedBox(),
-                                    isExpanded: true,
-                                    value: _controller
-                                                .selectedSpeciality.value ==
-                                            ""
-                                        ? null
-                                        : _controller.selectedSpeciality.value,
-                                    icon: const Icon(Icons.keyboard_arrow_down),
-                                    items: _controller.speciality.map((items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: Text(items),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newValue) {
-                                      _controller.selectedSpeciality.value =
-                                          newValue as String;
-                                    },
-                                  ),
-                                ),
+                            Container(
+                              decoration: BoxDecoration(),
+                              child: TextFormField(
+                                controller: searchController,
+                                onChanged: (value) {
+                                  /*  setState(()
+                                  {
+
+                                  });*/
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    prefixIcon: Icon(Icons.search,
+                                        color: Properties.colorTextBlue),
+                                    hintText: "Search",
+                                    hintStyle: TextStyle(
+                                        fontSize: 18.sp,
+                                        color: Properties.colorTextBlue),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 0, horizontal: 10),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide:
+                                            BorderSide(color: Colors.white)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide:
+                                            BorderSide(color: Colors.white)),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide:
+                                            BorderSide(color: Colors.white))),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -129,20 +187,46 @@ class DoctorsMenuScreen extends StatelessWidget {
                               snapshot.data!.docs[index];
                           String location = documentSnapshot['location'];
                           String speciality = documentSnapshot['title'];
-                          return Obx(
-                            () => (_controller.selectedLocation.value == "" &&
-                                    _controller.selectedSpeciality.value == "")
-                                ? doctorsList(documentSnapshot, context)
-                                : Visibility(
-                                    visible: _controller
-                                                .selectedLocation.value ==
-                                            location &&
-                                        _controller.selectedSpeciality.value ==
-                                            speciality,
-                                    child:
-                                        doctorsList(documentSnapshot, context),
-                                  ),
-                          );
+                          if (searchController.text.isEmpty) {
+                            return Obx(
+                              () => (_controller.selectedLocation.value == "" &&
+                                      _controller.selectedSpeciality.value ==
+                                          "")
+                                  ? doctorsList(documentSnapshot, context)
+                                  : Visibility(
+                                      visible:
+                                          _controller.selectedLocation.value ==
+                                                  location &&
+                                              _controller.selectedSpeciality
+                                                      .value ==
+                                                  speciality,
+                                      child: doctorsList(
+                                          documentSnapshot, context),
+                                    ),
+                            );
+                          } else if (documentSnapshot['name']
+                              .toString()
+                              .toLowerCase()
+                              .contains(searchController.text.toLowerCase())) {
+                            return Obx(
+                              () => (_controller.selectedLocation.value == "" &&
+                                      _controller.selectedSpeciality.value ==
+                                          "")
+                                  ? doctorsList(documentSnapshot, context)
+                                  : Visibility(
+                                      visible:
+                                          _controller.selectedLocation.value ==
+                                                  location &&
+                                              _controller.selectedSpeciality
+                                                      .value ==
+                                                  speciality,
+                                      child: doctorsList(
+                                          documentSnapshot, context),
+                                    ),
+                            );
+                          } else {
+                            return Container();
+                          }
                         },
                       ),
                     )
