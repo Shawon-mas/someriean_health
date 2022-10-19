@@ -33,7 +33,6 @@ class DoctorAppointmentController extends GetxController {
   var passportController = TextEditingController();
   var timeAndDateController = TextEditingController();
   var messageController = TextEditingController();
-  var searchController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
@@ -132,6 +131,40 @@ class DoctorAppointmentController extends GetxController {
           children: [
             Container(
               width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              margin: EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: Obx(
+                () => DropdownButton(
+                  hint: const Text('Select Payment Method'),
+                  isExpanded: true,
+                  value: valuePayment.value == "" ? null : valuePayment.value,
+                  underline: const SizedBox(),
+                  onChanged: (newValue) {
+                    valuePayment.value = newValue as String;
+                  },
+                  items: paymentMethods.map((valuItem) {
+                    return DropdownMenuItem(
+                      value: valuItem,
+                      child: Text(valuItem),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.grey,
@@ -143,7 +176,12 @@ class DoctorAppointmentController extends GetxController {
               child: ListTile(
                 dense: false,
                 contentPadding: EdgeInsets.zero,
-                leading: Text("AED"),
+                leading: IconButton(
+                  icon: Icon(Icons.attach_file_outlined),
+                  onPressed: () {
+                    filePicker();
+                  },
+                ),
                 title: Obx(
                   () => Text(
                     basename(selectedFile.value),
@@ -239,8 +277,7 @@ class DoctorAppointmentController extends GetxController {
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
-          .set({DbDocs.fieldAppointmentId: doc.id},
-          SetOptions(merge: true));
+          .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
       /* Setting appointment for patient */
       FirebaseFirestore.instance
           .collection(DbCollections.collectionPatients)
@@ -250,7 +287,10 @@ class DoctorAppointmentController extends GetxController {
           .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
     });
     isProcessing.value = false;
-    Get.to(() => CompleteAppointmentScreen(controller: controller));
+    Get.back();
+    Get.back();
+    Get.back();
+    Get.off(() => CompleteAppointmentScreen(controller: controller));
   }
 
   @override
