@@ -17,6 +17,7 @@ import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/insurance/insurance.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
+import '../home_screens/vaccination/vaccination.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -217,8 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Vaccination Appointment",
                       imageMenu: 'assets/images/vaccination_appointment.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),

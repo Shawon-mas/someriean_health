@@ -19,6 +19,7 @@ class DoctorsMenuScreen extends StatefulWidget {
 
 class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
   final _controller = Get.put(DoctorAppointmentController());
+  String name="";
 
   @override
   Widget build(BuildContext context) {
@@ -138,13 +139,13 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                             ),
                             Container(
                               decoration: BoxDecoration(),
-                              child: TextFormField(
-                                controller: searchController,
+                              child: TextField(
+                              //  controller: searchController,
                                 onChanged: (value) {
-                                  /*  setState(()
+                                    setState(()
                                   {
-
-                                  });*/
+                                   name=value;
+                                  });
                                 },
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -187,7 +188,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                               snapshot.data!.docs[index];
                           String location = documentSnapshot['location'];
                           String speciality = documentSnapshot['title'];
-                          if (searchController.text.isEmpty) {
+                          if (name.isEmpty) {
                             return Obx(
                               () => (_controller.selectedLocation.value == "" &&
                                       _controller.selectedSpeciality.value ==
@@ -204,10 +205,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                           documentSnapshot, context),
                                     ),
                             );
-                          } else if (documentSnapshot['name']
-                              .toString()
-                              .toLowerCase()
-                              .contains(searchController.text.toLowerCase())) {
+                          } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ||documentSnapshot['location'].toString().toLowerCase().contains(name.toLowerCase()) ) {
                             return Obx(
                               () => (_controller.selectedLocation.value == "" &&
                                       _controller.selectedSpeciality.value ==
@@ -225,7 +223,10 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                     ),
                             );
                           } else {
-                            return Container();
+                            return Center(child: Container(
+                              child: TextWidget(value: 'No results found', size: 18.sp, fontWeight: FontWeight.w700),
+
+                            ));
                           }
                         },
                       ),

@@ -276,7 +276,8 @@ class DoctorAppointmentController extends GetxController {
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
-          .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
+          .set({DbDocs.fieldAppointmentId: doc.id},
+          SetOptions(merge: true));
       /* Setting appointment for patient */
       FirebaseFirestore.instance
           .collection(DbCollections.collectionPatients)
