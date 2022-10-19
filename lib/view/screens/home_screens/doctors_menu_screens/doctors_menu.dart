@@ -30,6 +30,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
         stream: _controller.doctors.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
+
             for (var data in snapshot.data!.docs) {
               _controller.locations.value.add(data['location']);
               _controller.speciality.value.add(data['title']);
@@ -41,6 +42,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
             /* _controller.selectedLocation.value =
                 _controller.locations.first; //Taking first value
             _controller.selectedSpeciality.value = _controller.speciality.first; */
+
           }
           return snapshot.hasData
               ? Column(
@@ -140,7 +142,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                             Container(
                               decoration: BoxDecoration(),
                               child: TextField(
-                              //  controller: searchController,
+
                                 onChanged: (value) {
                                     setState(()
                                   {
@@ -171,6 +173,9 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide:
                                             BorderSide(color: Colors.white))),
+
+
+
                               ),
                             )
                           ],
