@@ -4,6 +4,7 @@ import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/menu_screen/my_profile/personal_details.dart';
 
 import '../../../widget/common_toolbar.dart';
+
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
 
@@ -11,9 +12,9 @@ class MyProfileScreen extends StatefulWidget {
   State<MyProfileScreen> createState() => _MyProfileScreenState();
 }
 
-class _MyProfileScreenState extends State<MyProfileScreen>  with SingleTickerProviderStateMixin{
+class _MyProfileScreenState extends State<MyProfileScreen>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
-
 
   @override
   void initState() {
@@ -22,12 +23,14 @@ class _MyProfileScreenState extends State<MyProfileScreen>  with SingleTickerPro
 
     super.initState();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,43 +38,50 @@ class _MyProfileScreenState extends State<MyProfileScreen>  with SingleTickerPro
       body: Column(
         children: [
           Container(
-            color: Colors.grey,
-            height: 100.h,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 33),
-              child: Container(
-                height: 50.h,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TabBar(
-                        unselectedLabelColor: Properties.colorTextBlue,
-                        labelColor: Colors.white,
-                        indicatorColor: Colors.white,
-                        indicatorWeight: 2,
-                        indicator: BoxDecoration(
-                          color: Properties.primaryColor,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        controller: tabController,
-                        tabs: [
-                          Tab(
-                            text: 'Personal Details',
-                          ),
-                          Tab(
-                            text: 'Document',
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  ],
+            color: Colors.grey.shade300,
+            child: Container(
+              height: 60.h,
+              width: double.maxFinite,
+              padding: EdgeInsets.only(
+                left: 10.w,
+                right: 10.w,
+                top: 6.h,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  5,
                 ),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TabBar(
+                      unselectedLabelColor: Properties.colorTextBlue,
+                      labelColor: Colors.white,
+                      indicatorColor: Colors.white,
+                      indicatorWeight: 2,
+                      indicator: BoxDecoration(
+                        color: Properties.primaryColor,
+                        borderRadius: BorderRadius.circular(
+                          5,
+                        ),
+                      ),
+                      controller: tabController,
+                      tabs: [
+                        Tab(
+                          text: 'Personal Details',
+                        ),
+                        Tab(
+                          text: 'Document',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -80,7 +90,9 @@ class _MyProfileScreenState extends State<MyProfileScreen>  with SingleTickerPro
               controller: tabController,
               children: [
                 PersonalDetailsScreen(),
-                Center(child: Text('Personal Details'),)
+                Center(
+                  child: Text('Personal Details'),
+                )
               ],
             ),
           )

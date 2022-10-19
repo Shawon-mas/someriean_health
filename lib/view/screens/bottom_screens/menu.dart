@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
-
+import 'package:somerian_health/controller/menu_controller.dart';
 
 import '../../../global/global_constants.dart';
 import '../../../global/properties.dart';
@@ -12,14 +12,10 @@ import '../../../routes/routes.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
 import '../menu_screen/my_profile/my_profile.dart';
-class MenuScreen extends StatefulWidget {
-  const MenuScreen({Key? key}) : super(key: key);
 
-  @override
-  State<MenuScreen> createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> {
+class MenuScreen extends StatelessWidget {
+  final _controller = Get.put(MenuController());
+  MenuScreen({Key? key}) : super(key: key);
   final List<String> menuList = [
     'My Profile',
     'Feedback',
@@ -37,7 +33,6 @@ class _MenuScreenState extends State<MenuScreen> {
     FluentSystemIcons.ic_fluent_info_regular,
     FluentSystemIcons.ic_fluent_local_language_regular,
     FluentSystemIcons.ic_fluent_settings_regular,
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -58,58 +53,63 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-
-          Container(
-            color: Colors.grey,
-            height: 200.h,
-            width: double.maxFinite,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: NetworkImage('https://cutt.ly/yVi8MKf'),
-                ),
-                TextWidget(
-                  value: 'Mohammad Ali Jitendra',
-                  textColor: Colors.white,
-                  size: 24.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: menuList.length,
-                itemBuilder: (context,index)
-                {
-              return InkWell(
-                onTap: (){
-                  if(index==0){
-
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfileScreen()));
-
-
-                  }
-                },
-                child: ListTile(
-                  title: TextWidget(
-                    value: menuList[index],
-                    size: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    textColor: Properties.fontColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.grey,
+              height: 220.h,
+              width: double.maxFinite,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: NetworkImage('https://cutt.ly/yVi8MKf'),
                   ),
-                  leading: Icon(_iconTypes[index],color: Properties.fontColor),
-                  trailing: Icon(Icons.arrow_forward_ios_rounded,color: Properties.fontColor,),
-                ),
-              );
-            }
+                  Obx(
+                    () => TextWidget(
+                      value: _controller.name.value,
+                      textColor: Colors.white,
+                      size: 24.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
-        ],
+            ListView.builder(
+                itemCount: menuList.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      if (index == 0) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyProfileScreen()));
+                      }
+                    },
+                    child: ListTile(
+                      title: TextWidget(
+                        value: menuList[index],
+                        size: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        textColor: Properties.fontColor,
+                      ),
+                      leading:
+                          Icon(_iconTypes[index], color: Properties.fontColor),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Properties.fontColor,
+                      ),
+                    ),
+                  );
+                })
+          ],
+        ),
       ),
     );
   }
