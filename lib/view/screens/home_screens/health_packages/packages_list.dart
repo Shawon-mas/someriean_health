@@ -70,8 +70,8 @@ class _PackagesListScreenState extends State<PackagesListScreen> {
                           InkWell(
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>PackageDetails(
-                                Image: documentSnapshot['image'],
-                                Title: documentSnapshot['name'],
+                                image: documentSnapshot['image'],
+                                title: documentSnapshot['name'],
                                 docId: documentSnapshot.id,
                               )));
                             },

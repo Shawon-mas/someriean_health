@@ -12,9 +12,14 @@ import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
 import '../routes/routes.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
+import '../view/screens/home_screens/health_packages/complete_healthcare_screen.dart';
 import '../view/widget/general_button.dart';
 
-class DoctorAppointmentController extends GetxController {
+class HealthcareController extends GetxController {
+  final BuildContext context;
+  final String price;
+  final String uid;
+  final String healthcareId;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
@@ -33,14 +38,11 @@ class DoctorAppointmentController extends GetxController {
   var passportController = TextEditingController();
   var timeAndDateController = TextEditingController();
   var messageController = TextEditingController();
-  var searchController = TextEditingController();
+  var timeController = TextEditingController();
+  var dateController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
-  var speciality = <String>[].obs;
-  var selectedSpeciality = "".obs;
-  var selectedDoctor = SelectedDoctorModel(
-      uid: "", name: "", image: "", location: "", title: "");
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
 
@@ -49,21 +51,30 @@ class DoctorAppointmentController extends GetxController {
   final CollectionReference patients =
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
 
+  HealthcareController(
+      {required this.context,
+      required this.price,
+      required this.uid,
+      required this.healthcareId});
+
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: selectedDate.value,
         firstDate: DateTime(1950, 8),
         lastDate: DateTime(2101));
     selectedDate.value = picked!;
+    dateController.text =
+        '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
   }
 
   selectTime(BuildContext context) async {
     TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: 8, minute: 30),
+      initialTime: selectedTime.value,
     );
     selectedTime.value = picked!;
+    timeController.text = selectedTime.value.format(context).toString();
   }
 
   storeValues(
@@ -116,13 +127,16 @@ class DoctorAppointmentController extends GetxController {
             emailController.text = value[DbDocs.fieldEmail];
             genderController.text = value[DbDocs.fieldGender];
             nationalityController.text = value[DbDocs.fieldNationality];
+            timeController.text = selectedTime.value.format(context).toString();
+            dateController.text =
+                '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
           }
         });
       }
     }
   }
 
-  proceedDialog(BuildContext context, DoctorAppointmentController controller) {
+  proceedDialog(BuildContext context, HealthcareController controller) {
     Get.defaultDialog(
       title: 'Confirmation',
       barrierDismissible: true,
@@ -130,44 +144,46 @@ class DoctorAppointmentController extends GetxController {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: ListTile(
-                dense: false,
-                contentPadding: EdgeInsets.zero,
-                leading: Text("AED"),
-                title: Obx(
-                  () => Text(
-                    basename(selectedFile.value),
+            ListTile(
+              //leading: Text("AED"),
+              subtitle: Text("Price"),
+              title: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
                   ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  "AED " + price,
                 ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            TextField(
-              controller: messageController,
-              enabled: true,
-              decoration: InputDecoration(
-                helperText: 'Message',
-                isDense: true,
-                contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.black54, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                controller: messageController,
+                enabled: true,
+                decoration: InputDecoration(
+                  helperText: 'Message',
+                  hintText: "Message (Optional)",
+                  isDense: true,
+                  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.black54, width: 1.0),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
             ),
@@ -179,11 +195,7 @@ class DoctorAppointmentController extends GetxController {
               child: Obx(() => AppointmentButton(
                     isLoading: isProcessing.value,
                     onPressed: () {
-                      if (valuePayment.value != "Cash on Board") {
-                        infoSnackBar(context, "Coming Soon");
-                      } else {
-                        proceedPayment(context, controller);
-                      }
+                      proceedPayment(context, controller);
                     },
                     value: 'Proceed',
                   )),
@@ -201,56 +213,34 @@ class DoctorAppointmentController extends GetxController {
     }
   }
 
-  proceedPayment(
-      BuildContext context, DoctorAppointmentController controller) async {
+  proceedPayment(BuildContext context, HealthcareController controller) async {
     isProcessing.value = true;
-    var doc = FirebaseFirestore.instance
-        .collection(DbCollections.collectionAppointments)
-        .doc();
-    doc.set({
-      DbDocs.fieldDoctorId: selectedDoctor.uid,
-      DbDocs.fieldPatientNumber: mobileController.text,
-      DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
-      DbDocs.fieldFile: "",
-      DbDocs.fieldMessage: messageController.text,
+    await FirebaseFirestore.instance
+        .collection(DbCollections.collectionPatients)
+        .doc(mobileController.text)
+        .collection(DbCollections.collectionHealthcare)
+        .doc()
+        .set({
+      DbDocs.fieldHealthcareId: healthcareId,
+      DbDocs.fieldHealthcarePackageListId: uid,
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
       DbDocs.fieldDateEpoch:
           selectedDate.value.millisecondsSinceEpoch.toString(),
       DbDocs.fieldDate:
           '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
-    }).then((value) async {
-      if (selectedFile.value !=
-          "Attachment (previous report file if available)") {
-        final storageRef = FirebaseStorage.instance.ref();
-        final fileRef =
-            storageRef.child(doc.id + "/" + basename(selectedFile.value));
-        final uploadTask = await fileRef.putFile(File(selectedFile.value));
-        String url = await uploadTask.ref.getDownloadURL();
-        FirebaseFirestore.instance
-            .collection(DbCollections.collectionAppointments)
-            .doc(doc.id)
-            .set({
-          DbDocs.fieldFile: url,
-        }, SetOptions(merge: true));
-      }
-      /* Setting appointment for doctor */
-      FirebaseFirestore.instance
-          .collection(DbCollections.collectionDoctors)
-          .doc(selectedDoctor.uid)
-          .collection(DbCollections.collectionAppointments)
-          .doc(doc.id)
-          .set({DbDocs.fieldAppointmentId: doc.id},
-          SetOptions(merge: true));
-      /* Setting appointment for patient */
-      FirebaseFirestore.instance
-          .collection(DbCollections.collectionPatients)
-          .doc(mobileController.text)
-          .collection(DbCollections.collectionAppointments)
-          .doc(doc.id)
-          .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
+      DbDocs.fieldMessage: messageController.text,
+      DbDocs.fieldClinicLocation: selectedLocation.value,
+      DbDocs.fieldHealthcarePrice: price,
+    }).then((value) {
+      isProcessing.value = false;
+      Get.back();
+      Get.off(
+        () => CompleteHealthcareScreen(
+          controller: controller,
+        ),
+      );
     });
-    isProcessing.value = false;
-    Get.to(() => CompleteAppointmentScreen(controller: controller));
+    //Get.to(() => CompleteAppointmentScreen(controller: controller));
   }
 
   @override

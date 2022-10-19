@@ -19,7 +19,7 @@ class DoctorsMenuScreen extends StatefulWidget {
 
 class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
   final _controller = Get.put(DoctorAppointmentController());
-  String name="";
+  String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -140,11 +140,10 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                             Container(
                               decoration: BoxDecoration(),
                               child: TextField(
-                              //  controller: searchController,
+                                //  controller: searchController,
                                 onChanged: (value) {
-                                    setState(()
-                                  {
-                                   name=value;
+                                  setState(() {
+                                    name = value;
                                   });
                                 },
                                 keyboardType: TextInputType.text,
@@ -205,7 +204,14 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                           documentSnapshot, context),
                                     ),
                             );
-                          } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ||documentSnapshot['location'].toString().toLowerCase().contains(name.toLowerCase()) ) {
+                          } else if (documentSnapshot['name']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(name.toLowerCase()) ||
+                              documentSnapshot['location']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(name.toLowerCase())) {
                             return Obx(
                               () => (_controller.selectedLocation.value == "" &&
                                       _controller.selectedSpeciality.value ==
@@ -223,10 +229,14 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                     ),
                             );
                           } else {
-                            return Center(child: Container(
-                              child: TextWidget(value: 'No results found', size: 18.sp, fontWeight: FontWeight.w700),
-
-                            ));
+                            return Center(
+                              child: Container(
+                                  /* child: TextWidget(
+                                    value: 'No results found',
+                                    size: 18.sp,
+                                    fontWeight: FontWeight.w700), */
+                                  ),
+                            );
                           }
                         },
                       ),

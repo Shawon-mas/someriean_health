@@ -28,9 +28,15 @@ class DbDocs {
   static const fieldTime = "time";
   static const fieldDate = "date";
   static const fieldDateEpoch = "dateEpoch";
-  /* AppointmentId */
 
+  /* AppointmentId */
   static const fieldAppointmentId = "appointmentId";
+
+  /* Healthcare */
+  static const fieldHealthcareId = "healthcareId";
+  static const fieldHealthcarePackageListId = "healthcarePackageListId";
+  static const fieldClinicLocation = "clinicLocation";
+  static const fieldHealthcarePrice = "price";
 }
 
 class DbCollections {
@@ -40,4 +46,5 @@ class DbCollections {
   static const collectionHealthPackages= "health_packages";
   static const collectionHealthPackagesDetails= "health_packages_list";
   static const collectionAppointments = "appointments";
+  static const collectionHealthcare= "healthcare";
 }
