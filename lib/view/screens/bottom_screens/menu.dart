@@ -60,22 +60,31 @@ class MenuScreen extends StatelessWidget {
               color: Colors.grey,
               height: 220.h,
               width: double.maxFinite,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: NetworkImage('https://cutt.ly/yVi8MKf'),
-                  ),
-                  Obx(
-                    () => TextWidget(
+              child: Obx(
+                () => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _controller.imagePath.value != ""
+                        ? CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(
+                              _controller.imagePath.value,
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: 80,
+                            backgroundImage: NetworkImage(
+                              'https://cutt.ly/yVi8MKf',
+                            ),
+                          ),
+                    TextWidget(
                       value: _controller.name.value,
                       textColor: Colors.white,
                       size: 24.sp,
                       fontWeight: FontWeight.w700,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             ListView.builder(
@@ -86,10 +95,11 @@ class MenuScreen extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       if (index == 0) {
-                        Navigator.push(
+                        Get.off(() => MyProfileScreen());
+                        /* Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyProfileScreen()));
+                                builder: (context) => MyProfileScreen())); */
                       }
                     },
                     child: ListTile(

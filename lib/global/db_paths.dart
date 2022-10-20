@@ -13,6 +13,7 @@ class DbDocs {
   static const fieldGender = "gender";
   static const fieldNationality = "nationality";
   static const fieldPassport = "passport";
+  static const fieldEmiratesId = "emiratesId";
 
   /*Slider Image*/
   static const fieldImageUrl = "imageUrl";
