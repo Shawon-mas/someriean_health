@@ -109,12 +109,9 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                         hint: Text('Specialty'),
                                         underline: const SizedBox(),
                                         isExpanded: true,
-                                        value: _controller
-                                                    .selectedSpeciality.value ==
-                                                ""
+                                        value: _controller.selectedSpeciality.value == ""
                                             ? null
-                                            : _controller
-                                                .selectedSpeciality.value,
+                                            : _controller.selectedSpeciality.value,
                                         icon: const Icon(
                                             Icons.keyboard_arrow_down),
                                         items:
@@ -207,9 +204,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                             );
                           } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ||documentSnapshot['location'].toString().toLowerCase().contains(name.toLowerCase()) ) {
                             return Obx(
-                              () => (_controller.selectedLocation.value == "" &&
-                                      _controller.selectedSpeciality.value ==
-                                          "")
+                              () => (_controller.selectedLocation.value == "" && _controller.selectedSpeciality.value == "")
                                   ? doctorsList(documentSnapshot, context)
                                   : Visibility(
                                       visible:
@@ -223,10 +218,9 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                     ),
                             );
                           } else {
-                            return Center(child: Container(
-                              child: TextWidget(value: 'No results found', size: 18.sp, fontWeight: FontWeight.w700),
+                            return Container(
 
-                            ));
+                            );
                           }
                         },
                       ),

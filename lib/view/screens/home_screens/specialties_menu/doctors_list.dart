@@ -27,16 +27,7 @@ class _DoctorsListState extends State<DoctorsList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    /*  QueryDoctors().getDoctors(widget.speciality)
-    .then((QuerySnapshot docs){
-      for(var doc in docs.docs){
 
-        String name = doc.get('name');
-        print(name);
-      }
-      */ /*   doctors=docs.docs[0].data();
-         print(doctors);*/ /*
-    });*/
   }
 
   @override
