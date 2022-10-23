@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:somerian_health/global/db_paths.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../global/properties.dart';
 import '../../../../model/selected_doctor_model.dart';
@@ -20,7 +21,7 @@ class DoctorsList extends StatefulWidget {
 
 class _DoctorsListState extends State<DoctorsList> {
   final CollectionReference _doctors =
-      FirebaseFirestore.instance.collection('doctors');
+      FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
   var doctors;
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:somerian_health/view/screens/home_screens/vaccination/vaccination_center.dart';
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
@@ -30,11 +31,13 @@ class VaccinationScreen extends StatelessWidget {
                   {
                     return InkWell(
                       onTap: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
+
                         if(index==0){
-                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationCentreScreen( title: _vaccineCenter[index],)));
                         }if(index==1){
-                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationCentreScreen( title: _vaccineCenter[index],)));
+                        }if(index==2){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationCentreScreen( title: _vaccineCenter[index],)));
                         }
 
                       },

@@ -48,4 +48,8 @@ class DbCollections {
   static const collectionHealthPackagesDetails= "health_packages_list";
   static const collectionAppointments = "appointments";
   static const collectionHealthcare= "healthcare";
+  static const collectionVaccination= "vaccination";
+  static const collectionCovidScreeningVaccination= "covid19_screening_appionment";
+  static const collectionVisaScreeningVaccination= "vis_screening_appionment";
 }
+//.collection("covid19_screening_appionment")

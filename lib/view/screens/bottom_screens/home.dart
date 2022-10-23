@@ -12,6 +12,7 @@ import '../../../model/slider_model.dart';
 import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
+import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
@@ -237,8 +238,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Covid-19 Screening Appointment",
                       imageMenu: 'assets/images/covid_19.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
+                        //infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Visa Screening Appointment",
