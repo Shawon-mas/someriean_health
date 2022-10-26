@@ -10,17 +10,17 @@ import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
-class HomeCareDoctor extends StatefulWidget {
+class HomeCareNurse extends StatefulWidget {
   final String title;
-  const HomeCareDoctor({Key? key, required this.title}) : super(key: key);
+  const HomeCareNurse({Key? key, required this.title}) : super(key: key);
 
   @override
-  State<HomeCareDoctor> createState() => _HomeCareDoctorState();
+  State<HomeCareNurse> createState() => _HomeCareNurseState();
 }
 
-class _HomeCareDoctorState extends State<HomeCareDoctor> {
+class _HomeCareNurseState extends State<HomeCareNurse> {
   String name="";
-  final CollectionReference _doctors =FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
+  final CollectionReference _nurse =FirebaseFirestore.instance.collection(DbCollections.collectionNurse);
   @override
   Widget build(BuildContext context) {
 
@@ -79,7 +79,7 @@ class _HomeCareDoctorState extends State<HomeCareDoctor> {
             ),),
           Expanded(
             child: StreamBuilder(
-                stream: _doctors
+                stream: _nurse
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
@@ -105,8 +105,8 @@ class _HomeCareDoctorState extends State<HomeCareDoctor> {
                             return InkWell(
                               onTap: (){
 
-                              //  _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                             //   Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title:  documentSnapshot['name'])));
+                                //  _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
+                                //   Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title:  documentSnapshot['name'])));
 
                               },
 
@@ -173,13 +173,13 @@ class _HomeCareDoctorState extends State<HomeCareDoctor> {
           ),
           AppointmentButton(
             onPressed: () {
-            /*  _controller.selectedDoctor = SelectedDoctorModel(
+              /*  _controller.selectedDoctor = SelectedDoctorModel(
                   uid: documentSnapshot.id,
                   name: documentSnapshot['name'],
                   image: documentSnapshot['image'],
                   location: documentSnapshot['location'],
                   title: documentSnapshot['title']);*/
-             /* Navigator.push(
+              /* Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TimeDateScreen(

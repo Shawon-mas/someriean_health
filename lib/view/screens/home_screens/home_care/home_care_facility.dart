@@ -6,6 +6,7 @@ import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
 import 'home_care_doctor.dart';
+import 'home_care_nurse.dart';
 
 class HomeCareFacility extends StatelessWidget {
 
@@ -16,7 +17,6 @@ class HomeCareFacility extends StatelessWidget {
     List<String> _center=[
       'Doctor',
       'Nurse/Home PCR',
-      'Dubai',
       'Physiotherapist',
       'Home Care Assistant',
     ];
@@ -36,9 +36,10 @@ class HomeCareFacility extends StatelessWidget {
                     return InkWell(
                       onTap: (){
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
-                        if(index==0){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareDoctor()));
-                        }if(index==1){
+                        if(index==1){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareNurse(title: _center[index],)));
+                        }else{
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareDoctor(title: _center[index],)));
                           //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
                         }
 
