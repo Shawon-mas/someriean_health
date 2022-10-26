@@ -10,13 +10,14 @@ import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 class SCreeningDate extends StatelessWidget {
+ final String title;
  final Covid19AppointmentController controller;
-  const SCreeningDate({Key? key, required this.controller}) : super(key: key);
+  const SCreeningDate({Key? key, required this.controller, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: CommonToolbar(title: 'Vaccination Appointment'),
+     appBar: CommonToolbar(title: title),
      body: Column(
       children: [
        Container(

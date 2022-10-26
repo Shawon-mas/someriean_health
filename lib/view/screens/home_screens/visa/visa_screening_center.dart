@@ -12,22 +12,22 @@ import '../../../../model/common_model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../vaccination/vaccination_date.dart';
-class ScreeningCenterScreen extends StatefulWidget {
-  const ScreeningCenterScreen({Key? key}) : super(key: key);
+class VisaScreeningCenterScreen extends StatefulWidget {
+  const VisaScreeningCenterScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScreeningCenterScreen> createState() => _ScreeningCenterScreenState();
+  State<VisaScreeningCenterScreen> createState() => _VisaScreeningCenterScreenState();
 }
 
-class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
+class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
   @override
   Widget build(BuildContext context) {
-    final CollectionReference _vaccination =FirebaseFirestore.instance.collection(DbCollections.collectionCovidScreeningVaccination);
+    final CollectionReference _vaccination =FirebaseFirestore.instance.collection(DbCollections.collectionVisaScreeningVaccination);
     String name="";
     final _controller = Get.put(Covid19AppointmentController(context: context));
 
     return Scaffold(
-      appBar:  CommonToolbar(title: "Covid-19 Screening"),
+      appBar:  CommonToolbar(title: "Visa Screening"),
       body: Column(
         children: [
           Container(
@@ -93,7 +93,7 @@ class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
                               onTap: (){
 
                                 _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title: documentSnapshot['name'],)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller, title:  documentSnapshot['name'])));
 
                               },
 

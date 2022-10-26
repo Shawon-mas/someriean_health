@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:somerian_health/view/screens/home_screens/covid19/screening_date.dart';
 
 import '../../../../controller/covid19_appionment_controller.dart';
 import '../../../../global/db_paths.dart';
 import '../../../../global/properties.dart';
-import '../../../../model/common_model.dart';
 import '../../../widget/common_toolbar.dart';
+import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
-import '../vaccination/vaccination_date.dart';
-class ScreeningCenterScreen extends StatefulWidget {
-  const ScreeningCenterScreen({Key? key}) : super(key: key);
+class HomeCareDoctor extends StatefulWidget {
+  const HomeCareDoctor({Key? key}) : super(key: key);
 
   @override
-  State<ScreeningCenterScreen> createState() => _ScreeningCenterScreenState();
+  State<HomeCareDoctor> createState() => _HomeCareDoctorState();
 }
 
-class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
+class _HomeCareDoctorState extends State<HomeCareDoctor> {
+  String name="";
+  final CollectionReference _doctors =FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   @override
   Widget build(BuildContext context) {
-    final CollectionReference _vaccination =FirebaseFirestore.instance.collection(DbCollections.collectionCovidScreeningVaccination);
-    String name="";
+
+
     final _controller = Get.put(Covid19AppointmentController(context: context));
 
     return Scaffold(
-      appBar:  CommonToolbar(title: "Covid-19 Screening"),
+      appBar:  CommonToolbar(title: "Doctor"),
       body: Column(
         children: [
           Container(
@@ -78,7 +78,7 @@ class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
             ),),
           Expanded(
             child: StreamBuilder(
-                stream: _vaccination
+                stream: _doctors
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
@@ -92,54 +92,25 @@ class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
                             return InkWell(
                               onTap: (){
 
-                                _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title: documentSnapshot['name'],)));
+
 
                               },
 
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child:  TextWidget(
-                                      value: documentSnapshot['name'],
-                                      textColor: Properties.colorTextBlue,
-                                      size: 14.sp,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black54,
-                                  )
-                                ],
-                              ),
+                              child: doctorsList(
+                                  documentSnapshot, context),
                             );
                           } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ){
 
                             return InkWell(
                               onTap: (){
 
-                                _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title:  documentSnapshot['name'])));
+                              //  _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
+                             //   Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title:  documentSnapshot['name'])));
 
                               },
 
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child:  TextWidget(
-                                      value: documentSnapshot['name'],
-                                      textColor: Properties.colorTextBlue,
-                                      size: 14.sp,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black54,
-                                  )
-                                ],
-                              ),
+                              child: doctorsList(
+                                  documentSnapshot, context),
                             );
                           }else {
                             return Container(
@@ -153,6 +124,73 @@ class _ScreeningCenterScreenState extends State<ScreeningCenterScreen> {
                     child: CircularProgressIndicator(),
                   );
                 }),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget doctorsList(
+      DocumentSnapshot<Object?> documentSnapshot, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.network(
+                documentSnapshot['image'],
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget(
+                    value: documentSnapshot['name'],
+                    size: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    textColor: Properties.fontColor,
+                  ),
+                  TextWidget(
+                    value: documentSnapshot['title'],
+                    size: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    textColor: Properties.fontColor,
+                  ),
+                  TextWidget(
+                    value: documentSnapshot['location'],
+                    size: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    textColor: Properties.fontColor,
+                  ),
+                ],
+              )
+            ],
+          ),
+          AppointmentButton(
+            onPressed: () {
+            /*  _controller.selectedDoctor = SelectedDoctorModel(
+                  uid: documentSnapshot.id,
+                  name: documentSnapshot['name'],
+                  image: documentSnapshot['image'],
+                  location: documentSnapshot['location'],
+                  title: documentSnapshot['title']);*/
+             /* Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TimeDateScreen(
+                    controller: _controller,
+                  ),
+                ),
+              );*/
+            },
+            value: 'Book an Appointment',
+          ),
+          Divider(
+            color: Colors.black54,
           )
         ],
       ),

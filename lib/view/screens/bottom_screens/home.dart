@@ -16,9 +16,11 @@ import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
+import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
 import '../home_screens/vaccination/vaccination.dart';
+import '../home_screens/visa/visa_screening_center.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -245,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Visa Screening Appointment",
                       imageMenu: 'assets/images/visa.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
@@ -263,8 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Home Care",
                       imageMenu: 'assets/images/care.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareLocation()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Teleconsultation",
