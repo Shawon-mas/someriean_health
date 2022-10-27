@@ -52,5 +52,6 @@ class DbCollections {
   static const collectionCovidScreeningVaccination= "covid19_screening_appionment";
   static const collectionVisaScreeningVaccination= "vis_screening_appionment";
   static const collectionNurse= "nurse";
+  static const collectionReport= "reports";
 }
 //.collection("covid19_screening_appionment")

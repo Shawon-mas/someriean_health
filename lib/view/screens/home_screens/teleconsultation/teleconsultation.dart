@@ -5,22 +5,22 @@ import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
-import 'home_care_doctor.dart';
-import 'home_care_nurse.dart';
+import '../home_care/home_care_doctor.dart';
+import '../home_care/home_care_nurse.dart';
 
-class HomeCareFacility extends StatelessWidget {
-  const HomeCareFacility({Key? key, }) : super(key: key);
+
+class Teleconsultation extends StatelessWidget {
+  const Teleconsultation({Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
       'Doctor',
-      'Nurse/Home PCR',
-      'Physiotherapist',
-      'Home Care Assistant',
+      'Nurse',
+
     ];
     return Scaffold(
-      appBar:  CommonToolbar(title: "Home Care"),
+      appBar:  CommonToolbar(title: "Teleconsultation"),
       body: Column(
         children: [
           CustomContainer(value: "Select Facility"),

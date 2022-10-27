@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:somerian_health/view/screens/home_screens/medical_history/pcr.dart';
+import 'package:somerian_health/view/screens/home_screens/medical_history/vaccination.dart';
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
-import 'home_care_doctor.dart';
-import 'home_care_nurse.dart';
+import '../home_care/home_care_doctor.dart';
+import '../home_care/home_care_nurse.dart';
+import 'hospital_records.dart';
 
-class HomeCareFacility extends StatelessWidget {
-  const HomeCareFacility({Key? key, }) : super(key: key);
+
+class MedicalHistory extends StatelessWidget {
+  const MedicalHistory({Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
-      'Doctor',
-      'Nurse/Home PCR',
-      'Physiotherapist',
-      'Home Care Assistant',
+      'PCR Test Result',
+      'Covid-19 Vaccination',
+      'Hospital Records',
+
     ];
     return Scaffold(
-      appBar:  CommonToolbar(title: "Home Care"),
+      appBar:  CommonToolbar(title: "Medical History"),
       body: Column(
         children: [
-          CustomContainer(value: "Select Facility"),
+          CustomContainer(value: "View My Medical History"),
           SizedBox(height: 20.h,),
           Expanded(
             child: Padding(
@@ -35,11 +39,15 @@ class HomeCareFacility extends StatelessWidget {
                     return InkWell(
                       onTap: (){
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
+                        if(index==0){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PCR()));
+                        }
                         if(index==1){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareNurse(title: _center[index],)));
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareDoctor(title: _center[index],)));
-                          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VACCINATION()));
+                        }
+                        if(index==2){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MEDICALRECORDS()));
+
                         }
 
                       },

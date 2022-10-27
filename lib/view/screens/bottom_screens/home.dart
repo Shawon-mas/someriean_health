@@ -12,13 +12,17 @@ import '../../../model/slider_model.dart';
 import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
+import '../home_screens/contact_us/contact_us.dart';
 import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
+import '../home_screens/medical_history/medical_history.dart';
+import '../home_screens/reports/reports_type.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
+import '../home_screens/teleconsultation/teleconsultation.dart';
 import '../home_screens/vaccination/vaccination.dart';
 import '../home_screens/visa/visa_screening_center.dart';
 class HomeScreen extends StatefulWidget {
@@ -272,8 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Teleconsultation",
                       imageMenu: 'assets/images/teleconsultation.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Teleconsultation()));
+                      // infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
@@ -291,15 +295,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Medical History",
                       imageMenu: 'assets/images/medical_history.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalHistory()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Reports",
                       imageMenu: 'assets/images/reports.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportsType()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
@@ -323,8 +327,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Contact Us",
                       imageMenu: 'assets/images/contact.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),
