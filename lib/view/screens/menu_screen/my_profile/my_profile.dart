@@ -6,6 +6,7 @@ import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import 'package:somerian_health/view/screens/menu_screen/my_profile/personal_details.dart';
 
 import '../../../widget/common_toolbar.dart';
+import '../../bottom_screens/menu.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -34,14 +35,14 @@ class _MyProfileScreenState extends State<MyProfileScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.off(() => BottomBarScreen());
+        Get.off(() => MenuScreen());
         return true;
       },
       child: Scaffold(
         appBar: CommonToolbar(
           title: 'My Profile',
           voidCallback: () {
-            Get.off(() => BottomBarScreen());
+            Get.off(() => MenuScreen());
           },
         ),
         body: Column(

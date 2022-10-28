@@ -6,6 +6,9 @@ import 'package:somerian_health/global/properties.dart';
 
 import 'bottom_screens/home.dart';
 import 'bottom_screens/menu.dart';
+import 'bottom_screens/search.dart';
+import 'home_screens/doctors_menu_screens/doctors_menu.dart';
+import 'home_screens/reports/reports_type.dart';
 
 
 
@@ -33,8 +36,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions=[
     HomeScreen(),
-    const Center(child: Text('Search'),),
-    const Center(child: Text('Report'),),
+    Search(),
+    ReportsType(),
     MenuScreen(),
 
   ];
@@ -47,11 +50,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: _widgetOptions[_selectedIndex],
-
-
-
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -90,30 +89,3 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 }
 
 
-/*
-Obx(
-                () {
-              if (_controller.isLoading.value) {
-                return const Center(
-                  child: CarouselLoading(),
-                );
-              } else {
-                if (_controller.carouselItemList.isNotEmpty) {
-                  return CarouselWithIndicator(
-                      data: _controller.carouselItemList);
-                } else {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.hourglass_empty),
-                        Text("Data not found!")
-                      ],
-                    ),
-                  );
-                }
-              }
-            },
-          )
- */

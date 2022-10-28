@@ -11,6 +11,7 @@ import '../../../global/properties.dart';
 import '../../../routes/routes.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
+import '../home_screens/contact_us/contact_us.dart';
 import '../menu_screen/my_profile/my_profile.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -100,6 +101,27 @@ class MenuScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyProfileScreen())); */
+                        // infoSnackBar(context,'Coming soon');
+                      }if (index == 1){
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactUs()));
+                      }if (index == 2){
+                        infoSnackBar(context,'Coming soon');
+                      }if (index == 3){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactUs()));
+                      }if (index == 4){
+                        infoSnackBar(context,'Coming soon');
+                      }if (index == 5){
+                        infoSnackBar(context,'Coming soon');
+                      }if (index == 6){
+                        infoSnackBar(context,'Coming soon');
+                      }if (index == 7){
+                        infoSnackBar(context,'Coming soon');
                       }
                     },
                     child: ListTile(

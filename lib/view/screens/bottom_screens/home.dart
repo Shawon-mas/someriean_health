@@ -17,6 +17,7 @@ import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/find_us/location.dart';
 import '../home_screens/health_packages/packages_list.dart';
+import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
 import '../home_screens/medical_history/medical_history.dart';
@@ -320,8 +321,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Health Tip",
                       imageMenu: 'assets/images/health_tip.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HealthTip()));
+                        //infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Contact Us",
