@@ -10,12 +10,14 @@ class TextWidget extends StatelessWidget {
   final double size;
   final VoidCallback? onPressed;
   final FontWeight fontWeight;
+  final EdgeInsetsGeometry edgeInsetsGeometry;
 
   const TextWidget({
     Key? key,
     required this.value,
     this.textColor,
     this.onPressed,
+    this.edgeInsetsGeometry = const EdgeInsets.all(10.0),
     required this.size,
     required this.fontWeight,
   }) : super(key: key);
@@ -23,7 +25,7 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: edgeInsetsGeometry,
       child: GestureDetector(
         onTap: onPressed,
         child: Text(

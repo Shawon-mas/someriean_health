@@ -19,7 +19,7 @@ class DoctorsMenuScreen extends StatefulWidget {
 
 class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
   final _controller = Get.put(DoctorAppointmentController());
-  String name="";
+  String name = "";
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,12 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                         hint: Text('Specialty'),
                                         underline: const SizedBox(),
                                         isExpanded: true,
-                                        value: _controller.selectedSpeciality.value == ""
+                                        value: _controller
+                                                    .selectedSpeciality.value ==
+                                                ""
                                             ? null
-                                            : _controller.selectedSpeciality.value,
+                                            : _controller
+                                                .selectedSpeciality.value,
                                         icon: const Icon(
                                             Icons.keyboard_arrow_down),
                                         items:
@@ -137,11 +140,10 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                             Container(
                               decoration: BoxDecoration(),
                               child: TextField(
-                              //  controller: searchController,
+                                //  controller: searchController,
                                 onChanged: (value) {
-                                    setState(()
-                                  {
-                                   name=value;
+                                  setState(() {
+                                    name = value;
                                   });
                                 },
                                 keyboardType: TextInputType.text,
@@ -202,9 +204,18 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                           documentSnapshot, context),
                                     ),
                             );
-                          } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ||documentSnapshot['location'].toString().toLowerCase().contains(name.toLowerCase()) ) {
+                          } else if (documentSnapshot['name']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(name.toLowerCase()) ||
+                              documentSnapshot['location']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(name.toLowerCase())) {
                             return Obx(
-                              () => (_controller.selectedLocation.value == "" && _controller.selectedSpeciality.value == "")
+                              () => (_controller.selectedLocation.value == "" &&
+                                      _controller.selectedSpeciality.value ==
+                                          "")
                                   ? doctorsList(documentSnapshot, context)
                                   : Visibility(
                                       visible:
@@ -218,9 +229,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                     ),
                             );
                           } else {
-                            return Container(
-
-                            );
+                            return Container();
                           }
                         },
                       ),
@@ -248,7 +257,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                 documentSnapshot['image'],
                 height: 100,
                 width: 100,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

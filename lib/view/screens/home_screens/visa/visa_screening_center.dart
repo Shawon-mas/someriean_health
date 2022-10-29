@@ -6,36 +6,42 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/view/screens/home_screens/covid19/screening_date.dart';
 
 import '../../../../controller/covid19_appionment_controller.dart';
+import '../../../../controller/vaccination_appionment_controller.dart';
 import '../../../../global/db_paths.dart';
 import '../../../../global/properties.dart';
 import '../../../../model/common_model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../vaccination/vaccination_date.dart';
+
 class VisaScreeningCenterScreen extends StatefulWidget {
   const VisaScreeningCenterScreen({Key? key}) : super(key: key);
 
   @override
-  State<VisaScreeningCenterScreen> createState() => _VisaScreeningCenterScreenState();
+  State<VisaScreeningCenterScreen> createState() =>
+      _VisaScreeningCenterScreenState();
 }
 
 class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
   @override
   Widget build(BuildContext context) {
-    final CollectionReference _vaccination =FirebaseFirestore.instance.collection(DbCollections.collectionVisaScreeningVaccination);
-    String name="";
-    final _controller = Get.put(Covid19AppointmentController(context: context));
+    final CollectionReference _vaccination = FirebaseFirestore.instance
+        .collection(DbCollections.collectionVisaScreeningVaccination);
+
+    String name = "";
+    final _controller =
+        Get.put(VaccinationAppointmentController(context: context));
+    _controller.getUserInfo(context);
 
     return Scaffold(
-      appBar:  CommonToolbar(title: "Visa Screening"),
+      appBar: CommonToolbar(title: "Visa Screening"),
       body: Column(
         children: [
           Container(
             color: Colors.grey,
             height: 60.h,
             width: double.infinity,
-            child:
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Center(
                 child: Container(
@@ -43,65 +49,66 @@ class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
                   child: TextField(
                     //  controller: searchController,
                     onChanged: (value) {
-                      setState(()
-                      {
-                        name=value;
+                      setState(() {
+                        name = value;
                       });
                     },
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        prefixIcon: Icon(Icons.search,
-                            color: Properties.colorTextBlue),
+                        prefixIcon:
+                            Icon(Icons.search, color: Properties.colorTextBlue),
                         hintText: "Search",
                         hintStyle: TextStyle(
-                            fontSize: 18.sp,
-                            color: Properties.colorTextBlue),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
+                            fontSize: 18.sp, color: Properties.colorTextBlue),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            BorderSide(color: Colors.white)),
+                            borderSide: BorderSide(color: Colors.white)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            BorderSide(color: Colors.white)),
+                            borderSide: BorderSide(color: Colors.white)),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                            BorderSide(color: Colors.white))),
+                            borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
               ),
-            ),),
+            ),
+          ),
           Expanded(
             child: StreamBuilder(
-                stream: _vaccination
-                    .snapshots(),
+                stream: _vaccination.snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-
                           final DocumentSnapshot documentSnapshot =
-                          snapshot.data!.docs[index];
-                          if(name.isEmpty){
+                              snapshot.data!.docs[index];
+                          if (name.isEmpty) {
                             return InkWell(
-                              onTap: (){
-
-                                _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller, title:  documentSnapshot['name'])));
-
+                              onTap: () {
+                                _controller.selectedCenter = BasicModel(
+                                    name: documentSnapshot['name'],
+                                    uid: documentSnapshot.id);
+                                _controller.locationController.text =
+                                    documentSnapshot['name'];
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SCreeningDate(
+                                              controller: _controller,
+                                              title: documentSnapshot['name'],
+                                            )));
                               },
-
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    child:  TextWidget(
+                                    child: TextWidget(
                                       value: documentSnapshot['name'],
                                       textColor: Properties.colorTextBlue,
                                       size: 14.sp,
@@ -114,21 +121,29 @@ class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
                                 ],
                               ),
                             );
-                          } else if (documentSnapshot['name'].toString().toLowerCase().contains(name.toLowerCase()) ){
-
+                          } else if (documentSnapshot['name']
+                              .toString()
+                              .toLowerCase()
+                              .contains(name.toLowerCase())) {
                             return InkWell(
-                              onTap: (){
-
-                                _controller.selectedCenter=BasicModel(name: documentSnapshot['name']);
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SCreeningDate(controller: _controller,title:  documentSnapshot['name'])));
-
+                              onTap: () {
+                                _controller.locationController.text =
+                                    documentSnapshot['name'];
+                                _controller.selectedCenter = BasicModel(
+                                    name: documentSnapshot['name'],
+                                    uid: documentSnapshot.id);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SCreeningDate(
+                                            controller: _controller,
+                                            title: documentSnapshot['name'])));
                               },
-
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    child:  TextWidget(
+                                    child: TextWidget(
                                       value: documentSnapshot['name'],
                                       textColor: Properties.colorTextBlue,
                                       size: 14.sp,
@@ -141,12 +156,9 @@ class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
                                 ],
                               ),
                             );
-                          }else {
-                            return Container(
-
-                            );
+                          } else {
+                            return Container();
                           }
-
                         });
                   }
                   return const Center(

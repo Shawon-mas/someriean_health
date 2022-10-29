@@ -71,6 +71,7 @@ class VACCINATION extends StatelessWidget {
                               size: 12.sp,
                               fontWeight: FontWeight.w500,
                               textColor: Properties.colorTextBlue,
+                              edgeInsetsGeometry: EdgeInsets.only(),
                             ),
                             TextWidget(
                               value:vaccinationList[index].facility.toString(),

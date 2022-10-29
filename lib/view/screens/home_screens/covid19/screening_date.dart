@@ -11,7 +11,7 @@ import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 class SCreeningDate extends StatelessWidget {
  final String title;
- final Covid19AppointmentController controller;
+ final VaccinationAppointmentController controller;
   const SCreeningDate({Key? key, required this.controller, required this.title}) : super(key: key);
 
   @override
@@ -157,7 +157,7 @@ class SCreeningDate extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: AppointmentButton(
          onPressed: () {
-         // Navigator.push(context, MaterialPageRoute(builder: (context) => VaccinationDetails(controller: controller,)));
+         Navigator.push(context, MaterialPageRoute(builder: (context) => VaccinationDetails(controller: controller, title: title, isVisa: true,)));
           controller.timeAndDateController.text =
           '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}, ${controller.selectedTime.value
               .format(context)

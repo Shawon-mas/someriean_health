@@ -31,7 +31,6 @@ class VaccinationScreen extends StatelessWidget {
                   {
                     return InkWell(
                       onTap: (){
-
                         if(index==0){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationCentreScreen( title: _vaccineCenter[index],)));
                         }if(index==1){
