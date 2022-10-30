@@ -29,6 +29,7 @@ class DbDocs {
   static const fieldTime = "time";
   static const fieldDate = "date";
   static const fieldDateEpoch = "dateEpoch";
+  static const fieldServiceProvider = "serviceProvider";
 
   /* AppointmentId */
   static const fieldAppointmentId = "appointmentId";
@@ -45,6 +46,7 @@ class DbDocs {
   static const fieldUnified = "unified";
   static const fieldPassportIssue = "passportIssue";
   static const fieldPassportExpiration = "passportExpiration";
+  
 }
 
 class DbCollections {

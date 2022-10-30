@@ -39,7 +39,12 @@ class DoctorAppointmentController extends GetxController {
   var speciality = <String>[].obs;
   var selectedSpeciality = "".obs;
   var selectedDoctor = SelectedDoctorModel(
-      uid: "", name: "", image: "", location: "", title: "");
+      uid: "",
+      name: "",
+      image: "",
+      location: "",
+      title: "",
+      serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
 
@@ -221,6 +226,7 @@ class DoctorAppointmentController extends GetxController {
                         infoSnackBar(context, "Coming Soon");
                       } else {
                         proceedPayment(context, controller);
+                        //test();
                       }
                     },
                     value: 'Proceed',
@@ -239,6 +245,10 @@ class DoctorAppointmentController extends GetxController {
     }
   }
 
+  test() {
+    logger.d(selectedDoctor.serviceProvider.name);
+  }
+
   proceedPayment(
       BuildContext context, DoctorAppointmentController controller) async {
     isProcessing.value = true;
@@ -246,16 +256,17 @@ class DoctorAppointmentController extends GetxController {
         .collection(DbCollections.collectionAppointments)
         .doc();
     doc.set({
-        DbDocs.fieldDoctorId: selectedDoctor.uid,
-        DbDocs.fieldPatientNumber: mobileController.text,
-        DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
-        DbDocs.fieldFile: "",
-        DbDocs.fieldMessage: messageController.text,
-        DbDocs.fieldTime: selectedTime.value.format(context).toString(),
-        DbDocs.fieldDateEpoch:
-            selectedDate.value.millisecondsSinceEpoch.toString(),
-        DbDocs.fieldDate:
-            '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
+      DbDocs.fieldDoctorId: selectedDoctor.uid,
+      DbDocs.fieldPatientNumber: mobileController.text,
+      DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
+      DbDocs.fieldFile: "",
+      DbDocs.fieldMessage: messageController.text,
+      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldTime: selectedTime.value.format(context).toString(),
+      DbDocs.fieldDateEpoch:
+          selectedDate.value.millisecondsSinceEpoch.toString(),
+      DbDocs.fieldDate:
+          '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
     }).then((value) async {
       if (selectedFile.value !=
           "Attachment (previous report file if available)") {
@@ -271,9 +282,10 @@ class DoctorAppointmentController extends GetxController {
           DbDocs.fieldFile: url,
         }, SetOptions(merge: true));
       }
-      /* Setting appointment for doctor */
+      /* Setting appointment for doctor or nurse according to service providers*/
       FirebaseFirestore.instance
-          .collection(DbCollections.collectionDoctors)
+          .collection(
+              serviceProvider(selectedDoctor.serviceProvider.name))
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
@@ -291,6 +303,17 @@ class DoctorAppointmentController extends GetxController {
     Get.back();
     Get.back();
     Get.off(() => CompleteAppointmentScreen(controller: controller));
+  }
+
+  String serviceProvider(String data) {
+    switch (data) {
+      case "Doctor":
+        return DbCollections.collectionDoctors;
+      case "Nurse":
+        return DbCollections.collectionNurse;
+      default:
+        return DbCollections.collectionDoctors;
+    }
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 
 const hiveBox = "hiveBox";
 const userExists = "userExists";
+const isProfileUpdated = "profileUpdated";
 final logger = Logger();
 
 successSnackBar(BuildContext context, String text) {

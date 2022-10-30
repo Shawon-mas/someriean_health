@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import 'package:somerian_health/view/screens/menu_screen/my_profile/personal_details.dart';
@@ -36,14 +38,28 @@ class _MyProfileScreenState extends State<MyProfileScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.off(() => BottomBarScreen());
+        final _box = Hive.box(hiveBox);
+        final bool profileUpdated = _box.get(isProfileUpdated) ?? false;
+        if (profileUpdated) {
+          _box.put(isProfileUpdated, false);
+          Get.offAll(() => BottomBarScreen());
+        } else {
+          Get.back();
+        }
         return true;
       },
       child: Scaffold(
         appBar: CommonToolbar(
           title: 'My Profile',
           voidCallback: () {
-            Get.off(() => BottomBarScreen());
+            final _box = Hive.box(hiveBox);
+            final bool profileUpdated = _box.get(isProfileUpdated) ?? false;
+            if (profileUpdated) {
+              _box.put(isProfileUpdated, false);
+              Get.offAll(() => BottomBarScreen());
+            } else {
+              Get.back();
+            }
           },
         ),
         body: Column(
@@ -109,7 +125,6 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                       textColor: Properties.colorTextBlue,
                     ),
                   ),
-
                 ],
               ),
             )

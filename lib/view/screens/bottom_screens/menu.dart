@@ -41,6 +41,7 @@ class MenuScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    _controller.getUserInfo();
     return Scaffold(
       appBar: PrimaryToolbar(
         appbarIcons: [
@@ -100,33 +101,50 @@ class MenuScreen extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       if (index == 0) {
-                        Get.off(() => MyProfileScreen());
+                        //Get.off(() => MyProfileScreen());
+                        Get.to(() => MyProfileScreen());
                         /* Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyProfileScreen())); */
                         // infoSnackBar(context,'Coming soon');
-                      }if (index == 1){
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ContactUs(title: menuList[index],)));
-                      }if (index == 2){
-                        infoSnackBar(context,'Coming soon');
-                      }if (index == 3){
+                      }
+                      if (index == 1) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ContactUs(title: menuList[index],)));
-                      }if (index == 4){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApplication()));
-                      }if (index == 5){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AboutSomerian()));
-
-                      }if (index == 6){
-                        infoSnackBar(context,'Coming soon');
-                      }if (index == 7){
-                        infoSnackBar(context,'Coming soon');
+                                builder: (context) => ContactUs(
+                                      title: menuList[index],
+                                    )));
+                      }
+                      if (index == 2) {
+                        infoSnackBar(context, 'Coming soon');
+                      }
+                      if (index == 3) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactUs(
+                                      title: menuList[index],
+                                    )));
+                      }
+                      if (index == 4) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AboutApplication()));
+                      }
+                      if (index == 5) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AboutSomerian()));
+                      }
+                      if (index == 6) {
+                        infoSnackBar(context, 'Coming soon');
+                      }
+                      if (index == 7) {
+                        infoSnackBar(context, 'Coming soon');
                       }
                     },
                     child: ListTile(

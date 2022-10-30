@@ -10,6 +10,7 @@ class TextWidget extends StatelessWidget {
   final double size;
   final VoidCallback? onPressed;
   final FontWeight fontWeight;
+  final bool isSelecteble;
   final EdgeInsetsGeometry edgeInsetsGeometry;
 
   const TextWidget({
@@ -17,6 +18,7 @@ class TextWidget extends StatelessWidget {
     required this.value,
     this.textColor,
     this.onPressed,
+    this.isSelecteble = false,
     this.edgeInsetsGeometry = const EdgeInsets.all(10.0),
     required this.size,
     required this.fontWeight,
@@ -28,14 +30,23 @@ class TextWidget extends StatelessWidget {
       padding: edgeInsetsGeometry,
       child: GestureDetector(
         onTap: onPressed,
-        child: Text(
-          value,
-          style: GoogleFonts.lato(
-            fontWeight: fontWeight,
-            fontSize: size,
-            color: textColor,
-          ),
-        ),
+        child: isSelecteble
+            ? SelectableText(
+                value,
+                style: GoogleFonts.lato(
+                  fontWeight: fontWeight,
+                  fontSize: size,
+                  color: textColor,
+                ),
+              )
+            : Text(
+                value,
+                style: GoogleFonts.lato(
+                  fontWeight: fontWeight,
+                  fontSize: size,
+                  color: textColor,
+                ),
+              ),
       ),
     );
   }

@@ -13,6 +13,11 @@ class MenuController extends GetxController {
 
   @override
   void onInit() {
+    getUserInfo();
+    super.onInit();
+  }
+
+  getUserInfo() {
     if (user != null) {
       userDoc.doc(user!.phoneNumber).get().then((doc) {
         name.value =
@@ -21,6 +26,5 @@ class MenuController extends GetxController {
         logger.d(doc[DbDocs.fieldImageUrl]);
       });
     }
-    super.onInit();
   }
 }

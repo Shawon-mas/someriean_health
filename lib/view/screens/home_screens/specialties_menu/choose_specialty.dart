@@ -43,6 +43,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                           image: data['image'],
                           location: data['location'],
                           title: data['title'],
+                          serviceProvider: ServiceProvider.Doctor,
                         ),
                       );
                     }

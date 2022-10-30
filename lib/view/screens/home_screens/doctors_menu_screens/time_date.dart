@@ -10,10 +10,7 @@ import 'basic_details.dart';
 
 class TimeDateScreen extends StatelessWidget {
   final DoctorAppointmentController controller;
-  TimeDateScreen(
-      {Key? key,
-      required this.controller})
-      : super(key: key);
+  TimeDateScreen({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,34 +20,48 @@ class TimeDateScreen extends StatelessWidget {
         children: [
           Container(
             height: 110.h,
-            color: Colors.grey,
+            color: Colors.grey.shade300,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(
-                    controller.selectedDoctor.image,
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        5,
+                      ),
+                    ),
+                    child: Image.network(
+                      controller.selectedDoctor.image,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextWidget(
                         value: controller.selectedDoctor.name,
+                        edgeInsetsGeometry: EdgeInsets.only(
+                            top: 5, left: 10, right: 10, bottom: 5),
                         size: 18.sp,
                         fontWeight: FontWeight.w700,
                         textColor: Properties.fontColor,
                       ),
                       TextWidget(
+                        edgeInsetsGeometry: EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
                         value: controller.selectedDoctor.title,
                         size: 14.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
                       ),
                       TextWidget(
+                        edgeInsetsGeometry: EdgeInsets.only(
+                            left: 10, right: 10, bottom: 10, top: 5),
                         value: controller.selectedDoctor.location,
                         size: 14.sp,
                         fontWeight: FontWeight.w500,
@@ -164,15 +175,15 @@ class TimeDateScreen extends StatelessWidget {
             child: AppointmentButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BasicDetailsScreen(
-                              controller: controller,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BasicDetailsScreen(
+                      controller: controller,
+                    ),
+                  ),
+                );
                 controller.timeAndDateController.text =
-                    '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}, ${controller.selectedTime.value
-                                .format(context)
-                                .toString()}';
+                    '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}, ${controller.selectedTime.value.format(context).toString()}';
               },
               value: 'Next',
             ),

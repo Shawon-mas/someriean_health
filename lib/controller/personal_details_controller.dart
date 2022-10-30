@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:path/path.dart';
@@ -13,9 +14,11 @@ import '../global/properties.dart';
 
 class PersonalDetailsController extends GetxController {
   var imagePath = "".obs;
+  final _box = Hive.box(hiveBox);
   var selectedImagePath = "";
   var isImageUploading = false.obs;
   var isEditable = false.obs;
+  var isUpdated = false.obs;
   var user = FirebaseAuth.instance.currentUser;
   var dobController = TextEditingController();
   var firstNameController = TextEditingController();
@@ -25,6 +28,7 @@ class PersonalDetailsController extends GetxController {
   var genderController = TextEditingController();
   var nationalityController = TextEditingController();
   var emiratesIdController = TextEditingController();
+  var typeMessageController = TextEditingController();
   var selectedDate = DateTime.now().obs;
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -107,6 +111,7 @@ class PersonalDetailsController extends GetxController {
         await FirebaseStorage.instance.refFromURL(oldPicUrl).delete();
       }
     });
+    _box.put(isProfileUpdated, true);
   }
 
   getUserInfo() {
@@ -151,6 +156,21 @@ class PersonalDetailsController extends GetxController {
     }, SetOptions(merge: true)).then((value) {
       successSnackBar(context, "Information Updated");
       getUserInfo();
+    });
+    _box.put(isProfileUpdated, true);
+  }
+
+  saveMessage(String title, BuildContext context) {
+    FirebaseFirestore.instance
+        .collection(title.toLowerCase().replaceAll(" ", "_"))
+        .doc()
+        .set({
+      DbDocs.fieldPatientNumber: mobileController.text,
+      DbDocs.fieldMessage: typeMessageController.text,
+    }).then((value) {
+      typeMessageController.text = "";
+      successSnackBar(context, "Thank you for being with us");
+      Get.back();
     });
   }
 

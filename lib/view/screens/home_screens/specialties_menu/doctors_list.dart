@@ -13,7 +13,9 @@ import '../doctors_menu_screens/time_date.dart';
 class DoctorsList extends StatefulWidget {
   final String speciality;
   final DoctorAppointmentController controller;
-  const DoctorsList({Key? key, required this.speciality, required this.controller}) : super(key: key);
+  const DoctorsList(
+      {Key? key, required this.speciality, required this.controller})
+      : super(key: key);
 
   @override
   State<DoctorsList> createState() => _DoctorsListState();
@@ -28,7 +30,6 @@ class _DoctorsListState extends State<DoctorsList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -37,7 +38,6 @@ class _DoctorsListState extends State<DoctorsList> {
       appBar: CommonToolbar(title: 'Doctors'),
       body: Column(
         children: [
-
           Expanded(
             child: StreamBuilder(
                 stream: _doctors
@@ -92,15 +92,14 @@ class _DoctorsListState extends State<DoctorsList> {
                                 AppointmentButton(
                                   onPressed: () {
                                     widget.controller.selectedDoctor =
-                                            SelectedDoctorModel(
-                                                uid: documentSnapshot.id,
-                                                name: documentSnapshot['name'],
-                                                image:
-                                                    documentSnapshot['image'],
-                                                location: documentSnapshot[
-                                                    'location'],
-                                                title:
-                                                    documentSnapshot['title']);
+                                        SelectedDoctorModel(
+                                      uid: documentSnapshot.id,
+                                      name: documentSnapshot['name'],
+                                      image: documentSnapshot['image'],
+                                      location: documentSnapshot['location'],
+                                      title: documentSnapshot['title'],
+                                      serviceProvider: ServiceProvider.Doctor,
+                                    );
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
