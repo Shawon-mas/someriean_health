@@ -46,7 +46,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
               ? Column(
                   children: [
                     Container(
-                      color: Colors.grey,
+                      color: Colors.grey.shade300,
                       //height: 100.h,
                       width: double.infinity,
                       child: Padding(
@@ -253,11 +253,19 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.network(
-                documentSnapshot['image'],
-                height: 100,
-                width: 100,
-                fit: BoxFit.contain,
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    5,
+                  ),
+                ),
+                child: Image.network(
+                  documentSnapshot['image'],
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.contain,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

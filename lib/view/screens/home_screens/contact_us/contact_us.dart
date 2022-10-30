@@ -23,7 +23,7 @@ class ContactUs extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: Colors.grey,
+              color: Colors.grey.shade300,
               height: 100.h,
               width: double.maxFinite,
               child: Padding(

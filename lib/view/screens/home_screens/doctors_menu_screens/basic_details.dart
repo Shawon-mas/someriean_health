@@ -7,7 +7,6 @@ import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 
-
 class BasicDetailsScreen extends StatelessWidget {
   final DoctorAppointmentController controller;
   BasicDetailsScreen({Key? key, required this.controller}) : super(key: key);
@@ -22,7 +21,7 @@ class BasicDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              color: Colors.grey,
+              color: Colors.grey.shade300,
               width: double.infinity,
               height: 50.h,
               child: Padding(

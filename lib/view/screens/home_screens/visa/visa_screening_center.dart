@@ -38,7 +38,7 @@ class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
       body: Column(
         children: [
           Container(
-            color: Colors.grey,
+            color: Colors.grey.shade300,
             height: 60.h,
             width: double.infinity,
             child: Padding(

@@ -63,7 +63,7 @@ class MenuScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              color: Colors.grey,
+              color: Colors.grey.shade300,
               height: 220.h,
               width: double.maxFinite,
               child: Obx(
@@ -85,7 +85,7 @@ class MenuScreen extends StatelessWidget {
                           ),
                     TextWidget(
                       value: _controller.name.value,
-                      textColor: Colors.white,
+                      textColor: Properties.primaryColor,
                       size: 24.sp,
                       fontWeight: FontWeight.w700,
                     ),

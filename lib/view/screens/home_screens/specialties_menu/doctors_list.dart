@@ -57,11 +57,19 @@ class _DoctorsListState extends State<DoctorsList> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Image.network(
-                                      documentSnapshot['image'],
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(
+                                          5,
+                                        ),
+                                      ),
+                                      child: Image.network(
+                                        documentSnapshot['image'],
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                     Column(
                                       crossAxisAlignment:

@@ -11,6 +11,7 @@ class TextWidget extends StatelessWidget {
   final VoidCallback? onPressed;
   final FontWeight fontWeight;
   final bool isSelecteble;
+  final TextAlign? textAlign;
   final EdgeInsetsGeometry edgeInsetsGeometry;
 
   const TextWidget({
@@ -18,6 +19,7 @@ class TextWidget extends StatelessWidget {
     required this.value,
     this.textColor,
     this.onPressed,
+    this.textAlign,
     this.isSelecteble = false,
     this.edgeInsetsGeometry = const EdgeInsets.all(10.0),
     required this.size,
@@ -41,6 +43,7 @@ class TextWidget extends StatelessWidget {
               )
             : Text(
                 value,
+                textAlign: textAlign,
                 style: GoogleFonts.lato(
                   fontWeight: fontWeight,
                   fontSize: size,

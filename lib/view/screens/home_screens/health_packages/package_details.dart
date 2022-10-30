@@ -45,7 +45,7 @@ class PackageDetails extends StatelessWidget {
                   left: 0,
                   right: 0,
                   child: Container(
-                    height: 50.h,
+                    height: 60.h,
                     width: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -99,25 +99,34 @@ class PackageDetails extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TextWidget(
-                                      value: documentSnapshot['title'],
-                                      size: 14.sp,
-                                      fontWeight: FontWeight.w700,
-                                      textColor: Properties.colorTextBlue,
+                                    Expanded(
+                                      flex: 15,
+                                      child: TextWidget(
+                                        value: documentSnapshot['title'] +
+                                            "asdasdasdasdasdasdasdasdd",
+                                        size: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                        textColor: Properties.colorTextBlue,
+                                      ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        showPackageDetails(
-                                            documentSnapshot, context);
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Properties.primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Colors.white,
+                                    Expanded(
+                                      flex: 2,
+                                      child: InkWell(
+                                        onTap: () {
+                                          showPackageDetails(
+                                              documentSnapshot, context);
+                                        },
+                                        child: Center(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Properties.primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     )

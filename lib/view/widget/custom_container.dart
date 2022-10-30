@@ -5,13 +5,14 @@ import 'package:somerian_health/view/widget/text_widget.dart';
 class CustomContainer extends StatelessWidget {
   final String value;
   const CustomContainer({
-    Key? key, required this.value,
+    Key? key,
+    required this.value,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
+      color: Colors.grey.shade300,
       width: double.infinity,
       height: 50.h,
       child: Padding(

@@ -25,6 +25,11 @@ class CalculatorScreenState extends State<CalculatorScreen> {
   int height = 180;
   int weight = 60;
   int age = 20;
+  @override
+  void initState() {
+    selectedGender = Gender.male;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,41 +43,43 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         children: <Widget>[
           Expanded(
               child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ReusableCard(
-                      onPress: () {
-                        setState(() {
-                          selectedGender = Gender.male;
-                        });
-                      },
-                      colour: selectedGender == Gender.male
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
-                      cardChild: IconContent(
-                        icon: FontAwesomeIcons.mars,
-                        label: 'MALE',
-                      ),
-                    ),
+            children: <Widget>[
+              Expanded(
+                child: ReusableCard(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.male;
+                    });
+                  },
+                  colour: selectedGender == Gender.male
+                      ? kActiveCardColour
+                      : kInactiveCardColour,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.mars,
+                    label: 'MALE',
+                    isSelected: selectedGender == Gender.male ? true : false,
                   ),
-                  Expanded(
-                    child: ReusableCard(
-                      onPress: () {
-                        setState(() {
-                          selectedGender = Gender.female;
-                        });
-                      },
-                      colour: selectedGender == Gender.female
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
-                      cardChild: IconContent(
-                        icon: FontAwesomeIcons.venus,
-                        label: 'FEMALE',
-                      ),
-                    ),
+                ),
+              ),
+              Expanded(
+                child: ReusableCard(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.female;
+                    });
+                  },
+                  colour: selectedGender == Gender.female
+                      ? kActiveCardColour
+                      : kInactiveCardColour,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.venus,
+                    label: 'FEMALE',
+                    isSelected: selectedGender == Gender.male ? false : true,
                   ),
-                ],
-              )),
+                ),
+              ),
+            ],
+          )),
           Expanded(
             child: ReusableCard(
               colour: Colors.white,
@@ -105,9 +112,9 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                       thumbColor: Color(0xFFEB1555),
                       overlayColor: Color(0x29EB1555),
                       thumbShape:
-                      RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
                       overlayShape:
-                      RoundSliderOverlayShape(overlayRadius: 30.0),
+                          RoundSliderOverlayShape(overlayRadius: 30.0),
                     ),
                     child: Slider(
                       value: height.toDouble(),
@@ -121,7 +128,8 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                     ),
                   ),
                 ],
-              ), onPress: () {  },
+              ),
+              onPress: () {},
             ),
           ),
           Expanded(
@@ -165,7 +173,8 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                           ],
                         ),
                       ],
-                    ), onPress: () {  },
+                    ),
+                    onPress: () {},
                   ),
                 ),
                 Expanded(
@@ -189,7 +198,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
                                 setState(
-                                      () {
+                                  () {
                                     age--;
                                   },
                                 );
@@ -208,7 +217,8 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                           ],
                         )
                       ],
-                    ), onPress: () {  },
+                    ),
+                    onPress: () {},
                   ),
                 ),
               ],
@@ -217,9 +227,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
           BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
-              BmiLogic calc =
-              BmiLogic(height: height, weight: weight, bmi: 0);
-
+              BmiLogic calc = BmiLogic(height: height, weight: weight, bmi: 0);
 
               Navigator.push(
                 context,

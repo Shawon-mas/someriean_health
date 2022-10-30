@@ -12,6 +12,15 @@ const kLabelTextStyle = TextStyle(
   color: Color(0xFF8D8E98),
 );
 
+const kLabelTextStyleGender = TextStyle(
+  fontSize: 18.0,
+  color: kBottomContainerColour,
+);
+const kLabelTextStyleWhite = TextStyle(
+  fontSize: 18.0,
+  color: Colors.white,
+);
+
 const kNumberTextStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.w900,

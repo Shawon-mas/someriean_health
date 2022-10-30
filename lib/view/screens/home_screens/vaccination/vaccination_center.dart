@@ -22,7 +22,7 @@ class VaccinationCentreScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            color: Colors.grey,
+            color: Colors.grey.shade300,
             height: 60.h,
             width: double.infinity,
             child: Padding(
@@ -62,7 +62,9 @@ class VaccinationCentreScreen extends StatelessWidget {
           ),
           Expanded(
             child: StreamBuilder(
-                stream: _controller.collectionRef(DbCollections.collectionVaccination).snapshots(),
+                stream: _controller
+                    .collectionRef(DbCollections.collectionVaccination)
+                    .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -76,8 +78,9 @@ class VaccinationCentreScreen extends StatelessWidget {
                           if (_controller.name.value.isEmpty) {
                             return InkWell(
                               onTap: () {
-                                _controller.selectedCenter =
-                                    BasicModel(name: documentSnapshot['name'], uid: documentSnapshot.id);
+                                _controller.selectedCenter = BasicModel(
+                                    name: documentSnapshot['name'],
+                                    uid: documentSnapshot.id);
                                 _controller.locationController.text =
                                     documentSnapshot['name'];
                                 Navigator.push(
@@ -113,8 +116,9 @@ class VaccinationCentreScreen extends StatelessWidget {
                               .contains(_controller.name.value.toLowerCase())) {
                             return InkWell(
                               onTap: () {
-                                _controller.selectedCenter =
-                                    BasicModel(name: documentSnapshot['name'], uid: documentSnapshot.id);
+                                _controller.selectedCenter = BasicModel(
+                                    name: documentSnapshot['name'],
+                                    uid: documentSnapshot.id);
                                 _controller.locationController.text =
                                     documentSnapshot['name'];
                                 Navigator.push(
