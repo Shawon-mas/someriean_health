@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
+import '../covid19/screening_center.dart';
+import '../vaccination/vaccination.dart';
+import '../visa/visa_screening_center.dart';
 import 'facility.dart';
 class LocationOneScreen extends StatelessWidget {
   final String title;
@@ -33,6 +36,12 @@ class LocationOneScreen extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
               }if(index==1){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+              }if(index==2){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+              }if(index==3){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
+              }if(index==4){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
               }
 
             },

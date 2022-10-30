@@ -19,20 +19,7 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  //final _controller = Get.put(CarouselController());
-  /*final List<String> imageList = [
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-    'https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/WORKPLACEV9CMS/2bgqjhmw_0iifqf_p8twtq.jpg',
-  ];
 
-  final List<String> menuList = [
-    'Doctors',
-    'Specialties',
-    'Insurance',
-    'Health Packages',
-    'Find Hospitals & Clinics',
-  ];*/
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions=[
     HomeScreen(),
@@ -67,7 +54,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             backgroundColor: Properties.primaryColor,
           ),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_info_filled,),
+              icon: Icon(FluentSystemIcons.ic_fluent_report_warning_regular),
               label: 'Report',
               backgroundColor: Properties.primaryColor),
           BottomNavigationBarItem(

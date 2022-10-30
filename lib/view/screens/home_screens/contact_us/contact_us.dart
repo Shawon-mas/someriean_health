@@ -10,14 +10,15 @@ import '../../../widget/text_widget.dart';
 
 class ContactUs extends StatelessWidget {
   final _controller = Get.put(PersonalDetailsController());
-  ContactUs({Key? key}) : super(key: key);
+  final String title;
+  ContactUs({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CommonToolbar(title: "Contact Us"),
+      appBar: CommonToolbar(title: title),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

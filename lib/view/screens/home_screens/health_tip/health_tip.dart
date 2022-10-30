@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
+import '../../../widget/text_widget.dart';
 import 'health_tools.dart';
 class HealthTip extends StatefulWidget {
   const HealthTip({Key? key}) : super(key: key);
@@ -85,7 +86,13 @@ class _HealthTipState extends State<HealthTip>  with SingleTickerProviderStateMi
               children: [
                 HealthTools(),
                 Center(
-                  child: Text('Health Blog'),
+                  child:  TextWidget(
+                    value: 'No blog found',
+                    size: 16.sp,
+                    fontWeight: FontWeight.w700,
+                    textColor: Properties.fontColor,
+                    
+                  ),
                 )
               ],
             ),

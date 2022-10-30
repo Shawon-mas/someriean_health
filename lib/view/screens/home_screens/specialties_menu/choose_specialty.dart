@@ -29,7 +29,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       appBar: CommonToolbar(title: 'Specialties'),
       body: Column(
         children: [
-          CustomContainer(value: "Choose Specialty"),
+          CustomContainer(value: "Find a Doctor by Speciality"),
           Expanded(
             child: StreamBuilder(
                 stream: _doctors.snapshots(),

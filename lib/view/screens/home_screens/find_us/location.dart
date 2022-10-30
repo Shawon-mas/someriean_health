@@ -17,6 +17,17 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   Color _color = Colors.white; // declare it here
   Color _text_color = Properties.colorTextBlue; // declare it here
+  List<String> _center=[
+    'Abu Dhabi & Al Ain',
+    'Dubai & Northern Emirates',
+    'American Crescent Health Care Centre',
+    'Somerian Health Diagnostic Centre- Musafah',
+    'Somerian Health Diagnostic Centre- Mafraq',
+    'Emirates Field Hospital',
+    'Mussafah Prime Assessment Center',
+    'Emirates Humanitarian City',
+    'Somerian Care Medical clinic',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,67 +39,45 @@ class _LocationScreenState extends State<LocationScreen> {
         children: [
           CustomContainer(value: "Select location"),
           SizedBox(height: 20.h,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationOneScreen(title: location_one,)));
-                   /* setState(() {
-                      _color=Properties.primaryColor;
-                      _text_color=Colors.white;
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
+                  itemCount: _center.length,
+                  itemBuilder: (context,index)
+                  {
+                    return InkWell(
+                      onTap: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationOneScreen(title: _center[index],)));
+                        if(index==0){
+                       //   Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                        }if(index==1){
+                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                        }
 
-                    });*/
-
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                    //  border: Border.all(color: Colors.grey),
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
-                      color: Properties.primaryColor,
-                    ),
-                    width: double.maxFinite,
-                    height: 50.h,
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 10),
-                    child: Center(
-                      child: TextWidget(
-                        value: location_one,
-                        size: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        textColor: Colors.white,
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Properties.primaryColor,
+                        ),
+                        width: double.maxFinite,
+                        height: 50.h,
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 10),
+                        child: Center(
+                          child: TextWidget(
+                            value: _center[index],
+                            size: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            textColor: Colors.white,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h,),
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
+                    );
 
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Properties.primaryColor,
-                    ),
-                    width: double.maxFinite,
-                    height: 50.h,
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 10),
-                    child: Center(
-                      child: TextWidget(
-                        value: location_two,
-                        size: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        textColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                  })
             ),
           ),
         ],

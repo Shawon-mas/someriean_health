@@ -12,6 +12,8 @@ import '../../../routes/routes.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
 import '../home_screens/contact_us/contact_us.dart';
+import '../menu_screen/about_application.dart';
+import '../menu_screen/about_somerian.dart';
 import '../menu_screen/my_profile/my_profile.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -23,6 +25,7 @@ class MenuScreen extends StatelessWidget {
     'News and Media',
     'Need Help',
     'About Application',
+    'About Somerian Health',
     'Language Preferences',
     'Settings',
   ];
@@ -32,6 +35,7 @@ class MenuScreen extends StatelessWidget {
     FluentSystemIcons.ic_fluent_news_regular,
     FluentSystemIcons.ic_fluent_chat_help_regular,
     FluentSystemIcons.ic_fluent_info_regular,
+    Icons.dashboard,
     FluentSystemIcons.ic_fluent_local_language_regular,
     FluentSystemIcons.ic_fluent_settings_regular,
   ];
@@ -106,18 +110,19 @@ class MenuScreen extends StatelessWidget {
                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ContactUs()));
+                                builder: (context) => ContactUs(title: menuList[index],)));
                       }if (index == 2){
                         infoSnackBar(context,'Coming soon');
                       }if (index == 3){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ContactUs()));
+                                builder: (context) => ContactUs(title: menuList[index],)));
                       }if (index == 4){
-                        infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AboutApplication()));
                       }if (index == 5){
-                        infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AboutSomerian()));
+
                       }if (index == 6){
                         infoSnackBar(context,'Coming soon');
                       }if (index == 7){

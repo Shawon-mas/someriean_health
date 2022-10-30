@@ -328,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Contact Us",
                       imageMenu: 'assets/images/contact.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs()));
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs(title: 'Contact Us',)));
                        // infoSnackBar(context,'Coming soon');
                       }),
                 ],
