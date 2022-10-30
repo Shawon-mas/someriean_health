@@ -15,11 +15,12 @@ class LocationOneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
-      'Somerian Clinic',
-      'Somerian Hospital',
-      'Somerian Visa Screening Center',
-      'Covid-19 Testing Center',
-      'Vaccination Center',
+      'American Crescent Health Care Centre',
+      'Somerian Care Medical clinic',
+      'Somerian Health Diagnostic Centre- Mafraq',
+      'Somerian Health Diagnostic Centre- Musafah',
+      'Mussafah Prime Assessment Center',
+      'Emirates Field Hospital',
     ];
     return Scaffold(
       appBar:  CommonToolbar(title: title),
@@ -39,8 +40,10 @@ class LocationOneScreen extends StatelessWidget {
               }if(index==2){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
               }if(index==3){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
               }if(index==4){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+              }if(index==5){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
               }
 

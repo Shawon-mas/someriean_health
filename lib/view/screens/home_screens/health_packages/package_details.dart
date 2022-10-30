@@ -102,8 +102,7 @@ class PackageDetails extends StatelessWidget {
                                     Expanded(
                                       flex: 15,
                                       child: TextWidget(
-                                        value: documentSnapshot['title'] +
-                                            "asdasdasdasdasdasdasdasdd",
+                                        value: documentSnapshot['title'] ,
                                         size: 14.sp,
                                         fontWeight: FontWeight.w700,
                                         textColor: Properties.colorTextBlue,

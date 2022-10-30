@@ -271,18 +271,21 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
+                    edgeInsetsGeometry: EdgeInsets.zero,
                     value: documentSnapshot['name'],
                     size: 18.sp,
                     fontWeight: FontWeight.w700,
                     textColor: Properties.fontColor,
                   ),
                   TextWidget(
+                    edgeInsetsGeometry: EdgeInsets.zero,
                     value: documentSnapshot['title'],
                     size: 14.sp,
                     fontWeight: FontWeight.w500,
                     textColor: Properties.fontColor,
                   ),
                   TextWidget(
+                    edgeInsetsGeometry: EdgeInsets.zero,
                     value: documentSnapshot['location'],
                     size: 14.sp,
                     fontWeight: FontWeight.w500,
