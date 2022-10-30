@@ -38,6 +38,13 @@ class DbDocs {
   static const fieldHealthcarePackageListId = "healthcarePackageListId";
   static const fieldClinicLocation = "clinicLocation";
   static const fieldHealthcarePrice = "price";
+
+  /* vaccination */
+  static const fieldLocation = "location";
+  /* Covid */
+  static const fieldUnified = "unified";
+  static const fieldPassportIssue = "passportIssue";
+  static const fieldPassportExpiration = "passportExpiration";
 }
 
 class DbCollections {
@@ -49,6 +56,7 @@ class DbCollections {
   static const collectionAppointments = "appointments";
   static const collectionHealthcare= "healthcare";
   static const collectionVaccination= "vaccination";
+  static const collectionOrderedVaccination= "orderedVaccination";
   static const collectionCovidScreeningVaccination= "covid19_screening_appionment";
   static const collectionVisaScreeningVaccination= "vis_screening_appionment";
   static const collectionNurse= "nurse";

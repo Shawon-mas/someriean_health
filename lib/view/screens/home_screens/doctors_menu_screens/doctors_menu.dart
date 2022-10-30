@@ -246,8 +246,8 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
             children: [
               Image.network(
                 documentSnapshot['image'],
-                height: 100.h,
-                width: 100.w,
+                height: 100,
+                width: 100,
                 fit: BoxFit.cover,
               ),
               Column(
@@ -255,8 +255,8 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                 children: [
                   TextWidget(
                     value: documentSnapshot['name'],
-                    size: 16.sp,
-                    fontWeight: FontWeight.w500,
+                    size: 18.sp,
+                    fontWeight: FontWeight.w700,
                     textColor: Properties.fontColor,
                   ),
                   TextWidget(
@@ -267,7 +267,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                   ),
                   TextWidget(
                     value: documentSnapshot['location'],
-                    size: 12.sp,
+                    size: 14.sp,
                     fontWeight: FontWeight.w500,
                     textColor: Properties.fontColor,
                   ),

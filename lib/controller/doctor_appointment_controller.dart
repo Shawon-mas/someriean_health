@@ -246,16 +246,16 @@ class DoctorAppointmentController extends GetxController {
         .collection(DbCollections.collectionAppointments)
         .doc();
     doc.set({
-      DbDocs.fieldDoctorId: selectedDoctor.uid,
-      DbDocs.fieldPatientNumber: mobileController.text,
-      DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
-      DbDocs.fieldFile: "",
-      DbDocs.fieldMessage: messageController.text,
-      DbDocs.fieldTime: selectedTime.value.format(context).toString(),
-      DbDocs.fieldDateEpoch:
-          selectedDate.value.millisecondsSinceEpoch.toString(),
-      DbDocs.fieldDate:
-          '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
+        DbDocs.fieldDoctorId: selectedDoctor.uid,
+        DbDocs.fieldPatientNumber: mobileController.text,
+        DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
+        DbDocs.fieldFile: "",
+        DbDocs.fieldMessage: messageController.text,
+        DbDocs.fieldTime: selectedTime.value.format(context).toString(),
+        DbDocs.fieldDateEpoch:
+            selectedDate.value.millisecondsSinceEpoch.toString(),
+        DbDocs.fieldDate:
+            '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
     }).then((value) async {
       if (selectedFile.value !=
           "Attachment (previous report file if available)") {

@@ -27,7 +27,11 @@ class Covid19AppointmentController extends GetxController{
   var timeController = TextEditingController();
   var dateController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
-  var selectedCenter=BasicModel(name: "");
+  var selectedCenter=BasicModel(name: "", uid: "");
+  var name = "".obs;
+  List selectedIndex = [];
+  final CollectionReference vaccination = FirebaseFirestore.instance
+      .collection(DbCollections.collectionCovidScreeningVaccination);
   final CollectionReference doctors =
   FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final CollectionReference patients =
