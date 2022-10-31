@@ -56,13 +56,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
                       ),
-                      TextWidget(
-                        value:
-                        controller.selectedDoctor.location,
-                        size: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        textColor: Properties.fontColor,
-                      ),
+
                       TextWidget(
                         value:
                         'Date: ${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',

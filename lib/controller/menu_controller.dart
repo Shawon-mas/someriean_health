@@ -10,6 +10,7 @@ class MenuController extends GetxController {
   var userDoc =
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
   var name = "".obs;
+  var emarites = "".obs;
 
   @override
   void onInit() {
@@ -20,8 +21,8 @@ class MenuController extends GetxController {
   getUserInfo() {
     if (user != null) {
       userDoc.doc(user!.phoneNumber).get().then((doc) {
-        name.value =
-            doc[DbDocs.fieldFirstName] + " " + doc[DbDocs.fieldLastName];
+        name.value = doc[DbDocs.fieldFirstName] + " " + doc[DbDocs.fieldLastName];
+        emarites.value = doc[DbDocs.fieldEmiratesId];
         imagePath.value = doc[DbDocs.fieldImageUrl];
         logger.d(doc[DbDocs.fieldImageUrl]);
       });

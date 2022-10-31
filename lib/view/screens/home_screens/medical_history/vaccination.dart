@@ -49,6 +49,7 @@ class VACCINATION extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: TextWidget(
+                                      edgeInsetsGeometry: EdgeInsets.all(5),
                                       value:vaccinationList[index].date.toString(),
                                       size: 12.sp,
                                       fontWeight: FontWeight.w500,
@@ -57,6 +58,7 @@ class VACCINATION extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: TextWidget(
+                                      edgeInsetsGeometry: EdgeInsets.all(5),
                                       value:vaccinationList[index].dose.toString(),
                                       size: 14.sp,
                                       fontWeight: FontWeight.bold,
@@ -68,22 +70,24 @@ class VACCINATION extends StatelessWidget {
                             ),
                             TextWidget(
                               value:vaccinationList[index].center.toString(),
-                              size: 12.sp,
-                              fontWeight: FontWeight.w500,
+                              size: 14.sp,
+                              fontWeight: FontWeight.w700,
                               textColor: Properties.colorTextBlue,
-                              edgeInsetsGeometry: EdgeInsets.only(),
+                              edgeInsetsGeometry: EdgeInsets.all(5),
                             ),
                             TextWidget(
                               value:vaccinationList[index].facility.toString(),
                               size: 12.sp,
                               fontWeight: FontWeight.w500,
                               textColor: Properties.colorTextBlue,
+                              edgeInsetsGeometry: EdgeInsets.all(5),
                             ),
                             TextWidget(
                               value:vaccinationList[index].location.toString(),
                               size: 12.sp,
                               fontWeight: FontWeight.w500,
                               textColor: Properties.colorTextBlue,
+                              edgeInsetsGeometry: EdgeInsets.all(5),
                             ),
 
                           ],

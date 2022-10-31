@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                   signed: true,
                   decimal: true,
                 ),
-                hintText: "0123456789101",
+                hintText: "508789706",
                 inputBorder: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),

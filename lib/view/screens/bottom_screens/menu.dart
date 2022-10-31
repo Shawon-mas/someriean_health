@@ -84,9 +84,17 @@ class MenuScreen extends StatelessWidget {
                             ),
                           ),
                     TextWidget(
+                      edgeInsetsGeometry: EdgeInsets.zero,
                       value: _controller.name.value,
-                      textColor: Properties.primaryColor,
+                      textColor: Properties.colorTextBlue,
                       size: 24.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    TextWidget(
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                      value: "EID-${_controller.emarites.value}",
+                      textColor: Properties.colorTextBlue,
+                      size: 20.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ],

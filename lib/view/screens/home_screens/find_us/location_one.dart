@@ -32,20 +32,7 @@ class LocationOneScreen extends StatelessWidget {
             {
           return InkWell(
             onTap: (){
-             // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
-              if(index==0){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
-              }if(index==1){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
-              }if(index==2){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
-              }if(index==3){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
-              }if(index==4){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
-              }if(index==5){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
-              }
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
 
             },
             child: Container(
