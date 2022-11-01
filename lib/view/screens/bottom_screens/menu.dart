@@ -27,7 +27,7 @@ class MenuScreen extends StatelessWidget {
     'About Application',
     'About Somerian Health',
     'Language Preferences',
-    'Settings',
+
   ];
   List<IconData> _iconTypes = [
     FluentSystemIcons.ic_fluent_person_regular,
@@ -37,7 +37,7 @@ class MenuScreen extends StatelessWidget {
     FluentSystemIcons.ic_fluent_info_regular,
     Icons.dashboard,
     FluentSystemIcons.ic_fluent_local_language_regular,
-    FluentSystemIcons.ic_fluent_settings_regular,
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -151,9 +151,7 @@ class MenuScreen extends StatelessWidget {
                       if (index == 6) {
                         infoSnackBar(context, 'Coming soon');
                       }
-                      if (index == 7) {
-                        infoSnackBar(context, 'Coming soon');
-                      }
+
                     },
                     child: ListTile(
                       title: TextWidget(

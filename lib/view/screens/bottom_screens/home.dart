@@ -20,6 +20,7 @@ import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
+import '../home_screens/manage_appiontment/manage_appionment.dart';
 import '../home_screens/medical_history/medical_history.dart';
 import '../home_screens/reports/reports_type.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
@@ -200,8 +201,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Book Appointment",
                       imageMenu: 'assets/images/booking_appointment.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationScreen()));
+                      //  infoSnackBar(context,'Coming soon');
                       }),
 
                 ],
@@ -219,8 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Manage Appointment",
                       imageMenu: 'assets/images/manage_appointment.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
-                        infoSnackBar(context,'Coming soon');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ManageAppiontment()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Vaccination Appointment",
