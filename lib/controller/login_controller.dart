@@ -42,6 +42,8 @@ class LoginController extends GetxController {
         verificationId = credential.verificationId!;
       },
       verificationFailed: (FirebaseAuthException e) {
+        logger.e(e.code);
+        logger.e(e.message);
         if (e.code == 'invalid-phone-number') {
           logger.d('The provided phone number is not valid.');
           errorSnackBar(context, 'The provided phone number is not valid.');
