@@ -9,6 +9,7 @@ import 'package:somerian_health/routes/routes.dart';
 import 'firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 //device preview
 /*
 DevicePreview(
@@ -23,10 +24,13 @@ void main() async {
   );
   await Hive.initFlutter();
   await Hive.openBox(hiveBox);
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => MyApp(), // Wrap your app
-  ),);
+  runApp(
+    DevicePreview(
+      //enabled: !kReleaseMode,
+      enabled: false,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

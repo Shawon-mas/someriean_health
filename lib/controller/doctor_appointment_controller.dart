@@ -13,6 +13,7 @@ import 'package:path/path.dart';
 import '../routes/routes.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/widget/general_button.dart';
+import 'package:http/http.dart' as http;
 
 class DoctorAppointmentController extends GetxController {
   var selectedDate = DateTime.now().obs;
@@ -284,8 +285,7 @@ class DoctorAppointmentController extends GetxController {
       }
       /* Setting appointment for doctor or nurse according to service providers*/
       FirebaseFirestore.instance
-          .collection(
-              serviceProvider(selectedDoctor.serviceProvider.name))
+          .collection(serviceProvider(selectedDoctor.serviceProvider.name))
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
@@ -297,6 +297,15 @@ class DoctorAppointmentController extends GetxController {
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
           .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
+      String number = mobileController.text.substring(4);
+      String message =
+          "Dear ${firstNameController.text} ${lastNameController.text}, confirmed your appointment with ${selectedDoctor.name}(${selectedDoctor.title}) Date: ${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year} Place: ${selectedDoctor.location} Time: ${selectedTime.value.format(context).toString()}";
+      String url =
+          "http://www.mshastra.com/sendurlcomma.aspx?user=20099446&pwd=Achcc@1234&senderid=AD-SOMERIAN&CountryCode=+971&mobileno=$number&msgtext=$message&smstype=0";
+      http.get(Uri.parse(url)).then((value) {
+        logger.d(value.body);
+      });
+      successSnackBar(context, "Appointment booked");
     });
     isProcessing.value = false;
     Get.back();

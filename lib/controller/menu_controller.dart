@@ -21,10 +21,19 @@ class MenuController extends GetxController {
   getUserInfo() {
     if (user != null) {
       userDoc.doc(user!.phoneNumber).get().then((doc) {
-        name.value = doc[DbDocs.fieldFirstName] + " " + doc[DbDocs.fieldLastName];
-        emarites.value = doc[DbDocs.fieldEmiratesId];
-        imagePath.value = doc[DbDocs.fieldImageUrl];
-        logger.d(doc[DbDocs.fieldImageUrl]);
+        name.value =
+            doc[DbDocs.fieldFirstName] + " " + doc[DbDocs.fieldLastName];
+        if (doc.data()!.containsKey(DbDocs.fieldEmiratesId)) {
+          emarites.value = doc[DbDocs.fieldEmiratesId];
+        } else {
+          emarites.value = "";
+        }
+        if (doc.data()!.containsKey(DbDocs.fieldImageUrl)) {
+          imagePath.value = doc[DbDocs.fieldImageUrl];
+          logger.d(doc[DbDocs.fieldImageUrl]);
+        } else {
+          imagePath.value = "";
+        }
       });
     }
   }

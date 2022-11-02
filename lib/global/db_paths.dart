@@ -17,6 +17,7 @@ class DbDocs {
 
   /*Slider Image*/
   static const fieldImageUrl = "imageUrl";
+  static const fieldImage = "image";
   static const fieldUrl = "url";
   static const fieldTitle = "title";
 
