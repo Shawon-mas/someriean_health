@@ -98,7 +98,7 @@ class ManageAppiontment extends StatelessWidget {
                         ),
                         AppointmentButton(
                           onPressed: () {
-                            _controller.deleteAppointment(appointment.uid);
+                            _controller.deleteAppointment(appointment.uid, appointment.doctorId, context);
                           },
                           value: 'Cancel Appointment',
                         ),
