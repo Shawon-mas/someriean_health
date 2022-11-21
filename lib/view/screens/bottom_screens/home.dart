@@ -208,9 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -224,8 +222,8 @@ class _HomeScreenState extends State<HomeScreen> {
                        // infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
-                      menuTittle: "Vaccination Appointment",
-                      imageMenu: 'assets/images/vaccination_appointment.png',
+                      menuTittle: "Ambulance Services",
+                      imageMenu: 'assets/images/ambulance.png',
                       onPressed: (){
                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
                       //  infoSnackBar(context,'Coming soon');
@@ -243,15 +241,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   HomeMenu(
-                      menuTittle: "Covid-19 Screening Appointment",
-                      imageMenu: 'assets/images/covid_19.png',
+                      menuTittle: "Emergency Contact",
+                      imageMenu: 'assets/images/alarm.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
-                        //infoSnackBar(context,'Coming soon');
+                         //Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
+                        infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
-                      menuTittle: "Visa Screening Appointment",
-                      imageMenu: 'assets/images/visa.png',
+                      menuTittle: "E-pharmacy",
+                      imageMenu: 'assets/images/pharmacy.png',
                       onPressed: (){
                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
                       //  infoSnackBar(context,'Coming soon');
