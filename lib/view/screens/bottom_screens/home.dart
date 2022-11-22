@@ -225,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Ambulance Services",
                       imageMenu: 'assets/images/ambulance.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
@@ -251,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "E-pharmacy",
                       imageMenu: 'assets/images/pharmacy.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
