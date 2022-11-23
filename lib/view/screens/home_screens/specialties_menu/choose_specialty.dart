@@ -22,7 +22,7 @@ class ChooseSpecialty extends StatefulWidget {
 class _ChooseSpecialtyState extends State<ChooseSpecialty> {
   final CollectionReference _doctors =
       FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
-
+  final List selectedIndexs = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,19 +54,29 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                         itemBuilder: (context, index) {
                           final DocumentSnapshot documentSnapshot =
                               snapshot.data!.docs[index];
+                          final _isSelected = selectedIndexs.contains(index);
                           return InkWell(
                             onTap: () {
                               //DoctorsList
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
+                              setState(() {
+                                if (_isSelected) {
+                                  selectedIndexs.remove(index);
+                                } else {
+                                  selectedIndexs.add(index);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
                                       builder: (context) => DoctorsList(
-                                            speciality:
-                                                doctors[index].title,
-                                            controller: widget._controller,
-                                  ),
-                                ),
-                              );
+                                        speciality:
+                                        doctors[index].title,
+                                        controller: widget._controller,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              });
+
+
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -74,7 +84,11 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                                 decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)),
-                                  color: Properties.primaryColor,
+                                  border: Border.all(
+                                    color: Colors.red, //                   <--- border color
+                                    width: 1.w,
+                                  ),
+                                  color:_isSelected?Properties.primaryColor: Colors.white,
                                 ),
                                 width: double.maxFinite,
                                 height: 50.h,
@@ -85,7 +99,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                                     value: doctors[index].title,
                                     size: 14.sp,
                                     fontWeight: FontWeight.w500,
-                                    textColor: Colors.white,
+                                    textColor:_isSelected?Colors.white:Properties.primaryColor,
                                   ),
                                 ),
                               ),

@@ -12,6 +12,7 @@ import '../../../model/slider_model.dart';
 import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
+import '../home_screens/ambulance/ambulance_list.dart';
 import '../home_screens/contact_us/contact_us.dart';
 import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
@@ -225,7 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Ambulance Services",
                       imageMenu: 'assets/images/ambulance.png',
                       onPressed: (){
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Ambulance_List()));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                 ],

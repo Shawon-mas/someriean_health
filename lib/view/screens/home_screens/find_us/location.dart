@@ -20,13 +20,6 @@ class _LocationScreenState extends State<LocationScreen> {
   List<String> _center=[
     'Abu Dhabi & Al Ain',
     'Dubai & Northern Emirates',
-    /*'American Crescent Health Care Centre',
-    'Somerian Health Diagnostic Centre- Musafah',
-    'Somerian Health Diagnostic Centre- Mafraq',
-    'Emirates Field Hospital',
-    'Mussafah Prime Assessment Center',
-    'Emirates Humanitarian City',
-    'Somerian Care Medical clinic',*/
   ];
 
   @override
