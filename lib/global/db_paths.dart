@@ -66,5 +66,6 @@ class DbCollections {
   static const collectionNurse= "nurse";
   static const collectionReport= "reports";
   static const collectionAmbulance= "ambulance";
+  static const collectionInsurance= "insurance";
 }
 //.collection("covid19_screening_appionment")

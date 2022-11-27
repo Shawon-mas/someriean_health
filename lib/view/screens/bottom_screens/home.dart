@@ -21,6 +21,7 @@ import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
+import '../home_screens/insurance/insurance_list.dart';
 import '../home_screens/manage_appiontment/manage_appionment.dart';
 import '../home_screens/medical_history/medical_history.dart';
 import '../home_screens/reports/reports_type.dart';
@@ -170,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Insurance",
                       imageMenu: 'assets/images/insurance.png',
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Insurance()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>InsuranceList()));
                       //   infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
