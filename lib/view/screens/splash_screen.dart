@@ -6,14 +6,40 @@ import 'package:somerian_health/view/screens/login_screen.dart';
 
 import 'auth_screen.dart';
 
-class SplashScreen extends StatelessWidget {
-  final _controller = Get.put(GlobalController());
-
+class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
+  final controller = Get.put(GlobalController());
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  initState() {
+    super.initState();
+
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 3000),
+        vsync: this,
+        value: 0,
+        lowerBound: 0,
+        upperBound: 1
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
+
+    _controller.forward();
+  }
+
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    _controller.getCurrentUser();
+    controller.getCurrentUser();
     return Scaffold(
         body: Stack(
       children: [
@@ -22,11 +48,14 @@ class SplashScreen extends StatelessWidget {
             color: Properties.primaryColor,
           ),
         ),
-        Center(
-          child: SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Image.asset('assets/images/splash.png'),
+          Center(
+          child: FadeTransition(
+            opacity: _animation,
+            child: SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Image.asset('assets/images/splash.png'),
+              ),
             ),
           ),
         )

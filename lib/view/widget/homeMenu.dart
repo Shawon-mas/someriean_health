@@ -19,47 +19,53 @@ class HomeMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Container(
-        height: 130.h,
-        width: 130.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: Properties.primaryColor,
-          ),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 10,
-              child: Container(
-                height: 90.h,
-                width: 130.h,
-                color: Properties.primaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    imageMenu,
-                    height: 80.h,
-                    width: 130.h,
+      child: Column(
+        children: [
+          Container(
+            height: 120.h,
+            width: 140.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 8), // changes position of shadow
+                ),
+              ],
+            ),
+
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Image.asset(
+                      imageMenu,
+                      height: 80.h,
+                      width: 140.h,
+                    ),
                   ),
-                ),
+                  SizedBox(height: 10.h,),
+                  Expanded(
+                    flex: 4,
+                    child: TextWidget(
+                      textColor: Properties.primaryColor,
+                      value: menuTittle,
+                      textAlign: TextAlign.center,
+                      size: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      edgeInsetsGeometry: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              flex: 4,
-              child: Center(
-                child: TextWidget(
-                  value: menuTittle,
-                  textAlign: TextAlign.center,
-                  size: 12.sp,
-                  fontWeight: FontWeight.w700,
-                  edgeInsetsGeometry: EdgeInsets.zero,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

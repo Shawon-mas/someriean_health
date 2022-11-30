@@ -1,6 +1,7 @@
 
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 
 import 'package:somerian_health/global/properties.dart';
 
@@ -43,22 +44,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
-              FluentSystemIcons.ic_fluent_home_filled,
+              IconlyLight.home,
             ),
             label: 'Home',
             backgroundColor: Properties.primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(FluentSystemIcons.ic_fluent_search_filled,),
+            icon: Icon(IconlyLight.search,),
             label: 'Search',
             backgroundColor: Properties.primaryColor,
           ),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_report_warning_regular),
+              icon: Icon(IconlyLight.paper),
               label: 'Report',
               backgroundColor: Properties.primaryColor),
           BottomNavigationBarItem(
-              icon: Icon(FluentSystemIcons.ic_fluent_navigation_filled,),
+              icon: Icon(IconlyLight.profile,),
               label: 'Menu',
               backgroundColor: Properties.primaryColor),
         ],
@@ -74,5 +75,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 }
+//ed1c24
 
 

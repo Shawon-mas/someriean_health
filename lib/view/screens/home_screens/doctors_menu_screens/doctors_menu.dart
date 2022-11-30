@@ -305,13 +305,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                 title: documentSnapshot['title'],
                 serviceProvider: ServiceProvider.Doctor,
               );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TimeDateScreen(
-                    controller: _controller,
-                  ),
-                ),
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TimeDateScreen(controller: _controller,),),
               );
             },
             value: 'Book an Appointment',

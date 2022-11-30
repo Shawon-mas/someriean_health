@@ -71,7 +71,8 @@ class _PackagesListScreenState extends State<PackagesListScreen> {
                                             Colors.white60,
                                             Properties.primaryColor,
                                           ])),
-                                    ))
+                                    )
+                                )
                               ],
                             ),
                           ),

@@ -30,7 +30,7 @@ class GlobalController extends GetxController {
   }
 
   _redirect(bool userExists) {
-    Future.delayed(const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       if (userExists) {
         Get.offAllNamed(bottom);
       } else {

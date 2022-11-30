@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:somerian_health/global/properties.dart';
 
 import '../../../global/db_paths.dart';
 import '../../../global/global_constants.dart';
@@ -12,11 +13,15 @@ import '../../../model/slider_model.dart';
 import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
+import '../../widget/text_widget.dart';
 import '../home_screens/ambulance/ambulance_list.dart';
 import '../home_screens/contact_us/contact_us.dart';
 import '../home_screens/covid19/screening_center.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
+import '../home_screens/e-pharmacy/epharmacy_item.dart';
+import '../home_screens/emergency/emergency_contact.dart';
 import '../home_screens/find_us/location.dart';
+import '../home_screens/find_us/location_one.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_location.dart';
@@ -137,6 +142,23 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10,
             ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextWidget(
+                  textColor: Properties.colorTextBlue,
+                  value: "Our Services",
+                  textAlign: TextAlign.center,
+                  size: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  edgeInsetsGeometry: EdgeInsets.zero,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -162,6 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
+
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -196,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Find us",
                       imageMenu: 'assets/images/clinic.png',
                       onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationOneScreen(title: 'Find us',)));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
@@ -247,14 +271,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Emergency Contact",
                       imageMenu: 'assets/images/alarm.png',
                       onPressed: (){
-                         //Navigator.push(context, MaterialPageRoute(builder: (context)=>ScreeningCenterScreen()));
-                        infoSnackBar(context,'Coming soon');
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>EmergencyContact()));
+                       // infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "E-pharmacy",
                       imageMenu: 'assets/images/pharmacy.png',
                       onPressed: (){
-                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>EpharmacyList()));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                 ],
@@ -277,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }),
                   HomeMenu(
                       menuTittle: "Teleconsultation",
-                      imageMenu: 'assets/images/teleconsultation.png',
+                      imageMenu: 'assets/images/medical.png',
                       onPressed: (){
                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Teleconsultation()));
                       // infoSnackBar(context,'Coming soon');
