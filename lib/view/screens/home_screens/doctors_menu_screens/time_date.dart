@@ -218,6 +218,12 @@ class TimeDateScreen extends StatelessWidget {
                         height: 20,
                       ),
                       customTextField(
+                          textEditingController: controller.emiratesController,
+                          helperText: "Emirates Id"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      customTextField(
                           textEditingController: controller.nationalityController,
                           helperText: "Nationality"),
                       Column(
@@ -240,7 +246,86 @@ class TimeDateScreen extends StatelessWidget {
                             ),
                             child: Obx(
                                   () => DropdownButton(
-                                hint: const Text('Select Payment Method'),
+                                hint: const Text('Select Appointment Type'),
+                                isExpanded: true,
+                                value: controller.valueAppointment.value == "" ? null : controller.valueAppointment.value,
+                                underline: const SizedBox(),
+                                onChanged: (newValue) {
+                                  controller.valueAppointment.value = newValue as String;
+                                },
+                                items: controller.appointmentType.map((valuItem) {
+                                  return DropdownMenuItem(
+                                    value: valuItem,
+                                    child: Text(valuItem),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          
+                          Obx(() =>
+                              Visibility(
+                                visible: controller.valueAppointment.value=='Others',
+
+                                  child:Column(
+                                    children: [
+                                      TextField(
+                                        controller:controller.relationController,
+                                        enabled: true,
+                                        decoration: InputDecoration(
+                                          helperText: 'Relationship',
+                                          isDense: true,
+                                        //  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide:
+                                            const BorderSide(color: Colors.black54, width: 1.0),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h,),
+                                      TextField(
+                                        controller:controller.relationController,
+                                        enabled: true,
+                                        decoration: InputDecoration(
+                                          helperText: 'Number',
+                                          isDense: true,
+                                          //  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide:
+                                            const BorderSide(color: Colors.black54, width: 1.0),
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),)
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Obx(
+                                  () => DropdownButton(
+                                      hint: const Text('Select Payment Method'),
                                 isExpanded: true,
                                 value: controller.valuePayment.value == "" ? null : controller.valuePayment.value,
                                 underline: const SizedBox(),
@@ -313,7 +398,7 @@ class TimeDateScreen extends StatelessWidget {
                                   infoSnackBar(context, "Coming Soon");
                                 } else {
                                   controller.proceedPayment(context, controller);
-                                  //test();
+
                                 }
                               },
                               value: 'Proceed',

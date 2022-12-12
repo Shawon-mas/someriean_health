@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
 
                       ),
-                      items: sliders
+                             items: sliders
                               .map(
                                 (e) => ClipRRect(
                               borderRadius: BorderRadius.circular(5),
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         )
                         : const Center(
-                      child: CircularProgressIndicator(),
+                             child: CircularProgressIndicator(),
                     );
                   }),
             ),
@@ -251,9 +251,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Ambulance Services",
                       imageMenu: 'assets/images/ambulance.png',
                       onPressed: (){
-                      //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
+
+                        //    Navigator.push(context, MaterialPageRoute(builder: (context)=>VaccinationScreen()));
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Ambulance_List()));
                       //  infoSnackBar(context,'Coming soon');
+
                       }),
                 ],
               ),

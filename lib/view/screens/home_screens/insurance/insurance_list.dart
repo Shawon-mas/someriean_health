@@ -15,6 +15,9 @@ class InsuranceList extends StatefulWidget {
 class _InsuranceListState extends State<InsuranceList> {
   final CollectionReference _insurance = FirebaseFirestore.instance.collection(DbCollections.collectionInsurance);
   String name = "";
+
+  List<String> item=[];
+  List<String>? itemListSearch;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +32,8 @@ class _InsuranceListState extends State<InsuranceList> {
                 //  controller: searchController,
                 onChanged: (value) {
                   setState(() {
+                    itemListSearch=item.where((element) => element
+                    .toLowerCase().contains(value.toLowerCase())).toList();
                     name = value;
                   });
                 },
@@ -70,6 +75,7 @@ class _InsuranceListState extends State<InsuranceList> {
                      childAspectRatio: 300 / 250,
                      children: List.generate(snapshot.data!.docs.length, (index) {
                        final DocumentSnapshot documentSnapshot = snapshot.data!.docs[index];
+
                        if(name.isEmpty){
                          return Padding(
                            padding: const EdgeInsets.all(10.0),
@@ -119,8 +125,6 @@ class _InsuranceListState extends State<InsuranceList> {
                                  ),
                                ],
                              ),
-
-
                              child: Image.network(
                                documentSnapshot['image'],
                                height: 100,

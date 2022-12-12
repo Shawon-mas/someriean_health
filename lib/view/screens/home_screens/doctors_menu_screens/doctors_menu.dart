@@ -93,7 +93,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10.h,
+                                  width: 10.w,
                                 ),
                                 Expanded(
                                   flex: 1,
@@ -195,11 +195,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                   ? doctorsList(documentSnapshot, context)
                                   : Visibility(
                                       visible:
-                                          _controller.selectedLocation.value ==
-                                                  location &&
-                                              _controller.selectedSpeciality
-                                                      .value ==
-                                                  speciality,
+                                          _controller.selectedLocation.value == location && _controller.selectedSpeciality.value == speciality,
                                       child: doctorsList(
                                           documentSnapshot, context),
                                     ),

@@ -23,6 +23,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
   final CollectionReference _doctors =
       FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final List selectedIndexs = [];
+  int selectionStatus=-1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,23 +60,19 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                             onTap: () {
                               //DoctorsList
                               setState(() {
-                                if (_isSelected) {
-                                  selectedIndexs.remove(index);
-                                } else {
-                                  selectedIndexs.add(index);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DoctorsList(
-                                        speciality:
-                                        doctors[index].title,
-                                        controller: widget._controller,
-                                      ),
-                                    ),
-                                  );
-                                }
-                              });
+                                 selectionStatus=index;
 
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DoctorsList(
+                                    speciality:
+                                    doctors[index].title,
+                                    controller: widget._controller,
+                                  ),
+                                ),
+                              );
 
                             },
                             child: Padding(
@@ -88,7 +85,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                                     color: Colors.red, //                   <--- border color
                                     width: 1.w,
                                   ),
-                                  color:_isSelected?Properties.primaryColor: Colors.white,
+                                  color:selectionStatus==index?Properties.primaryColor: Colors.white,
                                 ),
                                 width: double.maxFinite,
                                 height: 50.h,
@@ -99,7 +96,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                                     value: doctors[index].title,
                                     size: 14.sp,
                                     fontWeight: FontWeight.w500,
-                                    textColor:_isSelected?Colors.white:Properties.primaryColor,
+                                    textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
                                   ),
                                 ),
                               ),

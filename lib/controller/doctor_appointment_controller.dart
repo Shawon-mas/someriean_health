@@ -20,9 +20,11 @@ class DoctorAppointmentController extends GetxController {
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
   var valuePayment = "".obs;
+  var valueAppointment = "".obs;
   var valueNationality = "".obs;
   final gender = ['Male', 'Female', 'Others'];
   final paymentMethods = ['Cash on Board', 'RazorPay', 'Paypal'];
+  final appointmentType = ['Self', 'Others'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
   var isUploading = false.obs;
   var firstNameController = TextEditingController();
@@ -34,6 +36,8 @@ class DoctorAppointmentController extends GetxController {
   var passportController = TextEditingController();
   var timeAndDateController = TextEditingController();
   var messageController = TextEditingController();
+  var emiratesController = TextEditingController();
+  var relationController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
@@ -81,6 +85,7 @@ class DoctorAppointmentController extends GetxController {
       required String nationality,
       required String passport,
       required String uid,
+      required String emirates,
       required BuildContext context}) {
     isUploading.value = true;
     FirebaseFirestore.instance
@@ -97,6 +102,7 @@ class DoctorAppointmentController extends GetxController {
       DbDocs.fieldNationality: nationality,
       DbDocs.fieldPassport: passport,
       DbDocs.fieldUID: uid,
+      DbDocs.fieldEmiratesId: emirates,
       //add fcm here
     }).then((value) {
       isUploading.value = false;
@@ -120,6 +126,7 @@ class DoctorAppointmentController extends GetxController {
             mobileController.text = number;
             emailController.text = value[DbDocs.fieldEmail];
             genderController.text = value[DbDocs.fieldGender];
+            emiratesController.text = value[DbDocs.fieldEmiratesId];
             nationalityController.text = value[DbDocs.fieldNationality];
           }
         });
@@ -269,7 +276,8 @@ class DoctorAppointmentController extends GetxController {
       DbDocs.fieldDate:
           '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
     }).then((value) async {
-      if (selectedFile.value !=
+      if (
+      selectedFile.value !=
           "Attachment (previous report file if available)") {
         final storageRef = FirebaseStorage.instance.ref();
         final fileRef =

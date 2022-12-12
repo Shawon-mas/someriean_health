@@ -42,7 +42,7 @@ class HomeMenu extends StatelessWidget {
               child: Column(
                 children: [
                   Expanded(
-                    flex: 7,
+                    flex:9,
                     child: Image.asset(
                       imageMenu,
                       height: 80.h,
@@ -51,13 +51,13 @@ class HomeMenu extends StatelessWidget {
                   ),
                   SizedBox(height: 10.h,),
                   Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: TextWidget(
                       textColor: Properties.primaryColor,
                       value: menuTittle,
                       textAlign: TextAlign.center,
                       size: 16.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       edgeInsetsGeometry: EdgeInsets.zero,
                     ),
                   ),
