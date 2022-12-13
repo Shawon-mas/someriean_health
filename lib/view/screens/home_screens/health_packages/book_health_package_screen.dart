@@ -215,6 +215,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
+
                                         ],
                                       ),
                                     ],
@@ -227,13 +228,64 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                             );
                     },
                   ),
+
                 ],
               ),
+            ),
+            ListTile(
+              //leading: Text("AED"),
+              subtitle: Text("Price"),
+              title: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  "AED " + price,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                controller: controller.messageController,
+                enabled: true,
+                decoration: InputDecoration(
+                  helperText: 'Message',
+                  hintText: "Message (Optional)",
+                  isDense: true,
+                  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                    const BorderSide(color: Colors.black54, width: 1.0),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Obx(() => AppointmentButton(
+                isLoading: controller.isProcessing.value,
+                onPressed: () {
+                  controller.proceedPayment(context, controller);
+                },
+                value: 'Proceed',
+              )),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
+      /*bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: AppointmentButton(
           onPressed: () {
@@ -241,7 +293,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
           },
           value: 'Proceed',
         ),
-      ),
+      ),*/
     );
   }
 

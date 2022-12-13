@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../controller/epharmacy_controller.dart';
+import '../../../../global/global_constants.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
+import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 class ItemDetails extends StatelessWidget {
   final EpharmacyController controller;
@@ -66,6 +68,16 @@ class ItemDetails extends StatelessWidget {
           ),
 
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: AppointmentButton(
+          onPressed: () {
+           // controller.proceedDialog(context, controller);
+            infoSnackBar(context, "Coming Soon");
+          },
+          value: 'Buy now',
+        ),
       ),
     );
   }

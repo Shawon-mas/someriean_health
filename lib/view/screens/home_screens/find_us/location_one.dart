@@ -5,6 +5,7 @@ import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../covid19/screening_center.dart';
+import '../doctors_menu_screens/doctors_menu.dart';
 import '../vaccination/vaccination.dart';
 import '../visa/visa_screening_center.dart';
 import 'facility.dart';
@@ -19,6 +20,7 @@ class LocationOneScreen extends StatefulWidget {
 
 class _LocationOneScreenState extends State<LocationOneScreen> {
   final List selectedIndexs = [];
+  int selectionStatus=-1;
   @override
   Widget build(BuildContext context) {
     List<String> _center = [
@@ -42,18 +44,10 @@ class _LocationOneScreenState extends State<LocationOneScreen> {
               return InkWell(
                 onTap: () {
                   setState(() {
-                    if (_isSelected) {
-                      selectedIndexs.remove(index);
-                    } else {
-                      selectedIndexs.add(index);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FacilityScreen(
-                                    title: _center[index],
-                                  )));
-                    }
+                    selectionStatus=index;
                   });
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
@@ -63,7 +57,7 @@ class _LocationOneScreenState extends State<LocationOneScreen> {
                       color: Colors.red, //                   <--- border color
                       width: 1.w,
                     ),
-                    color:_isSelected?Properties.primaryColor: Colors.white,
+                    color:selectionStatus==index?Properties.primaryColor: Colors.white,
                   ),
                   width: double.maxFinite,
                   height: 50.h,
@@ -73,7 +67,7 @@ class _LocationOneScreenState extends State<LocationOneScreen> {
                       value: _center[index],
                       size: 14.sp,
                       fontWeight: FontWeight.w500,
-                      textColor:_isSelected?Colors.white:Properties.primaryColor,
+                      textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
                     ),
                   ),
                 ),

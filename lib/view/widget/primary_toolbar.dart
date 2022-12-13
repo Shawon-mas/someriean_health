@@ -12,14 +12,12 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Properties.primaryColor,
-      leading: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-          child: Image.asset(
-            'assets/images/splash.png',
-            height: 50,
-            width: 50,
-          ),
+      leading: Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+        child: Image.asset(
+          'assets/images/splash.png',
+       /*   height: 70.h,
+          width: 50.w,*/
         ),
       ),
       actions:appbarIcons,

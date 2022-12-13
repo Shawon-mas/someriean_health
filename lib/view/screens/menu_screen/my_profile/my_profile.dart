@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/bottombar_screen.dart';
+import 'package:somerian_health/view/screens/menu_screen/my_profile/document.dart';
 import 'package:somerian_health/view/screens/menu_screen/my_profile/personal_details.dart';
 
 import '../../../widget/common_toolbar.dart';
@@ -117,14 +118,8 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                 controller: tabController,
                 children: [
                   PersonalDetailsScreen(),
-                  Center(
-                    child: TextWidget(
-                      value: 'No Document Found',
-                      size: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      textColor: Properties.colorTextBlue,
-                    ),
-                  ),
+                  Document(),
+
                 ],
               ),
             )
