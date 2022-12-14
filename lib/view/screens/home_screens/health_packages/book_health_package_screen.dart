@@ -12,14 +12,12 @@ class BookHealthCarePackageScreen extends StatelessWidget {
   final String uid;
   final String price;
   final String healthCareId;
-  BookHealthCarePackageScreen(
-      {Key? key, required this.uid, required this.price, required this.healthCareId})
-      : super(key: key);
+
+  BookHealthCarePackageScreen({Key? key, required this.uid, required this.price, required this.healthCareId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller =
-        Get.put(HealthcareController(context: context, uid: uid, price: price, healthcareId: healthCareId));
+    final controller = Get.put(HealthcareController(context: context, uid: uid, price: price, healthcareId: healthCareId));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CommonToolbar(title: 'Book Healthcare Package'),
@@ -42,53 +40,41 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: customTextField(
-                            textEditingController:
-                                controller.firstNameController,
-                            helperText: "First Name"),
+                        child: customTextField(textEditingController: controller.firstNameController, helperText: "First Name"),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: customTextField(
-                            textEditingController:
-                                controller.lastNameController,
-                            helperText: "Last Name"),
+                        child: customTextField(textEditingController: controller.lastNameController, helperText: "Last Name"),
                       ),
                     ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(
-                      textEditingController: controller.mobileController,
-                      helperText: "Mobile No"),
+                  customTextField(textEditingController: controller.mobileController, helperText: "Mobile No"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(
-                      textEditingController: controller.emailController,
-                      helperText: "Email Id"),
+                  customTextField(textEditingController: controller.emailController, helperText: "Email Id"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(
-                      textEditingController: controller.genderController,
-                      helperText: "Gender"),
+                  customTextField(textEditingController: controller.genderController, helperText: "Gender"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(
-                      textEditingController: controller.nationalityController,
-                      helperText: "Nationality"),
+                  customTextField(textEditingController: controller.nationalityController, helperText: "Nationality"),
                   const SizedBox(
                     height: 20,
                   ),
@@ -142,10 +128,8 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                         for (var data in snapshot.data!.docs) {
                           controller.locations.value.add(data['location']);
                         }
-                        controller.selectedLocation.value =
-                            controller.locations.first;
-                        controller.locations.value =
-                            controller.locations.toSet().toList();
+                        controller.selectedLocation.value = controller.locations.first;
+                        controller.locations.value = controller.locations.toSet().toList();
                       }
                       return snapshot.hasData
                           ? Column(
@@ -158,10 +142,8 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             padding: const EdgeInsets.symmetric(
@@ -172,8 +154,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                               border: Border.all(
                                                 color: Colors.grey,
                                               ),
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(10),
                                               ),
                                             ),
@@ -182,26 +163,16 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                                 hint: Text('Location'),
                                                 isExpanded: true,
                                                 underline: const SizedBox(),
-                                                value: controller
-                                                            .selectedLocation
-                                                            .value ==
-                                                        ""
-                                                    ? null
-                                                    : controller
-                                                        .selectedLocation.value,
-                                                icon: const Icon(
-                                                    Icons.keyboard_arrow_down),
-                                                items: controller.locations
-                                                    .map((items) {
+                                                value: controller.selectedLocation.value == "" ? null : controller.selectedLocation.value,
+                                                icon: const Icon(Icons.keyboard_arrow_down),
+                                                items: controller.locations.map((items) {
                                                   return DropdownMenuItem(
                                                     value: items,
                                                     child: Text(items),
                                                   );
                                                 }).toList(),
                                                 onChanged: (newValue) {
-                                                  controller.selectedLocation
-                                                          .value =
-                                                      newValue as String;
+                                                  controller.selectedLocation.value = newValue as String;
                                                 },
                                               ),
                                             ),
@@ -215,7 +186,6 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                     ],
@@ -228,7 +198,6 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                             );
                     },
                   ),
-
                 ],
               ),
             ),
@@ -265,8 +234,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide:
-                    const BorderSide(color: Colors.black54, width: 1.0),
+                    borderSide: const BorderSide(color: Colors.black54, width: 1.0),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
@@ -275,12 +243,12 @@ class BookHealthCarePackageScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() => AppointmentButton(
-                isLoading: controller.isProcessing.value,
-                onPressed: () {
-                  controller.proceedPayment(context, controller);
-                },
-                value: 'Proceed',
-              )),
+                    isLoading: controller.isProcessing.value,
+                    onPressed: () {
+                      controller.proceedPayment(context, controller);
+                    },
+                    value: 'Proceed',
+                  )),
             ),
           ],
         ),
@@ -297,11 +265,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
     );
   }
 
-  Widget customTextField(
-      {required TextEditingController textEditingController,
-      required String helperText,
-      bool? enabled = false,
-      Widget? trailingIcon}) {
+  Widget customTextField({required TextEditingController textEditingController, required String helperText, bool? enabled = false, Widget? trailingIcon}) {
     return TextField(
       enabled: enabled,
       controller: textEditingController,
@@ -315,8 +279,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide:
-              const BorderSide(color: Properties.primaryColor, width: 1.0),
+          borderSide: const BorderSide(color: Properties.primaryColor, width: 1.0),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),

@@ -31,6 +31,8 @@ class DbDocs {
   static const fieldDate = "date";
   static const fieldDateEpoch = "dateEpoch";
   static const fieldServiceProvider = "serviceProvider";
+  static const fieldRelationship = "relationship";
+  static const fieldOtherNumber = "otherNumber";
   static const fieldCancelled = "cancelled"; //bool
 
   /* AppointmentId */

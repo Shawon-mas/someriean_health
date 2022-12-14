@@ -288,7 +288,7 @@ class TimeDateScreen extends StatelessWidget {
                                       ),
                                       SizedBox(height: 5.h,),
                                       TextField(
-                                        controller:controller.relationController,
+                                        controller:controller.numberController,
                                         enabled: true,
                                         decoration: InputDecoration(
                                           helperText: 'Number',
@@ -398,7 +398,6 @@ class TimeDateScreen extends StatelessWidget {
                                   infoSnackBar(context, "Coming Soon");
                                 } else {
                                   controller.proceedPayment(context, controller);
-
                                 }
                               },
                               value: 'Proceed',

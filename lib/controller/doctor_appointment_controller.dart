@@ -38,32 +38,21 @@ class DoctorAppointmentController extends GetxController {
   var messageController = TextEditingController();
   var emiratesController = TextEditingController();
   var relationController = TextEditingController();
+  var numberController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
   var speciality = <String>[].obs;
   var selectedSpeciality = "".obs;
-  var selectedDoctor = SelectedDoctorModel(
-      uid: "",
-      name: "",
-      image: "",
-      location: "",
-      title: "",
-      serviceProvider: ServiceProvider.Doctor);
+  var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
 
-  final CollectionReference doctors =
-      FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
-  final CollectionReference patients =
-      FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
+  final CollectionReference doctors = FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
+  final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
 
   selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime(DateTime.now().year),
-        firstDate: DateTime(1950, 8),
-        lastDate: DateTime(2101));
+    DateTime? picked = await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year), firstDate: DateTime(1950, 8), lastDate: DateTime(2101));
     selectedDate.value = picked!;
   }
 
@@ -88,10 +77,7 @@ class DoctorAppointmentController extends GetxController {
       required String emirates,
       required BuildContext context}) {
     isUploading.value = true;
-    FirebaseFirestore.instance
-        .collection(DbCollections.collectionPatients)
-        .doc(mobileNo)
-        .set({
+    FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(mobileNo).set({
       DbDocs.fieldFirstName: firstName,
       DbDocs.fieldLastName: lastName,
       DbDocs.fieldDob: '${dob.day}/${dob.month}/${dob.year}',
@@ -216,8 +202,7 @@ class DoctorAppointmentController extends GetxController {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.black54, width: 1.0),
+                  borderSide: const BorderSide(color: Colors.black54, width: 1.0),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
@@ -257,37 +242,28 @@ class DoctorAppointmentController extends GetxController {
     logger.d(selectedDoctor.serviceProvider.name);
   }
 
-  proceedPayment(
-      BuildContext context, DoctorAppointmentController controller) async {
+  proceedPayment(BuildContext context, DoctorAppointmentController controller) async {
     isProcessing.value = true;
-    var doc = FirebaseFirestore.instance
-        .collection(DbCollections.collectionAppointments)
-        .doc();
+    var doc = FirebaseFirestore.instance.collection(DbCollections.collectionAppointments).doc();
     doc.set({
       DbDocs.fieldDoctorId: selectedDoctor.uid,
       DbDocs.fieldPatientNumber: mobileController.text,
       DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
       DbDocs.fieldFile: "",
       DbDocs.fieldMessage: messageController.text,
+      DbDocs.fieldRelationship: relationController.text,
+      DbDocs.fieldOtherNumber: numberController.text,
       DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
-      DbDocs.fieldDateEpoch:
-          selectedDate.value.millisecondsSinceEpoch.toString(),
-      DbDocs.fieldDate:
-          '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
+      DbDocs.fieldDateEpoch: selectedDate.value.millisecondsSinceEpoch.toString(),
+      DbDocs.fieldDate: '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
     }).then((value) async {
-      if (
-      selectedFile.value !=
-          "Attachment (previous report file if available)") {
+      if (selectedFile.value != "Attachment (previous report file if available)") {
         final storageRef = FirebaseStorage.instance.ref();
-        final fileRef =
-            storageRef.child(doc.id + "/" + basename(selectedFile.value));
+        final fileRef = storageRef.child(doc.id + "/" + basename(selectedFile.value));
         final uploadTask = await fileRef.putFile(File(selectedFile.value));
         String url = await uploadTask.ref.getDownloadURL();
-        FirebaseFirestore.instance
-            .collection(DbCollections.collectionAppointments)
-            .doc(doc.id)
-            .set({
+        FirebaseFirestore.instance.collection(DbCollections.collectionAppointments).doc(doc.id).set({
           DbDocs.fieldFile: url,
         }, SetOptions(merge: true));
       }
@@ -308,8 +284,7 @@ class DoctorAppointmentController extends GetxController {
       String number = mobileController.text.substring(4);
       String message =
           "Dear ${firstNameController.text} ${lastNameController.text}, confirmed your appointment with ${selectedDoctor.name}(${selectedDoctor.title}) Date: ${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year} Place: ${selectedDoctor.location} Time: ${selectedTime.value.format(context).toString()}";
-      String url =
-          "http://www.mshastra.com/sendurlcomma.aspx?user=20099446&pwd=Achcc@1234&senderid=AD-SOMERIAN&CountryCode=+971&mobileno=$number&msgtext=$message&smstype=0";
+      String url = "http://www.mshastra.com/sendurlcomma.aspx?user=20099446&pwd=Achcc@1234&senderid=AD-SOMERIAN&CountryCode=+971&mobileno=$number&msgtext=$message&smstype=0";
       http.get(Uri.parse(url)).then((value) {
         logger.d(value.body);
       });
