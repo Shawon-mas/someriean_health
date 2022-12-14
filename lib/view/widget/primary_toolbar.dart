@@ -16,7 +16,7 @@ class PrimaryToolbar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
         child: Image.asset(
           'assets/images/splash.png',
-       /*   height: 70.h,
+          /*   height: 70.h,
           width: 50.w,*/
         ),
       ),
