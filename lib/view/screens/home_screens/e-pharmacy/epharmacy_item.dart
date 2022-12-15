@@ -8,8 +8,6 @@ import '../../../../global/db_paths.dart';
 import '../../../../global/properties.dart';
 import '../../../../model/epharmacy_model.dart';
 import '../../../widget/common_toolbar.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
 import '../../../widget/text_widget.dart';
 import 'item_details.dart';
 
