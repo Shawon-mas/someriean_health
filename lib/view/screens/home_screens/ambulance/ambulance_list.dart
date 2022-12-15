@@ -12,6 +12,8 @@ import '../../../../model/selected_ambulance_model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+
 import 'ambulance_book.dart';
 class Ambulance_List extends StatelessWidget {
   final _controller = Get.put(AmbulanceController());
@@ -22,7 +24,7 @@ class Ambulance_List extends StatelessWidget {
   Widget build(BuildContext context) {
     final CollectionReference _ambulance =
     FirebaseFirestore.instance.collection(DbCollections.collectionAmbulance);
-
+      var _number= "085921191121";
     return Scaffold(
       appBar: CommonToolbar(title: "Ambulance"),
       body: Column(
@@ -92,7 +94,11 @@ class Ambulance_List extends StatelessWidget {
                                 ),
                                 AppointmentButton(
                                   onPressed: () {
-                                    _controller.selectedAmbulance=SelectedAmbulance(
+
+                                    //FlutterPhoneDirectCaller.callNumber('+085921191121');
+                                    UrlLauncher.launch("tel://21213123123");
+
+                                  /*  _controller.selectedAmbulance=SelectedAmbulance(
                                       uid: documentSnapshot.id,
                                       name: documentSnapshot['name'],
                                       service: documentSnapshot['service'],
@@ -105,7 +111,7 @@ class Ambulance_List extends StatelessWidget {
                                                 AmbulanceBooking(
                                                   controller: _controller,
                                                   controllerDoc: controllerDoc,
-                                                )));
+                                                )));*/
                                    /* AmbulanceBooking
                                    widget.controller.selectedDoctor =
                                         SelectedDoctorModel(
@@ -124,7 +130,7 @@ class Ambulance_List extends StatelessWidget {
                                                   controller: widget.controller,
                                                 )));*/
                                   },
-                                  value: 'Book an Ambulance',
+                                  value: 'Call Ambulance',
                                 ),
                                 Divider(
                                   color: Colors.black54,
