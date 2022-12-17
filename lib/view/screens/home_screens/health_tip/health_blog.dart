@@ -70,18 +70,23 @@ class HealthBlog extends StatelessWidget {
                         textColor: Properties.fontColor,
                       ),
                       SizedBox(height: 5.h,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          TextWidget(
-                            edgeInsetsGeometry: EdgeInsets.zero,
-                            value: 'Read more',
-                            size: 15.sp,
-                            fontWeight: FontWeight.w500,
-                            textColor: Properties.primaryColor,
-                          ),
-                          Icon(Icons.arrow_forward_ios_rounded,color: Properties.primaryColor,size: 15,),
-                        ],
+                      InkWell(
+                        onTap: (){
+
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextWidget(
+                              edgeInsetsGeometry: EdgeInsets.zero,
+                              value: 'Read more',
+                              size: 15.sp,
+                              fontWeight: FontWeight.w500,
+                              textColor: Properties.primaryColor,
+                            ),
+                            Icon(Icons.arrow_forward_ios_rounded,color: Properties.primaryColor,size: 15,),
+                          ],
+                        ),
                       )
 
                     ],

@@ -38,7 +38,7 @@ class HealthTools extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
+        /*  InkWell(
             onTap: (){
               infoSnackBar(context,'Coming soon');
             },
@@ -59,7 +59,7 @@ class HealthTools extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          )*/
         ],
       ),
     );

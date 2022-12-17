@@ -12,7 +12,7 @@ import '../../../../model/selected_ambulance_model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'ambulance_book.dart';
 class Ambulance_List extends StatelessWidget {
@@ -24,7 +24,7 @@ class Ambulance_List extends StatelessWidget {
   Widget build(BuildContext context) {
     final CollectionReference _ambulance =
     FirebaseFirestore.instance.collection(DbCollections.collectionAmbulance);
-      var _number= "085921191121";
+
     return Scaffold(
       appBar: CommonToolbar(title: "Ambulance"),
       body: Column(
@@ -96,7 +96,7 @@ class Ambulance_List extends StatelessWidget {
                                   onPressed: () {
 
                                     //FlutterPhoneDirectCaller.callNumber('+085921191121');
-                                    UrlLauncher.launch("tel://21213123123");
+                                    launch('tel://998');
 
                                   /*  _controller.selectedAmbulance=SelectedAmbulance(
                                       uid: documentSnapshot.id,
