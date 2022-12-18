@@ -24,6 +24,7 @@ import '../home_screens/find_us/location.dart';
 import '../home_screens/find_us/location_one.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
+import '../home_screens/home_care/home_care_facility.dart';
 import '../home_screens/home_care/home_care_location.dart';
 import '../home_screens/insurance/insurance.dart';
 import '../home_screens/insurance/insurance_list.dart';
@@ -227,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Book Appointment",
                       imageMenu: 'assets/images/booking_appointment.png',
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationOneScreen(title: 'Book Appointment',)));
                       //  infoSnackBar(context,'Coming soon');
                       }),
 
@@ -298,15 +299,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       menuTittle: "Home Care",
                       imageMenu: 'assets/images/care.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareLocation()));
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareFacility()));
                       //  infoSnackBar(context,'Coming soon');
                       }),
                   HomeMenu(
                       menuTittle: "Teleconsultation",
                       imageMenu: 'assets/images/medical.png',
                       onPressed: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Teleconsultation()));
-                      // infoSnackBar(context,'Coming soon');
+                       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Teleconsultation()));
+                       infoSnackBar(context,'Coming soon');
                       }),
                 ],
               ),

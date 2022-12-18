@@ -246,7 +246,7 @@ class TimeDateScreen extends StatelessWidget {
                             ),
                             child: Obx(
                                   () => DropdownButton(
-                                hint: const Text('Select Appointment Type'),
+                                hint: const Text('For Whom'),
                                 isExpanded: true,
                                 value: controller.valueAppointment.value == "" ? null : controller.valueAppointment.value,
                                 underline: const SizedBox(),

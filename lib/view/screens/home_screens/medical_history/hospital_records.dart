@@ -7,6 +7,7 @@ import '../../../../model/vaccination-model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
+import '../reports/reports.dart';
 
 
 class MEDICALRECORDS extends StatelessWidget {
@@ -107,20 +108,26 @@ class MEDICALRECORDS extends StatelessWidget {
                                   ),
                                 ),
 
-                                Expanded(
-                                    flex:5,
-                                    child: Row(
-                                  children: [
-                                    TextWidget(
-                                      edgeInsetsGeometry: EdgeInsets.zero,
-                                      value:"View Report",
-                                      size: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                      textColor: Properties.primaryColor,
-                                    ),
-                                    Icon(Icons.arrow_forward_ios_rounded,color:  Properties.primaryColor,)
-                                  ],
-                                ))
+                                InkWell(
+                                  onTap: (){
+                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyReports(title: 'Reports',)));
+
+                                  },
+                                  child: Expanded(
+                                      flex:5,
+                                      child: Row(
+                                    children: [
+                                      TextWidget(
+                                        edgeInsetsGeometry: EdgeInsets.zero,
+                                        value:"View Report",
+                                        size: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        textColor: Properties.primaryColor,
+                                      ),
+                                      Icon(Icons.arrow_forward_ios_rounded,color:  Properties.primaryColor,)
+                                    ],
+                                  )),
+                                )
 
 
                               ],

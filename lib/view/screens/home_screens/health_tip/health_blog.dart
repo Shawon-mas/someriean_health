@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../global/db_paths.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/text_widget.dart';
+import 'blog_details.dart';
 class HealthBlog extends StatelessWidget {
   const HealthBlog({Key? key}) : super(key: key);
 
@@ -72,6 +73,18 @@ class HealthBlog extends StatelessWidget {
                       SizedBox(height: 5.h,),
                       InkWell(
                         onTap: (){
+                          //BlogDetails
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlogDetails(
+                                title: documentSnapshot['title'],
+                                image: documentSnapshot['image'],
+                                longDes: documentSnapshot['long'],
+
+                              ),
+                            ),
+                          );
 
                         },
                         child: Row(

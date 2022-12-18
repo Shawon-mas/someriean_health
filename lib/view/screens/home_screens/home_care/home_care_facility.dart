@@ -8,9 +8,15 @@ import '../../../widget/text_widget.dart';
 import 'home_care_doctor.dart';
 import 'home_care_nurse.dart';
 
-class HomeCareFacility extends StatelessWidget {
+class HomeCareFacility extends StatefulWidget {
   const HomeCareFacility({Key? key, }) : super(key: key);
 
+  @override
+  State<HomeCareFacility> createState() => _HomeCareFacilityState();
+}
+
+class _HomeCareFacilityState extends State<HomeCareFacility> {
+  int selectionStatus=-1;
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
@@ -19,6 +25,7 @@ class HomeCareFacility extends StatelessWidget {
       'Physiotherapist',
       'Home Care Assistant',
     ];
+
     return Scaffold(
       appBar:  CommonToolbar(title: "Home Care"),
       body: Column(
@@ -35,30 +42,46 @@ class HomeCareFacility extends StatelessWidget {
                     return InkWell(
                       onTap: (){
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
-                        if(index==1){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareNurse(title: _center[index],)));
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareDoctor(title: _center[index],)));
-                          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
-                        }
+
+                        setState(() {
+
+                          if(index==1){
+                            selectionStatus=index;
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareNurse(title: _center[index],)));
+
+                          }else{
+                            selectionStatus=index;
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeCareDoctor(title: _center[index],)));
+                            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                          }
+
+                        });
+
 
                       },
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Properties.primaryColor,
-                        ),
-                        width: double.maxFinite,
-                        height: 50.h,
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 10),
-                        child: Center(
-                          child: TextWidget(
-                            value: _center[index],
-                            size: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            textColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                              color: Colors.red, //                   <--- border color
+                              width: 1.w,
+                            ),
+                            color:selectionStatus==index?Properties.primaryColor: Colors.white,
+                          ),
+                          width: double.maxFinite,
+                          height: 50.h,
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 10),
+                          child: Center(
+                            child: TextWidget(
+                              value: _center[index],
+                              size: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
+                            ),
                           ),
                         ),
                       ),

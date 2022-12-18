@@ -12,14 +12,19 @@ import '../home_care/home_care_nurse.dart';
 import 'hospital_records.dart';
 
 
-class MedicalHistory extends StatelessWidget {
+class MedicalHistory extends StatefulWidget {
   const MedicalHistory({Key? key, }) : super(key: key);
 
+  @override
+  State<MedicalHistory> createState() => _MedicalHistoryState();
+}
+
+class _MedicalHistoryState extends State<MedicalHistory> {
+  int selectionStatus=-1;
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
       'PCR Test Result',
-      'Covid-19 Vaccination',
       'Hospital Records',
 
     ];
@@ -39,34 +44,46 @@ class MedicalHistory extends StatelessWidget {
                     return InkWell(
                       onTap: (){
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationTwoScreen(title: location_two,)));
-                        if(index==0){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PCR()));
-                        }
-                        if(index==1){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VACCINATION()));
-                        }
-                        if(index==2){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MEDICALRECORDS()));
 
-                        }
+                        setState(() {
+
+                          if(index==0){
+                            selectionStatus=index;
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>PCR()));
+
+                          }else{
+                            selectionStatus=index;
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MEDICALRECORDS()));
+                            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
+                          }
+
+                        });
+
 
                       },
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Properties.primaryColor,
-                        ),
-                        width: double.maxFinite,
-                        height: 50.h,
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 10),
-                        child: Center(
-                          child: TextWidget(
-                            value: _center[index],
-                            size: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            textColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                              color: Colors.red, //                   <--- border color
+                              width: 1.w,
+                            ),
+                            color:selectionStatus==index?Properties.primaryColor: Colors.white,
+                          ),
+                          width: double.maxFinite,
+                          height: 50.h,
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 10),
+                          child: Center(
+                            child: TextWidget(
+                              value: _center[index],
+                              size: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
+                            ),
                           ),
                         ),
                       ),
