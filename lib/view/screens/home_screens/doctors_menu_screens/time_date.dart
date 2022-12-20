@@ -265,49 +265,107 @@ class TimeDateScreen extends StatelessWidget {
                           
                           Obx(() =>
                               Visibility(
-                                visible: controller.valueAppointment.value=='Others',
+                                visible: controller.valueAppointment.value=='Book for Others',
 
                                   child:Column(
                                     children: [
-                                      TextField(
-                                        controller:controller.relationController,
-                                        enabled: true,
-                                        decoration: InputDecoration(
-                                          helperText: 'Relationship',
-                                          isDense: true,
-                                        //  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(color: Colors.black54, width: 1.0),
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                        ),
-                                      ),
+                                      customTextField(
+                                          textEditingController: controller.relationController,
+                                          helperText: "Relationship"),
+
                                       SizedBox(height: 5.h,),
-                                      TextField(
-                                        controller:controller.numberController,
-                                        enabled: true,
-                                        decoration: InputDecoration(
-                                          helperText: 'Number',
-                                          isDense: true,
-                                          //  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide:
-                                            const BorderSide(color: Colors.black54, width: 1.0),
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                        ),
-                                      ),
+                                      customTextField(
+                                          textEditingController: controller.numberController,
+                                          helperText: "Mobile Number"),
+
                                     ],
                                   ),)
                           ),
-                          Container(
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          customTextField(
+                            edgeInsets: EdgeInsets.fromLTRB(10, 50, 0, 50),
+                              textEditingController: controller.messageController,
+                              helperText: "Message"),
+
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Obx(() => AppointmentButton(
+                              isLoading: controller.isProcessing.value,
+                              onPressed: () {
+                                controller.proceedPayment(context, controller);
+                              },
+                              value: 'Proceed',
+                            )),
+                          ),
+                        ],
+                      )
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget customTextField(
+      {required TextEditingController textEditingController,
+        required String helperText,EdgeInsets? edgeInsets,
+        bool? enabled = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(helperText,style: TextStyle(
+          color: Colors.grey,
+        ),),
+        SizedBox(height: 10,),
+        TextField(
+          enabled: enabled,
+          controller: textEditingController,
+          decoration: InputDecoration(
+           /* helperText: helperText,
+            helperStyle: TextStyle(
+              color: Colors.grey,
+            ),*/
+            contentPadding: edgeInsets,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+              const BorderSide(color: Properties.primaryColor, width: 1.0),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
+}
+/*
+ if (controller.valuePayment.value != "Cash on Board") {
+                                  infoSnackBar(context, "Coming Soon");
+                                } else {
+                                  controller.proceedPayment(context, controller);
+                                }
+
+      Container(
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(
                               horizontal: 10,
@@ -366,98 +424,4 @@ class TimeDateScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            controller:controller.messageController,
-                            enabled: true,
-                            decoration: InputDecoration(
-                              helperText: 'Message',
-                              isDense: true,
-                              contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                const BorderSide(color: Colors.black54, width: 1.0),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Obx(() => AppointmentButton(
-                              isLoading: controller.isProcessing.value,
-                              onPressed: () {
-                                if (controller.valuePayment.value != "Cash on Board") {
-                                  infoSnackBar(context, "Coming Soon");
-                                } else {
-                                  controller.proceedPayment(context, controller);
-                                }
-                              },
-                              value: 'Proceed',
-                            )),
-                          ),
-                        ],
-                      )
-
-                    ],
-                  ),
-                ),
-              ],
-            ),
-
-
-
-
-           /* Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: AppointmentButton(
-                onPressed: () {
-                 // Navigator.push(context, MaterialPageRoute(builder: (context) => BasicDetailsScreen(controller: controller,),),);
-                  controller.timeAndDateController.text =
-                      '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}, ${controller.selectedTime.value.format(context).toString()}';
-                },
-                value: 'Next',
-              ),
-            ),*/
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget customTextField(
-      {required TextEditingController textEditingController,
-        required String helperText,
-        bool? enabled = false}) {
-    return TextField(
-      enabled: enabled,
-      controller: textEditingController,
-      decoration: InputDecoration(
-        helperText: helperText,
-        helperStyle: TextStyle(
-          color: Colors.grey,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide:
-          const BorderSide(color: Properties.primaryColor, width: 1.0),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
-
-
-}
+ */

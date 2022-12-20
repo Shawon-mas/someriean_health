@@ -265,7 +265,10 @@ class BookHealthCarePackageScreen extends StatelessWidget {
     );
   }
 
-  Widget customTextField({required TextEditingController textEditingController, required String helperText, bool? enabled = false, Widget? trailingIcon}) {
+  Widget customTextField({
+    required TextEditingController textEditingController,
+    required String helperText, bool? enabled = false,
+    Widget? trailingIcon}) {
     return TextField(
       enabled: enabled,
       controller: textEditingController,
