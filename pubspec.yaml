@@ -63,6 +63,7 @@ dependencies:
   iconly: ^1.0.1
   flutter_phone_direct_caller: ^2.1.1
   url_launcher: ^6.1.7
+  auto_size_text: ^3.0.0
 
 
 dependency_overrides:

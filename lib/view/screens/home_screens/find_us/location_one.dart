@@ -63,11 +63,13 @@ class _LocationOneScreenState extends State<LocationOneScreen> {
                   height: 50.h,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Center(
-                    child: TextWidget(
-                      value: _center[index],
-                      size: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
+                    child: FittedBox(
+                      child: TextWidget(
+                        value: _center[index],
+                        size: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
+                      ),
                     ),
                   ),
                 ),

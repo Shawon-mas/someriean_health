@@ -25,8 +25,10 @@ class HealthcareController extends GetxController {
   var valueChoose = "".obs;
   var valuePayment = "".obs;
   var valueNationality = "".obs;
+  var valueAppointment = "".obs;
   final gender = ['Male', 'Female', 'Others'];
   final paymentMethods = ['Cash on Board', 'RazorPay', 'Paypal'];
+  final appointmentType = ['Book for Self', 'Book for Others'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
   var isUploading = false.obs;
   var firstNameController = TextEditingController();

@@ -12,7 +12,7 @@ List<EmergencyModel> emergency_model=[
     number: '999'
   ),
   EmergencyModel(
-      image:'assets/images/ambulance.png',
+      image:'assets/images/ambulance_white.png',
       name: 'Ambulance',
       number: '998'
   ),

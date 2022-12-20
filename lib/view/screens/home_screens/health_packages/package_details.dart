@@ -81,60 +81,27 @@ class PackageDetails extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Properties.colorTextBlue),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 15,
-                                      child: TextWidget(
-                                        value: documentSnapshot['title'] ,
-                                        size: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                        textColor: Properties.colorTextBlue,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: InkWell(
-                                        onTap: () {
-                                          showPackageDetails(
-                                              documentSnapshot, context);
-                                        },
-                                        child: Center(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Properties.primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(50)),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                      return Column(
+                        children: [
+                          Html(data: documentSnapshot['details']),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: AppointmentButton(
+                              onPressed: () {
+                                Get.to(
+                                      () => BookHealthCarePackageScreen(
+                                    uid: documentSnapshot.id,
+                                    price: documentSnapshot['price'],
+                                    healthCareId: docId,
+                                  ),
+                                );
+                              },
+                              value: 'Book Now',
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 20,)
+
+                        ],
                       );
                     },
                   );

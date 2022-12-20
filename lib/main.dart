@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: splash,
+          initialRoute: bottom,
           getPages: pages,
           theme: ThemeData(
             textTheme: GoogleFonts.latoTextTheme(

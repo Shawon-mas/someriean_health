@@ -30,48 +30,55 @@ class TimeDateScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(
-                          5,
+                    Expanded(
+                      flex:2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                            5,
+                          ),
                         ),
-                      ),
-                      child: Image.network(
-                        controller.selectedDoctor.image,
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.contain,
+                        child: Image.network(
+                          controller.selectedDoctor.image,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextWidget(
-                          value: controller.selectedDoctor.name,
-                          edgeInsetsGeometry: EdgeInsets.only(
-                              top: 5, left: 10, right: 10, bottom: 5),
-                          size: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          textColor: Properties.fontColor,
-                        ),
-                        TextWidget(
-                          edgeInsetsGeometry: EdgeInsets.only(
-                              left: 10, right: 10, top: 5, bottom: 5),
-                          value: controller.selectedDoctor.title,
-                          size: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          textColor: Properties.fontColor,
-                        ),
-                        TextWidget(
-                          edgeInsetsGeometry: EdgeInsets.only(
-                              left: 10, right: 10, bottom: 10, top: 5),
-                          value: controller.selectedDoctor.location,
-                          size: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          textColor: Properties.fontColor,
-                        ),
-                      ],
+                    FittedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            value: controller.selectedDoctor.name,
+                            edgeInsetsGeometry: EdgeInsets.only(
+                                top: 5, left: 10, right: 10, bottom: 5),
+                            size: 18.sp,
+                            fontWeight: FontWeight.w700,
+                            textColor: Properties.fontColor,
+                          ),
+                          TextWidget(
+                            edgeInsetsGeometry: EdgeInsets.only(
+                                left: 10, right: 10, top: 5, bottom: 5),
+                            value: controller.selectedDoctor.title,
+                            size: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            textColor: Properties.fontColor,
+                          ),
+
+
+                          TextWidget(
+                            edgeInsetsGeometry: EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10, top: 5),
+                            value: controller.selectedDoctor.location,
+                            size: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            textColor: Properties.fontColor,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -270,11 +277,13 @@ class TimeDateScreen extends StatelessWidget {
                                   child:Column(
                                     children: [
                                       customTextField(
+                                        enabled: true,
                                           textEditingController: controller.relationController,
                                           helperText: "Relationship"),
 
                                       SizedBox(height: 5.h,),
                                       customTextField(
+                                          enabled: true,
                                           textEditingController: controller.numberController,
                                           helperText: "Mobile Number"),
 
@@ -282,13 +291,6 @@ class TimeDateScreen extends StatelessWidget {
                                   ),)
                           ),
 
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          customTextField(
-                            edgeInsets: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                              textEditingController: controller.messageController,
-                              helperText: "Message"),
 
                           SizedBox(
                             height: 20,

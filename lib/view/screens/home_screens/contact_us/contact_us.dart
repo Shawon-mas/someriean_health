@@ -71,10 +71,10 @@ class ContactUs extends StatelessWidget {
               fontWeight: FontWeight.w500,
               textColor: Properties.colorTextBlue,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Obx(
-                () => Column(
+            Obx(
+              () => Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
@@ -123,6 +123,7 @@ class ContactUs extends StatelessWidget {
                       title: 'Type Message Here',
                       textEditingController: _controller.typeMessageController,
                       enabled: true,
+                      edgeInsets: EdgeInsets.fromLTRB(10, 50, 0, 50),
                     ),
                     SizedBox(
                       height: 200.h,
@@ -160,54 +161,33 @@ class ContactUs extends StatelessWidget {
   Column customFields(
       {required String title,
       TextEditingController? textEditingController,
+        EdgeInsets? edgeInsets,
       bool? enabled,
       Widget? trailingIcon}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextWidget(
-          value: title,
-          textColor: Properties.colorTextBlue,
-          size: 14.sp,
-          fontWeight: FontWeight.w700,
-        ),
-        SizedBox(
-          height: 7.h,
-        ),
+        Text(title,style: TextStyle(
+          color: Colors.grey,
+        ),),
+        SizedBox(height: 10,),
         TextField(
           enabled: enabled,
-          controller: textEditingController,
-          keyboardType: TextInputType.text,
+           controller: textEditingController,
+           textAlignVertical: TextAlignVertical.top,
           decoration: InputDecoration(
-            suffixIcon: trailingIcon,
-            hintStyle: TextStyle(
-              fontSize: 16.sp,
-              color: Color.fromRGBO(
-                0,
-                48,
-                73,
-                0.5,
-              ),
-            ),
-            contentPadding: EdgeInsets.fromLTRB(
-              5.0,
-              5.0,
-              5.0,
-              5.0,
-            ),
+            /* helperText: helperText,
+            helperStyle: TextStyle(
+              color: Colors.grey,
+            ),*/
+            contentPadding: edgeInsets,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.black54,
-                width: 1.0,
-              ),
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
+              borderSide:
+              const BorderSide(color: Properties.primaryColor, width: 1.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
           ),
         ),

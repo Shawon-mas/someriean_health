@@ -24,6 +24,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               color: Colors.grey,
@@ -136,7 +137,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    vertical: 30,
+                                    vertical: 10,
                                     horizontal: 4,
                                   ),
                                   child: Column(
@@ -145,6 +146,15 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Location',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
                                           Container(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 10,
@@ -177,15 +187,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Location',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ),
+
                                         ],
                                       ),
                                     ],
@@ -201,9 +203,14 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text('Price',style: TextStyle(
+                color: Colors.grey,
+              ),),
+            ),
             ListTile(
               //leading: Text("AED"),
-              subtitle: Text("Price"),
               title: Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(10),
@@ -221,23 +228,11 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
-                controller: controller.messageController,
-                enabled: true,
-                decoration: InputDecoration(
-                  helperText: 'Message',
-                  hintText: "Message (Optional)",
-                  isDense: true,
-                  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 50),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.black54, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: customTextField(
+                  textEditingController: controller.messageController,
+                  helperText: "Message (Optional)",
+                  edgeInsets:EdgeInsets.fromLTRB(10, 50, 0, 50)
               ),
             ),
             Padding(
@@ -267,25 +262,35 @@ class BookHealthCarePackageScreen extends StatelessWidget {
 
   Widget customTextField({
     required TextEditingController textEditingController,
-    required String helperText, bool? enabled = false,
+    required String helperText, bool? enabled = false,EdgeInsets? edgeInsets,
     Widget? trailingIcon}) {
-    return TextField(
-      enabled: enabled,
-      controller: textEditingController,
-      decoration: InputDecoration(
-        suffixIcon: trailingIcon,
-        helperText: helperText,
-        helperStyle: TextStyle(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(helperText,style: TextStyle(
           color: Colors.grey,
+        ),),
+        SizedBox(height: 10,),
+        TextField(
+          enabled: enabled,
+          controller: textEditingController,
+          decoration: InputDecoration(
+            /* helperText: helperText,
+            helperStyle: TextStyle(
+              color: Colors.grey,
+            ),*/
+            contentPadding: edgeInsets,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+              const BorderSide(color: Properties.primaryColor, width: 1.0),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Properties.primaryColor, width: 1.0),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
+      ],
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import 'package:somerian_health/view/screens/login_screen.dart';
 import 'package:somerian_health/view/screens/splash_screen.dart';
 
+import '../view/screens/bottom_screens/home.dart';
 import '../view/screens/home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../view/screens/otp_screen.dart';
 
@@ -12,6 +13,7 @@ const bottom = "/bottombar";
 const login = "/login";
 const completeYourProfile = "/completeYourProfile";
 const doctorsMenu = "/doctorsMenu";
+const home = "/home";
 //const otp = "/otp";
 
 final pages = [
@@ -19,6 +21,7 @@ final pages = [
   page(bottom, BottomBarScreen()),
   page(login, LoginScreen()),
   page(doctorsMenu, DoctorsMenuScreen()),
+
   //page(completeYourProfile, CompleteProfileScreen()),
   //page(otp, OtpScreen(),),
 ];

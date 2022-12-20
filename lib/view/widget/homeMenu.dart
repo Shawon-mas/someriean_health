@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:somerian_health/view/widget/text_widget.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import '../../global/properties.dart';
 
 class HomeMenu extends StatelessWidget {
@@ -39,29 +40,27 @@ class HomeMenu extends StatelessWidget {
 
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Expanded(
-                    flex:9,
-                    child: Image.asset(
+              child: FittedBox(
+                child: Column(
+                  children: [
+                    Image.asset(
                       imageMenu,
                       height: 80.h,
                       width: 140.h,
                     ),
-                  ),
-                  SizedBox(height: 10.h,),
-                  Expanded(
-                    flex: 5,
-                    child: TextWidget(
-                      textColor: Properties.primaryColor,
-                      value: menuTittle,
-                      textAlign: TextAlign.center,
-                      size: 16.sp,
+                    SizedBox(height: 10.h,),
+                    AutoSizeText(
+                        menuTittle,
+                       maxLines: 2,
+                      style: GoogleFonts.lato(
                       fontWeight: FontWeight.w500,
-                      edgeInsetsGeometry: EdgeInsets.zero,
+                      fontSize: 16.sp,
+                      color: Properties.primaryColor,
+
                     ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -70,3 +69,12 @@ class HomeMenu extends StatelessWidget {
     );
   }
 }
+/*
+ textColor: Properties.primaryColor,
+                      value: menuTittle,
+                      textAlign: TextAlign.center,
+                      size: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      edgeInsetsGeometry: EdgeInsets.zero,
+
+ */
