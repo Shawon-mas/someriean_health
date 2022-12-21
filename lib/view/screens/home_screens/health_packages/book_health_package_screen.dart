@@ -13,16 +13,22 @@ class BookHealthCarePackageScreen extends StatelessWidget {
   final String price;
   final String healthCareId;
 
-  BookHealthCarePackageScreen({Key? key, required this.uid, required this.price, required this.healthCareId}) : super(key: key);
+  BookHealthCarePackageScreen(
+      {Key? key,
+      required this.uid,
+      required this.price,
+      required this.healthCareId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HealthcareController(context: context, uid: uid, price: price, healthcareId: healthCareId));
+    final controller = Get.put(HealthcareController(
+        context: context, uid: uid, price: price, healthcareId: healthCareId));
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: CommonToolbar(title: 'Book Healthcare Package'),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,41 +47,53 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: customTextField(textEditingController: controller.firstNameController, helperText: "First Name"),
+                        child: customTextField(
+                            textEditingController:
+                                controller.firstNameController,
+                            helperText: "First Name"),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: customTextField(textEditingController: controller.lastNameController, helperText: "Last Name"),
+                        child: customTextField(
+                            textEditingController:
+                                controller.lastNameController,
+                            helperText: "Last Name"),
                       ),
                     ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(textEditingController: controller.mobileController, helperText: "Mobile No"),
+                  customTextField(
+                      textEditingController: controller.mobileController,
+                      helperText: "Mobile No"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(textEditingController: controller.emailController, helperText: "Email Id"),
+                  customTextField(
+                      textEditingController: controller.emailController,
+                      helperText: "Email Id"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(textEditingController: controller.genderController, helperText: "Gender"),
+                  customTextField(
+                      textEditingController: controller.genderController,
+                      helperText: "Gender"),
                   const SizedBox(
                     height: 20,
                   ),
-                  customTextField(textEditingController: controller.nationalityController, helperText: "Nationality"),
+                  customTextField(
+                      textEditingController: controller.nationalityController,
+                      helperText: "Nationality"),
                   const SizedBox(
                     height: 20,
                   ),
@@ -129,8 +147,10 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                         for (var data in snapshot.data!.docs) {
                           controller.locations.value.add(data['location']);
                         }
-                        controller.selectedLocation.value = controller.locations.first;
-                        controller.locations.value = controller.locations.toSet().toList();
+                        controller.selectedLocation.value =
+                            controller.locations.first;
+                        controller.locations.value =
+                            controller.locations.toSet().toList();
                       }
                       return snapshot.hasData
                           ? Column(
@@ -143,8 +163,10 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -164,7 +186,8 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                               border: Border.all(
                                                 color: Colors.grey,
                                               ),
-                                              borderRadius: const BorderRadius.all(
+                                              borderRadius:
+                                                  const BorderRadius.all(
                                                 Radius.circular(10),
                                               ),
                                             ),
@@ -173,21 +196,30 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                                 hint: Text('Location'),
                                                 isExpanded: true,
                                                 underline: const SizedBox(),
-                                                value: controller.selectedLocation.value == "" ? null : controller.selectedLocation.value,
-                                                icon: const Icon(Icons.keyboard_arrow_down),
-                                                items: controller.locations.map((items) {
+                                                value: controller
+                                                            .selectedLocation
+                                                            .value ==
+                                                        ""
+                                                    ? null
+                                                    : controller
+                                                        .selectedLocation.value,
+                                                icon: const Icon(
+                                                    Icons.keyboard_arrow_down),
+                                                items: controller.locations
+                                                    .map((items) {
                                                   return DropdownMenuItem(
                                                     value: items,
                                                     child: Text(items),
                                                   );
                                                 }).toList(),
                                                 onChanged: (newValue) {
-                                                  controller.selectedLocation.value = newValue as String;
+                                                  controller.selectedLocation
+                                                          .value =
+                                                      newValue as String;
                                                 },
                                               ),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                     ],
@@ -204,14 +236,18 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Price',style: TextStyle(
-                color: Colors.grey,
-              ),),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'Price',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
             ),
             ListTile(
               //leading: Text("AED"),
               title: Container(
+                height: 50.h,
                 width: double.infinity,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -229,11 +265,138 @@ class BookHealthCarePackageScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                margin: EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Obx(
+                  () => DropdownButton(
+                    hint: const Text('For Whom'),
+                    isExpanded: true,
+                    value: controller.valueAppointment.value == ""
+                        ? null
+                        : controller.valueAppointment.value,
+                    underline: const SizedBox(),
+                    onChanged: (newValue) {
+                      controller.valueAppointment.value = newValue as String;
+                    },
+                    items: controller.appointmentType.map((valuItem) {
+                      return DropdownMenuItem(
+                        value: valuItem,
+                        child: Text(valuItem),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                margin: EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Obx(
+                  () => DropdownButton(
+                    hint: const Text('Select Payment Method'),
+                    isExpanded: true,
+                    value: controller.valuePayment.value == ""
+                        ? null
+                        : controller.valuePayment.value,
+                    underline: const SizedBox(),
+                    onChanged: (newValue) {
+                      controller.valuePayment.value = newValue as String;
+                    },
+                    items: controller.paymentMethods.map((valuItem) {
+                      return DropdownMenuItem(
+                        value: valuItem,
+                        child: Text(valuItem),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Obx(() => Visibility(
+                    visible:
+                        controller.valueAppointment.value == 'Book for Company',
+                    child: Column(
+                      children: [
+                        customTextField(
+                            enabled: true,
+                            textEditingController: controller.c_nameController,
+                            helperText: "Company Name"),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        customTextField(
+                            enabled: true,
+                            textEditingController:
+                                controller.c_numberController,
+                            helperText: "Company Phone Number"),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        customTextField(
+                            enabled: true,
+                            textEditingController: controller.c_emailController,
+                            helperText: "Company Email"),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        customTextField(
+                            enabled: true,
+                            textEditingController:
+                                controller.c_personController,
+                            helperText: "Name of Authorized Person"),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        customTextField(
+                            enabled: true,
+                            textEditingController:
+                                controller.c_addressController,
+                            helperText: "Company Address"),
+                      ],
+                    ),
+                  )),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: customTextField(
+                  enabled: true,
                   textEditingController: controller.messageController,
                   helperText: "Message (Optional)",
-                  edgeInsets:EdgeInsets.fromLTRB(10, 50, 0, 50)
-              ),
+                  edgeInsets: EdgeInsets.fromLTRB(10, 50, 0, 50)),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -248,6 +411,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
           ],
         ),
       ),
+
       /*bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: AppointmentButton(
@@ -260,17 +424,24 @@ class BookHealthCarePackageScreen extends StatelessWidget {
     );
   }
 
-  Widget customTextField({
-    required TextEditingController textEditingController,
-    required String helperText, bool? enabled = false,EdgeInsets? edgeInsets,
-    Widget? trailingIcon}) {
+  Widget customTextField(
+      {required TextEditingController textEditingController,
+      required String helperText,
+      bool? enabled = false,
+      EdgeInsets? edgeInsets,
+      Widget? trailingIcon}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(helperText,style: TextStyle(
-          color: Colors.grey,
-        ),),
-        SizedBox(height: 10,),
+        Text(
+          helperText,
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         TextField(
           enabled: enabled,
           controller: textEditingController,
@@ -285,7 +456,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderSide:
-              const BorderSide(color: Properties.primaryColor, width: 1.0),
+                  const BorderSide(color: Properties.primaryColor, width: 1.0),
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),

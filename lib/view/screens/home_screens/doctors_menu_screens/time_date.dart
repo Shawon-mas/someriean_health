@@ -31,7 +31,7 @@ class TimeDateScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex:2,
+                      flex: 2,
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -67,8 +67,6 @@ class TimeDateScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             textColor: Properties.fontColor,
                           ),
-
-
                           TextWidget(
                             edgeInsetsGeometry: EdgeInsets.only(
                                 left: 10, right: 10, bottom: 10, top: 5),
@@ -92,7 +90,6 @@ class TimeDateScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       TextWidget(
                         value: 'Select Preferred Date',
@@ -100,7 +97,6 @@ class TimeDateScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         textColor: Properties.colorTextBlue,
                       ),
-
                       InkWell(
                         onTap: () {
                           controller.selectDate(context);
@@ -135,14 +131,12 @@ class TimeDateScreen extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(10))),
                         ),
                       ),
-
                       TextWidget(
                         value: 'Select Preferred Time',
                         size: 14.sp,
                         fontWeight: FontWeight.w700,
                         textColor: Properties.colorTextBlue,
                       ),
-
                       InkWell(
                         onTap: () {
                           controller.selectTime(context);
@@ -178,7 +172,6 @@ class TimeDateScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -189,7 +182,7 @@ class TimeDateScreen extends StatelessWidget {
                           Expanded(
                             child: customTextField(
                                 textEditingController:
-                                controller.firstNameController,
+                                    controller.firstNameController,
                                 helperText: "First Name"),
                           ),
                           const SizedBox(
@@ -198,7 +191,7 @@ class TimeDateScreen extends StatelessWidget {
                           Expanded(
                             child: customTextField(
                                 textEditingController:
-                                controller.lastNameController,
+                                    controller.lastNameController,
                                 helperText: "Last Name"),
                           ),
                         ],
@@ -231,7 +224,8 @@ class TimeDateScreen extends StatelessWidget {
                         height: 20,
                       ),
                       customTextField(
-                          textEditingController: controller.nationalityController,
+                          textEditingController:
+                              controller.nationalityController,
                           helperText: "Nationality"),
                       Column(
                         children: [
@@ -252,15 +246,19 @@ class TimeDateScreen extends StatelessWidget {
                               ),
                             ),
                             child: Obx(
-                                  () => DropdownButton(
+                              () => DropdownButton(
                                 hint: const Text('For Whom'),
                                 isExpanded: true,
-                                value: controller.valueAppointment.value == "" ? null : controller.valueAppointment.value,
+                                value: controller.valueAppointment.value == ""
+                                    ? null
+                                    : controller.valueAppointment.value,
                                 underline: const SizedBox(),
                                 onChanged: (newValue) {
-                                  controller.valueAppointment.value = newValue as String;
+                                  controller.valueAppointment.value =
+                                      newValue as String;
                                 },
-                                items: controller.appointmentType.map((valuItem) {
+                                items:
+                                    controller.appointmentType.map((valuItem) {
                                   return DropdownMenuItem(
                                     value: valuItem,
                                     child: Text(valuItem),
@@ -269,52 +267,48 @@ class TimeDateScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
-                          Obx(() =>
-                              Visibility(
-                                visible: controller.valueAppointment.value=='Book for Others',
-
-                                  child:Column(
-                                    children: [
-                                      customTextField(
+                          Obx(() => Visibility(
+                                visible: controller.valueAppointment.value ==
+                                    'Book for Others',
+                                child: Column(
+                                  children: [
+                                    customTextField(
                                         enabled: true,
-                                          textEditingController: controller.relationController,
-                                          helperText: "Relationship"),
-
-                                      SizedBox(height: 5.h,),
-                                      customTextField(
-                                          enabled: true,
-                                          textEditingController: controller.numberController,
-                                          helperText: "Mobile Number"),
-
-                                    ],
-                                  ),)
-                          ),
-
-
+                                        textEditingController:
+                                            controller.relationController,
+                                        helperText: "Relationship"),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    customTextField(
+                                        enabled: true,
+                                        textEditingController:
+                                            controller.numberController,
+                                        helperText: "Mobile Number"),
+                                  ],
+                                ),
+                              )),
                           SizedBox(
                             height: 20,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Obx(() => AppointmentButton(
-                              isLoading: controller.isProcessing.value,
-                              onPressed: () {
-                                controller.proceedPayment(context, controller);
-                              },
-                              value: 'Proceed',
-                            )),
+                                  isLoading: controller.isProcessing.value,
+                                  onPressed: () {
+                                    controller.proceedPayment(
+                                        context, controller);
+                                  },
+                                  value: 'Proceed',
+                                )),
                           ),
                         ],
                       )
-
                     ],
                   ),
                 ),
               ],
             ),
-
-
             SizedBox(
               height: 20.h,
             ),
@@ -326,20 +320,26 @@ class TimeDateScreen extends StatelessWidget {
 
   Widget customTextField(
       {required TextEditingController textEditingController,
-        required String helperText,EdgeInsets? edgeInsets,
-        bool? enabled = false}) {
+      required String helperText,
+      EdgeInsets? edgeInsets,
+      bool? enabled = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(helperText,style: TextStyle(
-          color: Colors.grey,
-        ),),
-        SizedBox(height: 10,),
+        Text(
+          helperText,
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         TextField(
           enabled: enabled,
           controller: textEditingController,
           decoration: InputDecoration(
-           /* helperText: helperText,
+            /* helperText: helperText,
             helperStyle: TextStyle(
               color: Colors.grey,
             ),*/
@@ -349,7 +349,7 @@ class TimeDateScreen extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderSide:
-              const BorderSide(color: Properties.primaryColor, width: 1.0),
+                  const BorderSide(color: Properties.primaryColor, width: 1.0),
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
@@ -357,8 +357,6 @@ class TimeDateScreen extends StatelessWidget {
       ],
     );
   }
-
-
 }
 /*
  if (controller.valuePayment.value != "Cash on Board") {

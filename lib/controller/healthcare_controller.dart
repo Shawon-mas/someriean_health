@@ -27,8 +27,8 @@ class HealthcareController extends GetxController {
   var valueNationality = "".obs;
   var valueAppointment = "".obs;
   final gender = ['Male', 'Female', 'Others'];
-  final paymentMethods = ['Cash on Board', 'RazorPay', 'Paypal'];
-  final appointmentType = ['Book for Self', 'Book for Others'];
+  final paymentMethods = ['Cash on Board'];
+  final appointmentType = ['Book for Self', 'Book for Company'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
   var isUploading = false.obs;
   var firstNameController = TextEditingController();
@@ -42,6 +42,14 @@ class HealthcareController extends GetxController {
   var messageController = TextEditingController();
   var timeController = TextEditingController();
   var dateController = TextEditingController();
+
+  var c_nameController = TextEditingController();
+  var c_numberController = TextEditingController();
+  var c_emailController = TextEditingController();
+  var c_personController = TextEditingController();
+  var c_addressController = TextEditingController();
+  var c_employeesController = TextEditingController();
+
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
