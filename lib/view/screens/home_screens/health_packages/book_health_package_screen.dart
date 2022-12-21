@@ -263,6 +263,12 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                 ),
               ),
             ),
+            /*+
+            Text(
+                  "AED " + price,
+                )
+                controller.c_employeesController.text.toString()==null
+             */
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
@@ -363,6 +369,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                         SizedBox(
                           height: 5.h,
                         ),
+
                         customTextField(
                             enabled: true,
                             textEditingController: controller.c_emailController,
