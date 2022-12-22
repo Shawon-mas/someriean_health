@@ -14,6 +14,7 @@ import '../../widget/text_widget.dart';
 import '../home_screens/contact_us/contact_us.dart';
 import '../menu_screen/about_application.dart';
 import '../menu_screen/about_somerian.dart';
+import '../menu_screen/language.dart';
 import '../menu_screen/my_profile/my_profile.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -149,7 +150,10 @@ class MenuScreen extends StatelessWidget {
                                 builder: (context) => AboutSomerian()));
                       }
                       if (index == 6) {
-                        infoSnackBar(context, 'Coming soon');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Language()));
                       }
 
                     },

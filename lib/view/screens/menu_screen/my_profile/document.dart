@@ -53,13 +53,22 @@ class _DocumentState extends State<Document> {
                     },
                     value: 'Upload Front Copy',
                   )
-                  :Text(platformFile!.name),
+                  :Row(
+                    children: [
+                      Expanded(child: Text(platformFile!.name)),
+                      Expanded(child: IconButton(onPressed: (){}, icon: Icon(Icons.cancel)))
+                    ],
+                  ),
+
+
                   AppointmentButton(
                     onPressed: (){
-
+                      selectFile();
                     },
                     value: 'Upload Back Copy',
-                  ),
+                  )
+
+
                 ],
               ))
             ],
