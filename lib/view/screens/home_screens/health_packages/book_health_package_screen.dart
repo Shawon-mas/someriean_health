@@ -98,40 +98,78 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //  mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: customTextField(
-                          textEditingController: controller.timeController,
-                          helperText: "Time",
-                          enabled: true,
-                          trailingIcon: IconButton(
-                            onPressed: () {
-                              controller.selectTime(context);
-                            },
-                            icon: Icon(
-                              Icons.schedule,
-                              color: Colors.grey,
+                        child: InkWell(
+                          onTap: () {
+                            controller.selectDate(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 10),
+                            height: 40.h,
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Obx(
+                                      () => TextWidget(
+                                    value:
+                                    '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textColor: Colors.grey,
+                                  ),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.grey,
+                                )
+                              ],
                             ),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Expanded(
-                        child: customTextField(
-                          textEditingController: controller.dateController,
-                          helperText: "Date",
-                          enabled: true,
-                          trailingIcon: IconButton(
-                            onPressed: () {
-                              controller.selectDate(context);
-                            },
-                            icon: Icon(
-                              Icons.calendar_today,
-                              color: Colors.grey,
+                        child:  InkWell(
+                          onTap: () {
+                            controller.selectTime(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 10),
+                            height: 40.h,
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Obx(
+                                      () => TextWidget(
+                                    value: controller.selectedTime.value
+                                        .format(context)
+                                        .toString(),
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textColor: Colors.grey,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Image.asset('assets/images/clock.png')
+                              ],
                             ),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(10))),
                           ),
                         ),
                       ),

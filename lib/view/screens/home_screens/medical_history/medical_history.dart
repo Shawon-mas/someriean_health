@@ -24,7 +24,7 @@ class _MedicalHistoryState extends State<MedicalHistory> {
   @override
   Widget build(BuildContext context) {
     List<String> _center=[
-      'PCR Test Result',
+
       'Hospital Records',
 
     ];
@@ -47,15 +47,11 @@ class _MedicalHistoryState extends State<MedicalHistory> {
 
                         setState(() {
 
-                          if(index==0){
-                            selectionStatus=index;
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>PCR()));
 
-                          }else{
                             selectionStatus=index;
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>MEDICALRECORDS()));
                             //  Navigator.push(context, MaterialPageRoute(builder: (context)=>FacilityScreen(title: _center[index],)));
-                          }
+
 
                         });
 

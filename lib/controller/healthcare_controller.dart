@@ -14,6 +14,7 @@ import '../routes/routes.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/screens/home_screens/health_packages/complete_healthcare_screen.dart';
 import '../view/widget/general_button.dart';
+import 'package:http/http.dart' as http;
 
 class HealthcareController extends GetxController {
   final BuildContext context;
@@ -242,6 +243,13 @@ class HealthcareController extends GetxController {
       DbDocs.fieldClinicLocation: selectedLocation.value,
       DbDocs.fieldHealthcarePrice: price,
     }).then((value) {
+      String number = mobileController.text.substring(4);
+      String message =
+          "Dear ${firstNameController.text} ${lastNameController.text}, we are confirmed your health package  Date: ${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year} Place: ${controller.selectedLocation.value} Time: ${selectedTime.value.format(context).toString()}";
+      String url = "http://www.mshastra.com/sendurlcomma.aspx?user=20099446&pwd=Achcc@1234&senderid=AD-SOMERIAN&CountryCode=+971&mobileno=$number&msgtext=$message&smstype=0";
+      http.get(Uri.parse(url)).then((value) {
+        logger.d(value.body);
+      });
       isProcessing.value = false;
       Get.back();
       Get.off(
