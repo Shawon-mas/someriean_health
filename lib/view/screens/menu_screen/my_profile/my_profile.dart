@@ -119,7 +119,6 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                 children: [
                   PersonalDetailsScreen(),
                   Document(),
-
                 ],
               ),
             )

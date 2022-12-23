@@ -14,6 +14,8 @@ class DbDocs {
   static const fieldNationality = "nationality";
   static const fieldPassport = "passport";
   static const fieldEmiratesId = "emiratesId";
+  static const fieldFrontCopy = "frontCopy";
+  static const fieldBackCopy = "backCopy";
 
   /*Slider Image*/
   static const fieldImageUrl = "imageUrl";

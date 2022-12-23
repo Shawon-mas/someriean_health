@@ -232,13 +232,14 @@ class PersonalDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.all(2),
         child: ClipOval(
           child: Container(
-              padding: EdgeInsets.all(5),
-              color: Properties.colorTextBlue,
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 20,
-                color: Colors.white,
-              )),
+            padding: EdgeInsets.all(5),
+            color: Properties.colorTextBlue,
+            child: Icon(
+              Icons.camera_alt_outlined,
+              size: 20,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
