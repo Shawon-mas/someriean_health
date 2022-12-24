@@ -38,6 +38,8 @@ class _DocumentState extends State<Document> {
       {required String path,
       required BuildContext context,
       required String docName}) async {
+    //dialog
+    showBottom(context);
     infoSnackBar(context, "Uploading file");
     final storageRef = FirebaseStorage.instance.ref();
     final fileRef = storageRef.child(user!.phoneNumber! + "/" + basename(path));
@@ -49,6 +51,7 @@ class _DocumentState extends State<Document> {
         .set({
       docName: url,
     }, SetOptions(merge: true)).then((value) {
+      Navigator.pop(context);
       successSnackBar(context, "Upload Successful");
     });
   }
@@ -96,13 +99,13 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        uploadFunction(
+                          uploadFunction(
                           snapshot: snapshot,
                           name: "Upload Front Copy",
                           docName: DbDocs.fieldFrontCopy,
                           context: context,
                         ),
-                        uploadFunction(
+                          uploadFunction(
                           snapshot: snapshot,
                           name: "Upload Back Copy",
                           docName: DbDocs.fieldBackCopy,
@@ -116,7 +119,8 @@ class _DocumentState extends State<Document> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextWidget(
+                      child: TextWidget
+                        (
                         value: 'Passport',
                         size: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -126,9 +130,13 @@ class _DocumentState extends State<Document> {
                     Expanded(
                       child: Column(
                         children: [
-                          AppointmentButton(
-                            onPressed: () {},
-                            value: 'Upload',
+
+                          uploadFunction
+                            (
+                            snapshot: snapshot,
+                            name: "Upload",
+                            docName: DbDocs.fieldPassportCopy,
+                            context: context,
                           ),
                         ],
                       ),
@@ -148,9 +156,12 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        AppointmentButton(
-                          onPressed: () {},
-                          value: 'Upload',
+                        uploadFunction
+                          (
+                          snapshot: snapshot,
+                          name: "Upload",
+                          docName: DbDocs.fieldVisa,
+                          context: context,
                         ),
                       ],
                     ))
@@ -169,9 +180,12 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        AppointmentButton(
-                          onPressed: () {},
-                          value: 'Upload',
+                        uploadFunction
+                          (
+                          snapshot: snapshot,
+                          name: "Upload",
+                          docName: DbDocs.fieldInsurance,
+                          context: context,
                         ),
                       ],
                     ))
@@ -190,9 +204,12 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        AppointmentButton(
-                          onPressed: () {},
-                          value: 'Upload',
+                        uploadFunction
+                          (
+                          snapshot: snapshot,
+                          name: "Upload",
+                          docName: DbDocs.fieldOthers,
+                          context: context,
                         ),
                       ],
                     ))
@@ -207,6 +224,7 @@ class _DocumentState extends State<Document> {
         );
       },
     );
+
   }
 
   Widget uploadFunction(
@@ -280,41 +298,39 @@ class _DocumentState extends State<Document> {
       value: name,
     );
   }
+
+  void showBottom(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (context) {
+      return Container(
+        height: 250,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+
+            mainAxisAlignment: MainAxisAlignment.start,
+
+            children: [
+             Text("Your file Uploading"),
+              CircularProgressIndicator(),
+
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+
 }
 
 String getFileName(String url) {
   RegExp regExp = new RegExp(r'.+(\/|%2F)(.+)\?.+');
-  //This Regex won't work if you remove ?alt...token
-  var matches = regExp.allMatches(url);
 
+
+  var matches = regExp.allMatches(url);
   var match = matches.elementAt(0);
+
+
   print("${Uri.decodeFull(match.group(2)!)}");
   return Uri.decodeFull(match.group(2)!);
 }
-/*
-  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: ListTile(
-                      dense: false,
-                      contentPadding: EdgeInsets.zero,
-                      leading: IconButton(
-                        icon: Icon(Icons.attach_file_outlined),
-                        onPressed: () {
-                          _controller.filePicker();
-                        },
-                      ),
-                      title: Obx(
-                            () => Text((_controller.selectedFile.value),
-                        ),
-                      ),
-                    ),
-                  ),
- */
