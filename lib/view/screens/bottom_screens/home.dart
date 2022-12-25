@@ -58,19 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 56.h,
                 width: double.infinity,
                 color: Properties.primaryColor,
-                child: Expanded(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/images/splash.png',
-                          /*   height: 70.h,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Image.asset(
+                        'assets/images/splash.png',
+                        /*   height: 70.h,
             width: 50.w,*/
-                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
