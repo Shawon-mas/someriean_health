@@ -51,7 +51,7 @@ class HealthBlog extends StatelessWidget {
               children: [
 
                 Expanded(
-                  flex: 7,
+                  flex:5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -70,7 +70,7 @@ class HealthBlog extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
                       ),
-                      SizedBox(height: 5.h,),
+                      SizedBox(height: 7.h,),
                       InkWell(
                         onTap: (){
                           //BlogDetails
@@ -114,7 +114,7 @@ class HealthBlog extends StatelessWidget {
                     fit: BoxFit.contain,
                   ),
                 ),
-                Divider()
+
               ],
             ),
           ),

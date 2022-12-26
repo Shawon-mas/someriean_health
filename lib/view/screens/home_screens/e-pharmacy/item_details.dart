@@ -18,13 +18,15 @@ class ItemDetails extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Hero(
-            tag:'item',
-            child: Image.network(
-              controller.selectedItem.image,
-              height: 250.h,
-              width: double.maxFinite,
-              fit: BoxFit.contain,
+          InteractiveViewer(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(
+                controller.selectedItem.image,
+                height: 250.h,
+                width: double.maxFinite,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           Padding(

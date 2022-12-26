@@ -127,14 +127,11 @@ class _EpharmacyListState extends State<EpharmacyList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: 'item',
-              child: Image.network(
-                documentSnapshot['image'],
-                height: 70.h,
-                width: 150.w,
-                fit: BoxFit.contain,
-              ),
+            Image.network(
+              documentSnapshot['image'],
+              height: 70.h,
+              width: 150.w,
+              fit: BoxFit.contain,
             ),
             TextWidget(
               edgeInsetsGeometry: EdgeInsets.all(3),

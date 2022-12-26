@@ -39,6 +39,8 @@ class DoctorAppointmentController extends GetxController {
   var emiratesController = TextEditingController();
   var relationController = TextEditingController();
   var numberController = TextEditingController();
+  var fullNameController = TextEditingController();
+  var othersEmiratesIdController = TextEditingController();
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;

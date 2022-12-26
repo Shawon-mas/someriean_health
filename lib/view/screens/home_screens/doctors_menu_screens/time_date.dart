@@ -272,10 +272,28 @@ class TimeDateScreen extends StatelessWidget {
                                     'Book for Others',
                                 child: Column(
                                   children: [
+
+
                                     customTextField(
                                         enabled: true,
                                         textEditingController:
-                                            controller.relationController,
+                                        controller.fullNameController,
+                                        helperText: "Full Name"),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    customTextField(
+                                        enabled: true,
+                                        textEditingController:
+                                        controller.othersEmiratesIdController,
+                                        helperText: "Emirates Id"),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    customTextField(
+                                        enabled: true,
+                                        textEditingController:
+                                        controller.relationController,
                                         helperText: "Relationship"),
                                     SizedBox(
                                       height: 5.h,
@@ -283,7 +301,7 @@ class TimeDateScreen extends StatelessWidget {
                                     customTextField(
                                         enabled: true,
                                         textEditingController:
-                                            controller.numberController,
+                                        controller.numberController,
                                         helperText: "Mobile Number"),
                                   ],
                                 ),

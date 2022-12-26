@@ -14,6 +14,7 @@ import '../../../routes/routes.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
+import '../book_appointment/appointment_type.dart';
 import '../home_screens/ambulance/ambulance_list.dart';
 import '../home_screens/contact_us/contact_us.dart';
 import '../home_screens/covid19/screening_center.dart';
@@ -245,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         menuTittle: "Book Appointment",
                         imageMenu: 'assets/images/booking_appointment.png',
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationOneScreen(title: 'Book Appointment',)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AppointmentType()));
                         //  infoSnackBar(context,'Coming soon');
                         }),
 
