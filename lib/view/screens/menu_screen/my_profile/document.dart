@@ -26,18 +26,14 @@ class Document extends StatefulWidget {
 class _DocumentState extends State<Document> {
   PlatformFile? platformFile;
   var user = FirebaseAuth.instance.currentUser;
-  Future selectFile(
-      {required BuildContext context, required String docName}) async {
+
+  Future selectFile({required BuildContext context, required String docName}) async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
-    uploadFile(
-        path: result.files.single.path!, context: context, docName: docName);
+    uploadFile(path: result.files.single.path!, context: context, docName: docName);
   }
 
-  uploadFile(
-      {required String path,
-      required BuildContext context,
-      required String docName}) async {
+  uploadFile({required String path, required BuildContext context, required String docName}) async {
     //dialog
     showBottom(context);
     infoSnackBar(context, "Uploading file");
@@ -45,10 +41,7 @@ class _DocumentState extends State<Document> {
     final fileRef = storageRef.child(user!.phoneNumber! + "/" + basename(path));
     final uploadTask = await fileRef.putFile(File(path));
     String url = await uploadTask.ref.getDownloadURL();
-    FirebaseFirestore.instance
-        .collection(DbCollections.collectionPatients)
-        .doc(user!.phoneNumber!)
-        .set({
+    FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).set({
       docName: url,
     }, SetOptions(merge: true)).then((value) {
       Navigator.pop(context);
@@ -56,17 +49,14 @@ class _DocumentState extends State<Document> {
     });
   }
 
-  deleteFile({required String url, required BuildContext context}) {
+  deleteFile({required String url, required BuildContext context, required String docName}) {
     //Call a dialog while uploading
     infoSnackBar(context, "Deleting File");
 
     final storageRef = FirebaseStorage.instance.refFromURL(url);
     storageRef.delete().then((value) {
-      FirebaseFirestore.instance
-          .collection(DbCollections.collectionPatients)
-          .doc(user!.phoneNumber!)
-          .set({
-        DbDocs.fieldFrontCopy: "",
+      FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).set({
+        docName: "",
       }, SetOptions(merge: true)).then((value) {
         successSnackBar(context, "Deleted File");
       });
@@ -77,10 +67,7 @@ class _DocumentState extends State<Document> {
   Widget build(BuildContext context) {
     final _controller = Get.put(DoctorAppointmentController());
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection(DbCollections.collectionPatients)
-          .doc(user!.phoneNumber!)
-          .snapshots(),
+      stream: FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Padding(
@@ -99,13 +86,13 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                          uploadFunction(
+                        uploadFunction(
                           snapshot: snapshot,
                           name: "Upload Front Copy",
                           docName: DbDocs.fieldFrontCopy,
                           context: context,
                         ),
-                          uploadFunction(
+                        uploadFunction(
                           snapshot: snapshot,
                           name: "Upload Back Copy",
                           docName: DbDocs.fieldBackCopy,
@@ -119,8 +106,7 @@ class _DocumentState extends State<Document> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextWidget
-                        (
+                      child: TextWidget(
                         value: 'Passport',
                         size: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -130,9 +116,7 @@ class _DocumentState extends State<Document> {
                     Expanded(
                       child: Column(
                         children: [
-
-                          uploadFunction
-                            (
+                          uploadFunction(
                             snapshot: snapshot,
                             name: "Upload",
                             docName: DbDocs.fieldPassportCopy,
@@ -156,8 +140,7 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        uploadFunction
-                          (
+                        uploadFunction(
                           snapshot: snapshot,
                           name: "Upload",
                           docName: DbDocs.fieldVisa,
@@ -180,8 +163,7 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        uploadFunction
-                          (
+                        uploadFunction(
                           snapshot: snapshot,
                           name: "Upload",
                           docName: DbDocs.fieldInsurance,
@@ -204,8 +186,7 @@ class _DocumentState extends State<Document> {
                     Expanded(
                         child: Column(
                       children: [
-                        uploadFunction
-                          (
+                        uploadFunction(
                           snapshot: snapshot,
                           name: "Upload",
                           docName: DbDocs.fieldOthers,
@@ -224,22 +205,13 @@ class _DocumentState extends State<Document> {
         );
       },
     );
-
   }
 
-  Widget uploadFunction(
-      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
-      required BuildContext context,
-      required String docName,
-      required String name}) {
-    return !checkFileExists(snapshot: snapshot, dbDocs: docName)
-        ? _uploadButton(context: context, docName: docName, name: name)
-        : _uploaded(context: context, snapshot: snapshot, docName: docName);
+  Widget uploadFunction({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required BuildContext context, required String docName, required String name}) {
+    return !checkFileExists(snapshot: snapshot, dbDocs: docName) ? _uploadButton(context: context, docName: docName, name: name) : _uploaded(context: context, snapshot: snapshot, docName: docName);
   }
 
-  bool checkFileExists(
-      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
-      required String dbDocs}) {
+  bool checkFileExists({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required String dbDocs}) {
     if (!(snapshot.data!.data() as Map<String, dynamic>).containsKey(dbDocs)) {
       return false;
     } else if (snapshot.data!.get(dbDocs) == "") {
@@ -249,10 +221,7 @@ class _DocumentState extends State<Document> {
     }
   }
 
-  Widget _uploaded(
-      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
-      required BuildContext context,
-      required String docName}) {
+  Widget _uploaded({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required BuildContext context, required String docName}) {
     return Row(
       children: [
         Expanded(
@@ -276,6 +245,7 @@ class _DocumentState extends State<Document> {
               deleteFile(
                 url: snapshot.data!.get(docName),
                 context: context,
+                docName: docName,
               );
             },
             icon: Icon(
@@ -287,10 +257,7 @@ class _DocumentState extends State<Document> {
     );
   }
 
-  Widget _uploadButton(
-      {required BuildContext context,
-      required String name,
-      required String docName}) {
+  Widget _uploadButton({required BuildContext context, required String name, required String docName}) {
     return AppointmentButton(
       onPressed: () {
         selectFile(context: context, docName: docName);
@@ -300,36 +267,31 @@ class _DocumentState extends State<Document> {
   }
 
   void showBottom(BuildContext context) {
-    showModalBottomSheet(context: context, builder: (context) {
-      return Container(
-        height: 250,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
-
-            mainAxisAlignment: MainAxisAlignment.start,
-
-            children: [
-             Text("Your file Uploading"),
-              CircularProgressIndicator(),
-
-            ],
-          ),
-        ),
-      );
-    });
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 250,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Your file Uploading"),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          );
+        });
   }
-
-
 }
 
 String getFileName(String url) {
   RegExp regExp = new RegExp(r'.+(\/|%2F)(.+)\?.+');
 
-
   var matches = regExp.allMatches(url);
   var match = matches.elementAt(0);
-
 
   print("${Uri.decodeFull(match.group(2)!)}");
   return Uri.decodeFull(match.group(2)!);
