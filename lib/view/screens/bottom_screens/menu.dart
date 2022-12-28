@@ -23,7 +23,7 @@ class MenuScreen extends StatelessWidget {
   final List<String> menuList = [
     'My Profile',
     'Feedback',
-    'News and Media',
+
     'Need Help',
     'About Application',
     'About Somerian Health',
@@ -33,7 +33,7 @@ class MenuScreen extends StatelessWidget {
   List<IconData> _iconTypes = [
     FluentSystemIcons.ic_fluent_person_regular,
     FluentSystemIcons.ic_fluent_person_feedback_regular,
-    FluentSystemIcons.ic_fluent_news_regular,
+
     FluentSystemIcons.ic_fluent_chat_help_regular,
     FluentSystemIcons.ic_fluent_info_regular,
     Icons.dashboard,
@@ -93,7 +93,7 @@ class MenuScreen extends StatelessWidget {
                     ),
                     TextWidget(
                       edgeInsetsGeometry: EdgeInsets.zero,
-                      value: "EID-${_controller.emarites.value}",
+                      value: "MRN-${_controller.emarites.value}",
                       textColor: Properties.colorTextBlue,
                       size: 20.sp,
                       fontWeight: FontWeight.w700,
@@ -126,10 +126,8 @@ class MenuScreen extends StatelessWidget {
                                       title: menuList[index],
                                     )));
                       }
+
                       if (index == 2) {
-                        infoSnackBar(context, 'Coming soon');
-                      }
-                      if (index == 3) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -137,19 +135,19 @@ class MenuScreen extends StatelessWidget {
                                       title: menuList[index],
                                     )));
                       }
-                      if (index == 4) {
+                      if (index == 3) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AboutApplication()));
                       }
-                      if (index == 5) {
+                      if (index == 4) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AboutSomerian()));
                       }
-                      if (index == 6) {
+                      if (index == 5) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/controller/doctor_appointment_controller.dart';
 
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
+import '../../bottombar_screen.dart';
 
 class CompleteAppointmentScreen extends StatelessWidget {
   final DoctorAppointmentController controller;
@@ -14,7 +17,11 @@ class CompleteAppointmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonToolbar(title: 'Complete Payment'),
+      appBar: CommonToolbar(title: 'Complete Payment',
+        voidCallback: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomBarScreen()));
+        },
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),

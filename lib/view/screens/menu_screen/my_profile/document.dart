@@ -35,8 +35,8 @@ class _DocumentState extends State<Document> {
 
   uploadFile({required String path, required BuildContext context, required String docName}) async {
     //dialog
-    showBottom(context);
-    infoSnackBar(context, "Uploading file");
+    showBottom(context,"Your file is uploading");
+   // infoSnackBar(context, "Uploading file");
     final storageRef = FirebaseStorage.instance.ref();
     final fileRef = storageRef.child(user!.phoneNumber! + "/" + basename(path));
     final uploadTask = await fileRef.putFile(File(path));
@@ -51,13 +51,13 @@ class _DocumentState extends State<Document> {
 
   deleteFile({required String url, required BuildContext context, required String docName}) {
     //Call a dialog while uploading
-    infoSnackBar(context, "Deleting File");
-
+    showBottom(context,"Deleting File");
     final storageRef = FirebaseStorage.instance.refFromURL(url);
     storageRef.delete().then((value) {
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).set({
         docName: "",
       }, SetOptions(merge: true)).then((value) {
+        Navigator.pop(context);
         successSnackBar(context, "Deleted File");
       });
     });
@@ -185,7 +185,7 @@ class _DocumentState extends State<Document> {
                     )),
                     Expanded(
                         child: Column(
-                      children: [
+                        children: [
                         uploadFunction(
                           snapshot: snapshot,
                           name: "Upload",
@@ -266,18 +266,27 @@ class _DocumentState extends State<Document> {
     );
   }
 
-  void showBottom(BuildContext context) {
+  void showBottom(BuildContext context,String title) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
           return Container(
-            height: 250,
+            height: 200.h,
             child: Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Your file Uploading"),
+                  TextWidget(
+                    textColor: Properties.colorTextBlue,
+                    value: title,
+                    textAlign: TextAlign.center,
+                    size: 20.sp,
+                    fontWeight: FontWeight.w700,
+                    edgeInsetsGeometry: EdgeInsets.zero,
+                  ),
+                  SizedBox(height: 10,),
                   CircularProgressIndicator(),
                 ],
               ),

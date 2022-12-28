@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/global/properties.dart';
 
+import '../../../controller/menu_controller.dart';
 import '../../../global/db_paths.dart';
 import '../../../global/global_constants.dart';
 import '../../../model/slider_model.dart';
@@ -44,9 +45,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _controller = Get.put(MenuController());
   int _current = 0;
   @override
   Widget build(BuildContext context) {
+    _controller.getUserInfo();
     return SafeArea(
       child: Scaffold(
 
@@ -67,6 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         'assets/images/splash.png',
                         /*   height: 70.h,
             width: 50.w,*/
+                      ),
+                    ),
+                    Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        Get.offAllNamed(splash);
+                      },
+                      child: const Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],

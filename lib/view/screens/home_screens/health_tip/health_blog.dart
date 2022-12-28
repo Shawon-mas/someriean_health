@@ -13,29 +13,27 @@ class HealthBlog extends StatelessWidget {
   Widget build(BuildContext context) {
     final CollectionReference _blog =
     FirebaseFirestore.instance.collection(DbCollections.collectionHealthBlog);
-    return Expanded(
-      child: StreamBuilder(
-        stream: _blog.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =snapshot.data!.docs[index];
+    return StreamBuilder(
+      stream: _blog.snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot documentSnapshot =snapshot.data!.docs[index];
 
-                    return InkWell(
-                      onTap: () {},
-                      child: doctorsList(documentSnapshot, context),
-                    );
+                  return InkWell(
+                    onTap: () {},
+                    child: doctorsList(documentSnapshot, context),
+                  );
 
 
-                });
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+              });
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
   Widget doctorsList(
