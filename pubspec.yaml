@@ -64,6 +64,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   url_launcher: ^6.1.7
   auto_size_text: ^3.0.0
+  zego_uikit_signaling_plugin: ^1.0.7
+  zego_uikit_prebuilt_call:
 
 
 dependency_overrides:

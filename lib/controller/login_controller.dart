@@ -22,6 +22,7 @@ class LoginController extends GetxController {
   final auth = FirebaseAuth.instance;
   String verificationId = "";
   var countryCode = "AE".obs;
+  
 
   initPlatformState() async {
     String platformVersionin;

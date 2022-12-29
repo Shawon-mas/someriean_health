@@ -88,11 +88,11 @@ class LoginScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           padding: EdgeInsets.only(left: 10.h),
-          child: Obx(() => InternationalPhoneNumberInput(
+          child:  InternationalPhoneNumberInput(
                 isEnabled: true,
                 textFieldController: _controller.phoneController,
                 initialValue: PhoneNumber(
-                  isoCode: _controller.countryCode.value,
+                  isoCode: "AE",
                 ),
                 onInputChanged: (PhoneNumber number) {
                   _controller.phoneNumber = number.phoneNumber!;
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                   print('On Saved: ');
                 },
             ),
-          ),
+
         ),
         /*const SizedBox(
           height: 10,
