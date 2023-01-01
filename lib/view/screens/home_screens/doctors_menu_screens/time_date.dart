@@ -17,6 +17,7 @@ class TimeDateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
+        controller.valueAppointment.value = 'Book for Self';
         controller.fullNameController.clear();
         controller.othersEmiratesIdController.clear();
         controller.relationController.clear();
@@ -265,8 +266,13 @@ class TimeDateScreen extends StatelessWidget {
                                       : controller.valueAppointment.value,
                                   underline: const SizedBox(),
                                   onChanged: (newValue) {
-                                    controller.valueAppointment.value =
-                                        newValue as String;
+                                    controller.valueAppointment.value = newValue as String;
+                                    if(newValue=='Book for Self'){
+                                      controller.fullNameController.clear();
+                                      controller.othersEmiratesIdController.clear();
+                                      controller.relationController.clear();
+                                      controller.numberController.clear();
+                                    }
                                   },
                                   items:
                                       controller.appointmentType.map((valuItem) {
@@ -307,6 +313,7 @@ class TimeDateScreen extends StatelessWidget {
                                         height: 5.h,
                                       ),
                                       customTextField(
+                                          textInputType: TextInputType.number,
                                           enabled: true,
                                           textEditingController:
                                           controller.numberController,
@@ -319,13 +326,31 @@ class TimeDateScreen extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Obx(() => AppointmentButton(
                                     isLoading: controller.isProcessing.value,
                                     onPressed: () {
+                                      if(controller.valueAppointment.value == 'Book for Others'){
+                                        if(controller.fullNameController.text.isEmpty){
+                                          errorSnackBar(context,'Full Name Required');
+                                        }else if(controller.othersEmiratesIdController.text.isEmpty){
+                                          errorSnackBar(context,'Emirates ID Required');
+                                        }else if(controller.relationController.text.isEmpty){
+                                          errorSnackBar(context,'Relationship Required');
+                                        }else if(controller.othersEmiratesIdController.text.isEmpty){
+                                          errorSnackBar(context,'Mobile Number Required');
+                                        }
+                                        else{
+                                          controller.proceedOthersPayment(context, controller);
+                                        }
+                                      }else{
+                                        controller.proceedPayment(context, controller);
 
-                                      controller.proceedPayment(context, controller);
+                                      }
+
+
                                     },
                                     value: 'Proceed',
                                   )),
@@ -349,7 +374,7 @@ class TimeDateScreen extends StatelessWidget {
 
   Widget customTextField(
       {required TextEditingController textEditingController,
-      required String helperText,
+      required String helperText,TextInputType? textInputType,
       EdgeInsets? edgeInsets,
       bool? enabled = false}) {
     return Column(
@@ -365,6 +390,7 @@ class TimeDateScreen extends StatelessWidget {
           height: 10,
         ),
         TextField(
+         keyboardType: textInputType,
           enabled: enabled,
           controller: textEditingController,
           decoration: InputDecoration(

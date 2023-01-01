@@ -37,10 +37,12 @@ class DoctorAppointmentController extends GetxController {
   var timeAndDateController = TextEditingController();
   var messageController = TextEditingController();
   var emiratesController = TextEditingController();
+
   var relationController = TextEditingController();
   var numberController = TextEditingController();
   var fullNameController = TextEditingController();
   var othersEmiratesIdController = TextEditingController();
+
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
@@ -250,12 +252,63 @@ class DoctorAppointmentController extends GetxController {
     doc.set({
       DbDocs.fieldDoctorId: selectedDoctor.uid,
       DbDocs.fieldPatientNumber: mobileController.text,
-      DbDocs.fieldPaymentMethod: "cod", //TODO: change this later
-      DbDocs.fieldFile: "",
       DbDocs.fieldMessage: messageController.text,
-      DbDocs.fieldRelationship: relationController.text,
       DbDocs.fieldOtherNumber: numberController.text,
       DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldTime: selectedTime.value.format(context).toString(),
+      DbDocs.fieldDateEpoch: selectedDate.value.millisecondsSinceEpoch.toString(),
+      DbDocs.fieldDate: '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
+    }).then((value) async {
+      if (selectedFile.value != "Attachment (previous report file if available)") {
+        final storageRef = FirebaseStorage.instance.ref();
+        final fileRef = storageRef.child(doc.id + "/" + basename(selectedFile.value));
+        final uploadTask = await fileRef.putFile(File(selectedFile.value));
+        String url = await uploadTask.ref.getDownloadURL();
+        FirebaseFirestore.instance.collection(DbCollections.collectionAppointments).doc(doc.id).set({
+          DbDocs.fieldFile: url,
+        }, SetOptions(merge: true));
+      }
+      /* Setting appointment for doctor or nurse according to service providers*/
+      FirebaseFirestore.instance
+          .collection(serviceProvider(selectedDoctor.serviceProvider.name))
+          .doc(selectedDoctor.uid)
+          .collection(DbCollections.collectionAppointments)
+          .doc(doc.id)
+          .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
+      /* Setting appointment for patient */
+      FirebaseFirestore.instance
+          .collection(DbCollections.collectionPatients)
+          .doc(mobileController.text)
+          .collection(DbCollections.collectionAppointments)
+          .doc(doc.id)
+          .set({DbDocs.fieldAppointmentId: doc.id}, SetOptions(merge: true));
+      String number = mobileController.text.substring(4);
+      String message =
+          "Dear ${firstNameController.text} ${lastNameController.text}, confirmed your appointment with ${selectedDoctor.name}(${selectedDoctor.title}) Date: ${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year} Place: ${selectedDoctor.location} Time: ${selectedTime.value.format(context).toString()}";
+      String url = "http://www.mshastra.com/sendurlcomma.aspx?user=20099446&pwd=Achcc@1234&senderid=AD-SOMERIAN&CountryCode=+971&mobileno=$number&msgtext=$message&smstype=0";
+      http.get(Uri.parse(url)).then((value) {
+        logger.d(value.body);
+      });
+      successSnackBar(context, "Appointment booked");
+    });
+    isProcessing.value = false;
+    Get.back();
+    Get.back();
+    Get.back();
+    Get.off(() => CompleteAppointmentScreen(controller: controller));
+  }
+  proceedOthersPayment(BuildContext context, DoctorAppointmentController controller) async {
+    isProcessing.value = true;
+    var doc = FirebaseFirestore.instance.collection(DbCollections.collectionAppointments).doc();
+    doc.set({
+      DbDocs.fieldDoctorId: selectedDoctor.uid,
+      DbDocs.fieldPatientNumber: mobileController.text,
+      DbDocs.fieldRelationship: relationController.text,
+      DbDocs.fieldOtherNumber: numberController.text,
+      DbDocs.fieldOthersName: fullNameController.text,
+      DbDocs.fieldOthersEmiratesId: othersEmiratesIdController.text,
+      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldAppointsType: 'Book for others',
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
       DbDocs.fieldDateEpoch: selectedDate.value.millisecondsSinceEpoch.toString(),
       DbDocs.fieldDate: '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',

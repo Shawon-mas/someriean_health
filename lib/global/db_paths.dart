@@ -43,6 +43,14 @@ class DbDocs {
   static const fieldOtherNumber = "otherNumber";
   static const fieldCancelled = "cancelled"; //bool
 
+/* Appointment for others */
+  static const fieldOthersName = "othersName";
+  static const fieldOthersEmiratesId = "othersEmiratesId";
+  static const fieldOthersRelation = "othersRelation";
+  static const fieldOthersNumber = "othersNumber";
+  static const fieldAppointsType = "appointmentsFor";
+
+
   /* AppointmentId */
   static const fieldAppointmentId = "appointmentId";
 

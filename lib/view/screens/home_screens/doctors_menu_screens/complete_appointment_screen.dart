@@ -55,6 +55,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         size: 14.sp,
                         fontWeight: FontWeight.w700,
                         textColor: Properties.fontColor,
+                        edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
                       TextWidget(
                         value:
@@ -62,14 +63,15 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
+                        edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
-
                       TextWidget(
                         value:
                         'Date: ${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
+                        edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
                       TextWidget(
                         value:
@@ -79,6 +81,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
+                        edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
                       TextWidget(
                         value:
@@ -86,7 +89,24 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
+                        edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
+
+                     Obx(() =>  Visibility(
+                         visible: controller.valueAppointment.value=='Book for others',
+                         child: Column(
+                           children: [
+                             TextWidget(
+                               value:
+                               controller.fullNameController.text,
+                               size: 14.sp,
+                               fontWeight: FontWeight.w700,
+                               textColor: Properties.fontColor,
+                               edgeInsetsGeometry: EdgeInsets.all(3),
+                             ),
+                           ],
+                         )
+                     ))
                     ],
                   ),
                 ),
