@@ -333,7 +333,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         menuTittle: "Teleconsultation",
                         imageMenu: 'assets/images/medical.png',
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoCalling()));
+                          Get.to(()=>VideoCalling());
+                          //Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoCalling()));
                        //  infoSnackBar(context,'Coming soon');
                         }),
                   ],

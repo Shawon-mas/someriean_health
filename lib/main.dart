@@ -40,12 +40,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 800),
+      designSize:const Size(360, 800),
       minTextAdapt: true,
-      splitScreenMode: true,
-        useInheritedMediaQuery: true,
+      splitScreenMode: false,
+      useInheritedMediaQuery: false,
       builder: (context, child) {
-
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: splash,

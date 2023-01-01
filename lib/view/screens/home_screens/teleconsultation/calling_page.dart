@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'dart:math' as math;
+
+import '../../../../global/global_constants.dart';
+import '../../bottombar_screen.dart';
 
 class CallPage extends StatelessWidget {
 
@@ -10,7 +15,6 @@ class CallPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String localUserID = math.Random().nextInt(10000).toString();
-
     return SafeArea(
         child: ZegoUIKitPrebuiltCall(
           appID: 2044973971,
@@ -18,8 +22,13 @@ class CallPage extends StatelessWidget {
           userID: localUserID,
           userName: "user_$localUserID",
           callID: callingId,
+          /*onDispose: (){
+            logger.d("Here i go");
+            Get.to(() => BottomBarScreen());
+          },*/
           config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
             ..onOnlySelfInRoom = (context) {
+              logger.d("Here i go");
               Navigator.of(context).pop();
             },
         ),

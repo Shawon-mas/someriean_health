@@ -30,7 +30,7 @@ class MenuController extends GetxController {
         }
         if (doc.data()!.containsKey(DbDocs.fieldImageUrl)) {
           imagePath.value = doc[DbDocs.fieldImageUrl];
-          logger.d(doc[DbDocs.fieldImageUrl]);
+          //logger.d(doc[DbDocs.fieldImageUrl]);
         } else {
           imagePath.value = "";
         }
