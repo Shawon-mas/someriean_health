@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'calling_page.dart';
 class VideoCalling extends StatefulWidget {
@@ -31,12 +33,14 @@ class _VideoCallingState extends State<VideoCalling> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+
+                  Get.off(CallPage(callingId: callIDTextCtrl.text.toString()));
+                  /*Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
                       return CallPage(callingId: callIDTextCtrl.text.toString());
                     }),
-                  );
+                  );*/
                 },
                 child: const Text("join"),
               )

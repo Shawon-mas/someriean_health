@@ -15,322 +15,333 @@ class TimeDateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: CommonToolbar(title: 'Doctors'),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Container(
-              height: 110.h,
-              color: Colors.grey.shade300,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            5,
-                          ),
-                        ),
-                        child: Image.network(
-                          controller.selectedDoctor.image,
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    FittedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextWidget(
-                            value: controller.selectedDoctor.name,
-                            edgeInsetsGeometry: EdgeInsets.only(
-                                top: 5, left: 10, right: 10, bottom: 5),
-                            size: 18.sp,
-                            fontWeight: FontWeight.w700,
-                            textColor: Properties.fontColor,
-                          ),
-                          TextWidget(
-                            edgeInsetsGeometry: EdgeInsets.only(
-                                left: 10, right: 10, top: 5, bottom: 5),
-                            value: controller.selectedDoctor.title,
-                            size: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            textColor: Properties.fontColor,
-                          ),
-                          TextWidget(
-                            edgeInsetsGeometry: EdgeInsets.only(
-                                left: 10, right: 10, bottom: 10, top: 5),
-                            value: controller.selectedDoctor.location,
-                            size: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            textColor: Properties.fontColor,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextWidget(
-                        value: 'Select Preferred Date',
-                        size: 14.sp,
-                        fontWeight: FontWeight.w700,
-                        textColor: Properties.colorTextBlue,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          controller.selectDate(context);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 10),
-                          height: 40.h,
-                          width: double.infinity,
-                          child: Row(
-                            children: [
-                              Obx(
-                                () => TextWidget(
-                                  value:
-                                      '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  textColor: Colors.grey,
-                                ),
-                              ),
-                              const Spacer(),
-                              const Icon(
-                                Icons.calendar_today,
-                                color: Colors.grey,
-                              )
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                        ),
-                      ),
-                      TextWidget(
-                        value: 'Select Preferred Time',
-                        size: 14.sp,
-                        fontWeight: FontWeight.w700,
-                        textColor: Properties.colorTextBlue,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          controller.selectTime(context);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 10),
-                          height: 40.h,
-                          width: double.infinity,
-                          child: Row(
-                            children: [
-                              Obx(
-                                () => TextWidget(
-                                  value: controller.selectedTime.value
-                                      .format(context)
-                                      .toString(),
-                                  size: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  textColor: Colors.grey,
-                                ),
-                              ),
-                              const Spacer(),
-                              Image.asset('assets/images/clock.png')
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
+    return WillPopScope(
+      onWillPop: () async{
+        controller.fullNameController.clear();
+        controller.othersEmiratesIdController.clear();
+        controller.relationController.clear();
+        controller.numberController.clear();
+        return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: CommonToolbar(
+            title: 'Doctors',
+
+        ),
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              Container(
+                height: 110.h,
+                color: Colors.grey.shade300,
+                child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: customTextField(
-                                textEditingController:
-                                    controller.firstNameController,
-                                helperText: "First Name"),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: customTextField(
-                                textEditingController:
-                                    controller.lastNameController,
-                                helperText: "Last Name"),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customTextField(
-                          textEditingController: controller.mobileController,
-                          helperText: "Mobile No"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customTextField(
-                          textEditingController: controller.emailController,
-                          helperText: "Email Id"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customTextField(
-                          textEditingController: controller.genderController,
-                          helperText: "Gender"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customTextField(
-                          textEditingController: controller.emiratesController,
-                          helperText: "Emirates Id"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      customTextField(
-                          textEditingController:
-                              controller.nationalityController,
-                          helperText: "Nationality"),
-                      Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            child: Obx(
-                              () => DropdownButton(
-                                hint: const Text('For Whom'),
-                                isExpanded: true,
-                                value: controller.valueAppointment.value == ""
-                                    ? null
-                                    : controller.valueAppointment.value,
-                                underline: const SizedBox(),
-                                onChanged: (newValue) {
-                                  controller.valueAppointment.value =
-                                      newValue as String;
-                                },
-                                items:
-                                    controller.appointmentType.map((valuItem) {
-                                  return DropdownMenuItem(
-                                    value: valuItem,
-                                    child: Text(valuItem),
-                                  );
-                                }).toList(),
-                              ),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              5,
                             ),
                           ),
-                          Obx(() => Visibility(
-                                visible: controller.valueAppointment.value ==
-                                    'Book for Others',
-                                child: Column(
-                                  children: [
-
-
-                                    customTextField(
-                                        enabled: true,
-                                        textEditingController:
-                                        controller.fullNameController,
-                                        helperText: "Full Name"),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    customTextField(
-                                        enabled: true,
-                                        textEditingController:
-                                        controller.othersEmiratesIdController,
-                                        helperText: "Emirates Id"),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    customTextField(
-                                        enabled: true,
-                                        textEditingController:
-                                        controller.relationController,
-                                        helperText: "Relationship"),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    customTextField(
-                                        enabled: true,
-                                        textEditingController:
-                                        controller.numberController,
-                                        helperText: "Mobile Number"),
-                                  ],
-                                ),
-                              )),
-                          SizedBox(
-                            height: 20,
+                          child: Image.network(
+                            controller.selectedDoctor.image,
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.contain,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Obx(() => AppointmentButton(
-                                  isLoading: controller.isProcessing.value,
-                                  onPressed: () {
-                                    controller.proceedPayment(
-                                        context, controller);
-                                  },
-                                  value: 'Proceed',
-                                )),
-                          ),
-                        ],
+                        ),
+                      ),
+                      FittedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              value: controller.selectedDoctor.name,
+                              edgeInsetsGeometry: EdgeInsets.only(
+                                  top: 5, left: 10, right: 10, bottom: 5),
+                              size: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              textColor: Properties.fontColor,
+                            ),
+                            TextWidget(
+                              edgeInsetsGeometry: EdgeInsets.only(
+                                  left: 10, right: 10, top: 5, bottom: 5),
+                              value: controller.selectedDoctor.title,
+                              size: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              textColor: Properties.fontColor,
+                            ),
+                            TextWidget(
+                              edgeInsetsGeometry: EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 10, top: 5),
+                              value: controller.selectedDoctor.location,
+                              size: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              textColor: Properties.fontColor,
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextWidget(
+                          value: 'Select Preferred Date',
+                          size: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          textColor: Properties.colorTextBlue,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            controller.selectDate(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 10),
+                            height: 40.h,
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Obx(
+                                  () => TextWidget(
+                                    value:
+                                        '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textColor: Colors.grey,
+                                  ),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10))),
+                          ),
+                        ),
+                        TextWidget(
+                          value: 'Select Preferred Time',
+                          size: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          textColor: Properties.colorTextBlue,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            controller.selectTime(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.only(right: 10),
+                            height: 40.h,
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Obx(
+                                  () => TextWidget(
+                                    value: controller.selectedTime.value
+                                        .format(context)
+                                        .toString(),
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textColor: Colors.grey,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Image.asset('assets/images/clock.png')
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10))),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: customTextField(
+                                  textEditingController:
+                                      controller.firstNameController,
+                                  helperText: "First Name"),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: customTextField(
+                                  textEditingController:
+                                      controller.lastNameController,
+                                  helperText: "Last Name"),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        customTextField(
+                            textEditingController: controller.mobileController,
+                            helperText: "Mobile No"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        customTextField(
+                            textEditingController: controller.emailController,
+                            helperText: "Email Id"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        customTextField(
+                            textEditingController: controller.genderController,
+                            helperText: "Gender"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        customTextField(
+                            textEditingController: controller.emiratesController,
+                            helperText: "Emirates Id"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        customTextField(
+                            textEditingController:
+                                controller.nationalityController,
+                            helperText: "Nationality"),
+                        Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Obx(
+                                () => DropdownButton(
+                                  hint: const Text('For Whom'),
+                                  isExpanded: true,
+                                  value: controller.valueAppointment.value == ""
+                                      ? null
+                                      : controller.valueAppointment.value,
+                                  underline: const SizedBox(),
+                                  onChanged: (newValue) {
+                                    controller.valueAppointment.value =
+                                        newValue as String;
+                                  },
+                                  items:
+                                      controller.appointmentType.map((valuItem) {
+                                    return DropdownMenuItem(
+                                      value: valuItem,
+                                      child: Text(valuItem),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                            Obx(() => Visibility(
+                                  visible: controller.valueAppointment.value == 'Book for Others',
+                                  child: Column(
+                                    children: [
+                                      customTextField(
+                                          enabled: true,
+                                          textEditingController:
+                                          controller.fullNameController,
+                                          helperText: "Full Name"),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      customTextField(
+                                          enabled: true,
+                                          textEditingController:
+                                          controller.othersEmiratesIdController,
+                                          helperText: "Emirates Id"),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      customTextField(
+                                          enabled: true,
+                                          textEditingController:
+                                          controller.relationController,
+                                          helperText: "Relationship"),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      customTextField(
+                                          enabled: true,
+                                          textEditingController:
+                                          controller.numberController,
+                                          helperText: "Mobile Number"),
+                                    ],
+                                  ),
+                                )),
+                        //    Obx(() => controller.valueAppointment.value == 'Book for Self'?controller.fullNameController.clear():),
+
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Obx(() => AppointmentButton(
+                                    isLoading: controller.isProcessing.value,
+                                    onPressed: () {
+
+                                      controller.proceedPayment(context, controller);
+                                    },
+                                    value: 'Proceed',
+                                  )),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
         ),
       ),
     );
