@@ -255,6 +255,8 @@ class DoctorAppointmentController extends GetxController {
       DbDocs.fieldMessage: messageController.text,
       DbDocs.fieldOtherNumber: numberController.text,
       DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldFile:'',
+      DbDocs.fieldPaymentMethod:'',
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
       DbDocs.fieldDateEpoch: selectedDate.value.millisecondsSinceEpoch.toString(),
       DbDocs.fieldDate: '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}',
