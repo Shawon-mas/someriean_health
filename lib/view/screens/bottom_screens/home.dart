@@ -24,6 +24,7 @@ import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_facility.dart';
 import '../home_screens/insurance/insurance_list.dart';
+import '../home_screens/manage_appiontment/appointment_section.dart';
 import '../home_screens/manage_appiontment/manage_appionment.dart';
 import '../home_screens/medical_history/medical_history.dart';
 import '../home_screens/reports/reports_type.dart';
@@ -272,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         menuTittle: "Manage Appointment",
                         imageMenu: 'assets/images/manage_appointment.png',
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ManageAppiontment()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AppointmentSection()));
                          // infoSnackBar(context,'Coming soon');
                         }),
                     HomeMenu(

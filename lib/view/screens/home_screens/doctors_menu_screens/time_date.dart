@@ -347,10 +347,7 @@ class TimeDateScreen extends StatelessWidget {
                                         }
                                       }else{
                                         controller.proceedPayment(context, controller);
-
                                       }
-
-
                                     },
                                     value: 'Proceed',
                                   )),

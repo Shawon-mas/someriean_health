@@ -113,6 +113,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                 ),
               ),
             ),
+
             Expanded(
               child: TabBarView(
                 controller: tabController,
