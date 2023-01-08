@@ -35,6 +35,9 @@ class LoginController extends GetxController {
     logger.d(countryCode.value);
   }
 
+
+
+
   sendOtp(BuildContext context, LoginController _controller) async {
     isSendingOtp.value = true;
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -55,12 +58,12 @@ class LoginController extends GetxController {
       },
       codeSent: (String verificationId, int? resendToken) async {
         isSendingOtp.value = false;
-        Get.to(
+      /*  Get.to(
           () => OtpScreen(
             controller: _controller,
             verificationId: verificationId,
           ),
-        );
+        );*/
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
@@ -79,6 +82,7 @@ class LoginController extends GetxController {
           .collection(DbCollections.collectionPatients)
           .get()
           .then((value) {
+            
         List<String> numbers = [];
         for (var patient in value.docs) {
           numbers.add(patient.id);
@@ -91,7 +95,6 @@ class LoginController extends GetxController {
           Get.to(
             () => CompleteProfileScreen(
               mobileNumber: phoneNumber,
-              uid: user.uid,
             ),
           );
         }

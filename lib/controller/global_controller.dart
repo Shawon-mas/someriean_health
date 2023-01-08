@@ -8,6 +8,7 @@ import '../routes/routes.dart';
 class GlobalController extends GetxController {
   final box = Hive.box(hiveBox);
   final backendAsFirebase = true;
+  bool isLogin=false;
 
   getCurrentUser() {
     if (backendAsFirebase) {
@@ -25,7 +26,14 @@ class GlobalController extends GetxController {
     }
   }
 
-  _getCurrentUserFromServer() {
+  getCurrentUserFromServer() {
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      if (isLogin) {
+        Get.offAllNamed(bottom);
+      } else {
+        Get.offAllNamed(login);
+      }
+    });
     //do server response here
   }
 

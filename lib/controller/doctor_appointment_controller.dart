@@ -52,6 +52,17 @@ class DoctorAppointmentController extends GetxController {
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
 
+
+
+
+
+
+
+
+
+
+
+
   final CollectionReference doctors = FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
 

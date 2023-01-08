@@ -8,18 +8,21 @@ import 'package:somerian_health/global/global_constants.dart';
 import '../routes/routes.dart';
 
 class CompleteProfileController extends GetxController {
+  DateTime? picked;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay(hour: 8, minute: 30).obs;
   var valueChoose = "".obs;
   var valueNationality = "".obs;
   final gender = ['Male', 'Female', 'Others'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
+
   var isUploading = false.obs;
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var mobileController = TextEditingController();
   var emailController = TextEditingController();
   var passportController = TextEditingController();
+
   var currentUser = FirebaseAuth.instance.currentUser;
   var locations = <String>[].obs;
   var selectedLocation = "".obs;
@@ -27,12 +30,17 @@ class CompleteProfileController extends GetxController {
   var selectedSpeciality = "".obs;
   final CollectionReference doctors =FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
+
+
   selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
+     picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: selectedDate.value,
         firstDate: DateTime(1950, 8),
-        lastDate: DateTime(2101));
+        lastDate: DateTime(2101),
+        helpText: 'Select Date of Birth'
+
+    );
     selectedDate.value = picked!;
   }
 
@@ -80,4 +88,21 @@ class CompleteProfileController extends GetxController {
       errorSnackBar(context, "Something went wrong");
     });
   }
+
+  checkFieldCheck( BuildContext context){
+    if(firstNameController.text.toString().isEmpty){
+      //getErrorSnack('First Name Required');
+      errorSnackBar(context,"First Name Required");
+    }else if(lastNameController.text.toString().isEmpty){
+      errorSnackBar(context,"Last Name Required");
+    }else if(mobileController.text.toString().isEmpty){
+      errorSnackBar(context,"Mobile Number Required");
+    }else if(emailController.text.toString().isEmpty){
+      errorSnackBar(context,"Email Required");
+    }else if(passportController.text.toString().isEmpty){
+
+    }
+  }
+
+
 }

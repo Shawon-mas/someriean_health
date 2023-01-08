@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:somerian_health/controller/login_controller.dart';
+import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 
 import '../../global/properties.dart';
 import '../widget/common_toolbar.dart';
@@ -11,9 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OtpScreen extends StatelessWidget {
   final LoginController controller;
-  final String verificationId;
 
-  const OtpScreen({Key? key, required this.controller, required this.verificationId}) : super(key: key);
+  const OtpScreen({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class OtpScreen extends StatelessWidget {
               ),
               TextWidget(
                 textColor: Properties.colorTextBlue,
-                value: "${controller.phoneNumber}",
+                value: "+971 ${controller.phoneController.text}",
                 size: 14.sp,
                 fontWeight: FontWeight.w500,
               ),
@@ -58,7 +58,11 @@ class OtpScreen extends StatelessWidget {
                 // submittedPinTheme: submittedPinTheme,
                 controller: controller.otpController,
                 showCursor: true,
-                onCompleted: (pin) => controller.registerUser(pin, verificationId, context),
+                onCompleted: (pin) =>
+                {
+                 // controller.registerUser(pin, verificationId, context)
+                  print(pin)
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -70,7 +74,14 @@ class OtpScreen extends StatelessWidget {
                   isLoading: controller.isVerifyingOtp.value,
                   buttonColor: Properties.primaryColor,
                   onPressed: () {
-                    controller.registerUser(controller.otpController.text, verificationId, context);
+              //      controller.registerUser(controller.otpController.text, verificationId, context);
+                    if(controller.otpController.text=='123456'){
+                      print('Success');
+                      controller.isVerifyingOtp.value=true;
+                      Get.to(CompleteProfileScreen(mobileNumber: controller.phoneController.text));
+                    }else{
+                      print('Invalid');
+                    }
                   },
                 );
               }),

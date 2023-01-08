@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/routes/routes.dart';
+import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 import 'package:somerian_health/view/widget/custom_button.dart';
 
 import '../../controller/login_controller.dart';
@@ -63,10 +64,15 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 if (_controller.phoneController.text.isEmpty) {
                   errorSnackBar(context, "Input fields can not be empty");
-                } else if (!_controller.isValidNumber) {
-                  errorSnackBar(context, "Invalid number");
-                } else {
-                  _controller.sendOtp(context, _controller);
+
+                } else if(_controller.phoneController.text.length<9){
+                  errorSnackBar(context, "Invalid Number");
+                }
+
+                else {
+                  Get.to(()=> OtpScreen(controller: _controller,));
+                  _controller.isSendingOtp.value=true;
+                 // _controller.sendOtp(context, _controller);
                   //Get.to(()=>OtpScreen(controller: _controller));
                 }
               },
@@ -89,6 +95,7 @@ class LoginScreen extends StatelessWidget {
           ),
           padding: EdgeInsets.only(left: 10.h),
           child:  InternationalPhoneNumberInput(
+                maxLength: 9,
                 isEnabled: true,
                 textFieldController: _controller.phoneController,
                 initialValue: PhoneNumber(

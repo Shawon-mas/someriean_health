@@ -28,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         upperBound: 1
     );
     _animation = CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
-
     _controller.forward();
   }
 
@@ -39,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   }
   @override
   Widget build(BuildContext context) {
-    controller.getCurrentUser();
+    controller.getCurrentUserFromServer();
     return Scaffold(
         body: Stack(
       children: [
