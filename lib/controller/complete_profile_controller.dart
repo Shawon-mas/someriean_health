@@ -8,7 +8,7 @@ import 'package:somerian_health/global/global_constants.dart';
 import '../routes/routes.dart';
 
 class CompleteProfileController extends GetxController {
-  DateTime? picked;
+
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay(hour: 8, minute: 30).obs;
   var valueChoose = "".obs;
@@ -31,9 +31,8 @@ class CompleteProfileController extends GetxController {
   final CollectionReference doctors =FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
 
-
   selectDate(BuildContext context) async {
-     picked = await showDatePicker(
+    DateTime?  picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
         firstDate: DateTime(1950, 8),
@@ -102,6 +101,16 @@ class CompleteProfileController extends GetxController {
     }else if(passportController.text.toString().isEmpty){
 
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passportController.dispose();
   }
 
 
