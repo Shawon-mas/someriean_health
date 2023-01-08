@@ -52,7 +52,7 @@ class OtpScreen extends StatelessWidget {
                 height: 30,
               ),
               Pinput(
-                length: 6,
+                length: 4,
                 // defaultPinTheme: defaultPinTheme,
                 // focusedPinTheme: focusedPinTheme,
                 // submittedPinTheme: submittedPinTheme,
@@ -75,9 +75,9 @@ class OtpScreen extends StatelessWidget {
                   buttonColor: Properties.primaryColor,
                   onPressed: () {
               //      controller.registerUser(controller.otpController.text, verificationId, context);
-                    if(controller.otpController.text=='123456'){
+                    if(controller.otpController.text==controller.otp.value){
                       print('Success');
-                      controller.isVerifyingOtp.value=true;
+
                       Get.to(CompleteProfileScreen(mobileNumber: controller.phoneController.text));
                     }else{
                       print('Invalid');

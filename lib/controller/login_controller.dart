@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
@@ -7,9 +10,10 @@ import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 import 'package:somerian_health/view/screens/otp_screen.dart';
-
+import 'package:http/http.dart' as http;
 import '../global/global_constants.dart';
 import '../routes/routes.dart';
+import '../utilites/api_services.dart';
 
 class LoginController extends GetxController {
   var isPasswordVisible = false.obs;
@@ -22,6 +26,7 @@ class LoginController extends GetxController {
   final auth = FirebaseAuth.instance;
   String verificationId = "";
   var countryCode = "AE".obs;
+  var otp=''.obs;
   
 
   initPlatformState() async {
@@ -35,7 +40,40 @@ class LoginController extends GetxController {
     logger.d(countryCode.value);
   }
 
+  sendApiOtp(BuildContext context, LoginController _controller) async{
+    isSendingOtp.value = true;
+    Map<String,dynamic> body={
+      ApiKeyName.OTP_NUMBER:phoneController.text.toString(),
+    };
+    try{
+      var response=await http.post(Uri.parse(ApiServices.OTP_URL),
+          body: body,
+          headers: ApiServices().defaultHeader
+      );
+      if(response.statusCode==200){
+       isSendingOtp.value = true;
+        if (kDebugMode) {
+          print("Response:${response.body}");
+        }
+        var data=json.decode(response.body);
+        if (kDebugMode) {
+          print("Otp:${data['data']}");
+        }
+        otp.value=data['data'].toString();
+        successSnackBar(context, data['message']);
+        Get.to(()=> OtpScreen(controller: _controller,));
 
+
+      }
+
+    }catch(e){
+      isSendingOtp.value = false;
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+
+  }
 
 
   sendOtp(BuildContext context, LoginController _controller) async {

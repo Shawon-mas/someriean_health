@@ -70,8 +70,8 @@ class LoginScreen extends StatelessWidget {
                 }
 
                 else {
-                  Get.to(()=> OtpScreen(controller: _controller,));
-                  _controller.isSendingOtp.value=true;
+                  _controller.sendApiOtp(context,_controller);
+               //   _controller.isSendingOtp.value=true;
                  // _controller.sendOtp(context, _controller);
                   //Get.to(()=>OtpScreen(controller: _controller));
                 }
@@ -103,10 +103,6 @@ class LoginScreen extends StatelessWidget {
                 ),
                 onInputChanged: (PhoneNumber number) {
                   _controller.phoneNumber = number.phoneNumber!;
-                },
-                onInputValidated: (bool value) {
-                  _controller.isValidNumber = value;
-                  logger.d(value);
                 },
                 selectorConfig: const SelectorConfig(
                   selectorType: PhoneInputSelectorType.DIALOG,
