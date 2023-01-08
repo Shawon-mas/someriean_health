@@ -27,21 +27,29 @@ class _DocumentState extends State<Document> {
   PlatformFile? platformFile;
   var user = FirebaseAuth.instance.currentUser;
 
-  Future selectFile({required BuildContext context, required String docName}) async {
+  Future selectFile(
+      {required BuildContext context, required String docName}) async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
-    uploadFile(path: result.files.single.path!, context: context, docName: docName);
+    uploadFile(
+        path: result.files.single.path!, context: context, docName: docName);
   }
 
-  uploadFile({required String path, required BuildContext context, required String docName}) async {
+  uploadFile(
+      {required String path,
+      required BuildContext context,
+      required String docName}) async {
     //dialog
-    showBottom(context,"Your file is uploading");
-   // infoSnackBar(context, "Uploading file");
+    showBottom(context, "Your file is uploading");
+    // infoSnackBar(context, "Uploading file");
     final storageRef = FirebaseStorage.instance.ref();
     final fileRef = storageRef.child(user!.phoneNumber! + "/" + basename(path));
     final uploadTask = await fileRef.putFile(File(path));
     String url = await uploadTask.ref.getDownloadURL();
-    FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).set({
+    FirebaseFirestore.instance
+        .collection(DbCollections.collectionPatients)
+        .doc(user!.phoneNumber!)
+        .set({
       docName: url,
     }, SetOptions(merge: true)).then((value) {
       Navigator.pop(context);
@@ -49,12 +57,18 @@ class _DocumentState extends State<Document> {
     });
   }
 
-  deleteFile({required String url, required BuildContext context, required String docName}) {
+  deleteFile(
+      {required String url,
+      required BuildContext context,
+      required String docName}) {
     //Call a dialog while uploading
-    showBottom(context,"Deleting File");
+    showBottom(context, "Deleting File");
     final storageRef = FirebaseStorage.instance.refFromURL(url);
     storageRef.delete().then((value) {
-      FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).set({
+      FirebaseFirestore.instance
+          .collection(DbCollections.collectionPatients)
+          .doc(user!.phoneNumber!)
+          .set({
         docName: "",
       }, SetOptions(merge: true)).then((value) {
         Navigator.pop(context);
@@ -67,7 +81,10 @@ class _DocumentState extends State<Document> {
   Widget build(BuildContext context) {
     final _controller = Get.put(DoctorAppointmentController());
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance.collection(DbCollections.collectionPatients).doc(user!.phoneNumber!).snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection(DbCollections.collectionPatients)
+          .doc(user!.phoneNumber!)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Padding(
@@ -185,7 +202,7 @@ class _DocumentState extends State<Document> {
                     )),
                     Expanded(
                         child: Column(
-                        children: [
+                      children: [
                         uploadFunction(
                           snapshot: snapshot,
                           name: "Upload",
@@ -207,11 +224,19 @@ class _DocumentState extends State<Document> {
     );
   }
 
-  Widget uploadFunction({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required BuildContext context, required String docName, required String name}) {
-    return !checkFileExists(snapshot: snapshot, dbDocs: docName) ? _uploadButton(context: context, docName: docName, name: name) : _uploaded(context: context, snapshot: snapshot, docName: docName);
+  Widget uploadFunction(
+      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
+      required BuildContext context,
+      required String docName,
+      required String name}) {
+    return !checkFileExists(snapshot: snapshot, dbDocs: docName)
+        ? _uploadButton(context: context, docName: docName, name: name)
+        : _uploaded(context: context, snapshot: snapshot, docName: docName);
   }
 
-  bool checkFileExists({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required String dbDocs}) {
+  bool checkFileExists(
+      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
+      required String dbDocs}) {
     if (!(snapshot.data!.data() as Map<String, dynamic>).containsKey(dbDocs)) {
       return false;
     } else if (snapshot.data!.get(dbDocs) == "") {
@@ -221,7 +246,10 @@ class _DocumentState extends State<Document> {
     }
   }
 
-  Widget _uploaded({required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot, required BuildContext context, required String docName}) {
+  Widget _uploaded(
+      {required AsyncSnapshot<DocumentSnapshot<Object?>> snapshot,
+      required BuildContext context,
+      required String docName}) {
     return Row(
       children: [
         Expanded(
@@ -257,7 +285,10 @@ class _DocumentState extends State<Document> {
     );
   }
 
-  Widget _uploadButton({required BuildContext context, required String name, required String docName}) {
+  Widget _uploadButton(
+      {required BuildContext context,
+      required String name,
+      required String docName}) {
     return AppointmentButton(
       onPressed: () {
         selectFile(context: context, docName: docName);
@@ -266,7 +297,7 @@ class _DocumentState extends State<Document> {
     );
   }
 
-  void showBottom(BuildContext context,String title) {
+  void showBottom(BuildContext context, String title) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -286,7 +317,9 @@ class _DocumentState extends State<Document> {
                     fontWeight: FontWeight.w700,
                     edgeInsetsGeometry: EdgeInsets.zero,
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CircularProgressIndicator(),
                 ],
               ),

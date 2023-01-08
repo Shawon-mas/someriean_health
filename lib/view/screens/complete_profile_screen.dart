@@ -53,7 +53,7 @@ class CompleteProfileScreen extends StatelessWidget {
                         child: customTextField(
                             enabled: true,
                             textEditingController:
-                                _controller.firstNameController,
+                                _controller.lastNameController,
                             helperText: "Last Name"),
                       ),
                     ],
@@ -188,6 +188,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     height: 10,
                   ),
                   customTextField(
+                    textInputType: TextInputType.number,
                       enabled: true,
                       textEditingController: _controller.passportController,
                       helperText: "Emirates ID"),

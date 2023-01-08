@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/controller/global_controller.dart';
 import 'package:somerian_health/global/properties.dart';
-import 'package:somerian_health/view/screens/login_screen.dart';
 
-import 'auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);

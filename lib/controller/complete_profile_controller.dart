@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
+import 'package:somerian_health/view/screens/bottombar_screen.dart';
 
 import '../routes/routes.dart';
 
@@ -98,9 +99,19 @@ class CompleteProfileController extends GetxController {
       errorSnackBar(context,"Mobile Number Required");
     }else if(emailController.text.toString().isEmpty){
       errorSnackBar(context,"Email Required");
-    }else if(passportController.text.toString().isEmpty){
-
+    }else if(valueChoose.value.isEmpty){
+      errorSnackBar(context,"Gender Required");
+    }else if(valueNationality.value.isEmpty){
+      errorSnackBar(context,"Nationality Required");
     }
+    else if(passportController.text.toString().isEmpty){
+      errorSnackBar(context,"Emirates ID Required");
+    }else{
+      submitProfile();
+    }
+  }
+  submitProfile(){
+    Get.to(BottomBarScreen());
   }
 
   @override
