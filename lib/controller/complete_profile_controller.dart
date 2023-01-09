@@ -116,19 +116,17 @@ class CompleteProfileController extends GetxController {
     }
   }
   submitProfile() async{
-    logger.d('something wrong');
-    var dob='${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
+    var dob='${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}';
 
     Map<String, dynamic> body={
       ApiKeyName.USER_ID:await SharedPrefs().getUserId(),
-      ApiKeyName.USER_FIRST_NAME:firstNameController.text.toString(),
-      ApiKeyName.USER_LAST_NAME:lastNameController.text.toString(),
+      ApiKeyName.USER_FIRST_NAME:firstNameController.text,
+      ApiKeyName.USER_LAST_NAME:lastNameController.text,
       ApiKeyName.USER_DOB:dob,
       ApiKeyName.USER_EMAIL:emailController.text.toString(),
-      ApiKeyName.USER_GENDER:valueChoose.value,
+      ApiKeyName.USER_GENDER:valueChoose.value.toString(),
       ApiKeyName.USER_NATIONALITY:valueNationality.value,
-      ApiKeyName.USER_EMIRATES_ID:passportController.text.toString(),
-
+      ApiKeyName.USER_EMIRATES_ID:passportController.text,
     };
 
     try{
@@ -136,6 +134,10 @@ class CompleteProfileController extends GetxController {
           body:body,
           headers: await ApiServices().headerWithToken()
       );
+      logger.d(ApiServices.USER_UPDATE_URL);
+      logger.d(body);
+      logger.d(await ApiServices().headerWithToken());
+      logger.d(response.body);
       if(response.statusCode==200){
         if (kDebugMode) {
           print("Response:${response.body}");
@@ -146,6 +148,7 @@ class CompleteProfileController extends GetxController {
 
 
     }catch(e){
+      logger.d(e);
     //  errorSnackBar(context, 'Something Went Wrong');
       if (kDebugMode) {
         print(e.toString());
