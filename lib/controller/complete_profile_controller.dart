@@ -1,5 +1,7 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
@@ -7,6 +9,9 @@ import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/view/screens/bottombar_screen.dart';
 
 import '../routes/routes.dart';
+import '../utilites/api_services.dart';
+import '../utilites/shared_prefs.dart';
+import 'package:http/http.dart' as http;
 
 class CompleteProfileController extends GetxController {
 
@@ -110,8 +115,43 @@ class CompleteProfileController extends GetxController {
       submitProfile();
     }
   }
-  submitProfile(){
-    Get.to(BottomBarScreen());
+  submitProfile() async{
+    logger.d('something wrong');
+    var dob='${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
+
+    Map<String, dynamic> body={
+      ApiKeyName.USER_ID:await SharedPrefs().getUserId(),
+      ApiKeyName.USER_FIRST_NAME:firstNameController.text.toString(),
+      ApiKeyName.USER_LAST_NAME:lastNameController.text.toString(),
+      ApiKeyName.USER_DOB:dob,
+      ApiKeyName.USER_EMAIL:emailController.text.toString(),
+      ApiKeyName.USER_GENDER:valueChoose.value,
+      ApiKeyName.USER_NATIONALITY:valueNationality.value,
+      ApiKeyName.USER_EMIRATES_ID:passportController.text.toString(),
+
+    };
+
+    try{
+      var response=await http.post(Uri.parse(ApiServices.USER_UPDATE_URL),
+          body:body,
+          headers: await ApiServices().headerWithToken()
+      );
+      if(response.statusCode==200){
+        if (kDebugMode) {
+          print("Response:${response.body}");
+        }
+        Get.to(BottomBarScreen());
+
+      }
+
+
+    }catch(e){
+    //  errorSnackBar(context, 'Something Went Wrong');
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+
   }
 
   @override

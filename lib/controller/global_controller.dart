@@ -27,6 +27,7 @@ class GlobalController extends GetxController {
   }
 
   getCurrentUserFromServer() {
+
     Future.delayed(const Duration(milliseconds: 3000), () {
       if (isLogin) {
         Get.offAllNamed(bottom);

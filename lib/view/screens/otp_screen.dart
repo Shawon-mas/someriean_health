@@ -75,10 +75,12 @@ class OtpScreen extends StatelessWidget {
                   buttonColor: Properties.primaryColor,
                   onPressed: () {
               //      controller.registerUser(controller.otpController.text, verificationId, context);
+                    controller.isVerifyingOtp.value=true;
                     if(controller.otpController.text==controller.otp.value){
-                      print('Success');
 
-                      Get.to(CompleteProfileScreen(mobileNumber: controller.phoneController.text));
+                      print('Success');
+                      controller.checkUserByNumber(context, controller);
+
                     }else{
                       print('Invalid');
                     }

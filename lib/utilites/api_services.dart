@@ -4,14 +4,15 @@ class ApiServices{
 
 static const String BASE_URL='https://somerian-app.noman-it.com/api';
 static const String OTP_URL=BASE_URL+'/User/UserOTP';
+static const String OTP_URL_LOGIN=BASE_URL+'/User/UserCheckByNumber';
 static const String USER_UPDATE_URL=BASE_URL+'/User/UpdateUserProfile';
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
   };
 
-  headerWithToken() async{
-    Map<String, String> getHeaderWithToken = {
+Future<Map<String, String>> headerWithToken() async{
+    var getHeaderWithToken = {
     'Accept':'application/json',
     'Authorization':'${await SharedPrefs().getToken()}'
   };
@@ -31,5 +32,5 @@ class ApiKeyName{
   static const String USER_EMAIL='apps_user_email';
   static const String USER_GENDER='apps_user_gender';
   static const String USER_NATIONALITY='apps_user_nationality';
-  static const String USER_EMIRATES_ID=' apps_user_emirates_id_number ';
+  static const String USER_EMIRATES_ID='apps_user_emirates_id_number';
 }

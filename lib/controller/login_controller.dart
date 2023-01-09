@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../global/global_constants.dart';
 import '../routes/routes.dart';
 import '../utilites/api_services.dart';
+import '../utilites/shared_prefs.dart';
 
 class LoginController extends GetxController {
   var isPasswordVisible = false.obs;
@@ -68,12 +69,58 @@ class LoginController extends GetxController {
 
     }catch(e){
       isSendingOtp.value = false;
+      errorSnackBar(context, 'Something Went Wrong');
       if (kDebugMode) {
         print(e.toString());
       }
     }
 
   }
+  checkUserByNumber(BuildContext context, LoginController _controller) async{
+    isVerifyingOtp.value=true;
+    Map<String,dynamic> body={
+      ApiKeyName.OTP_NUMBER:'+971${phoneController.text.toString()}',
+    };
+    try{
+      var response=await http.post(Uri.parse(ApiServices.OTP_URL_LOGIN),
+          body: body,
+          headers: ApiServices().defaultHeader
+      );
+      if(response.statusCode==200){
+        isVerifyingOtp.value=true;
+        if (kDebugMode) {
+          print("Response:${response.body}");
+        }
+        var data=json.decode(response.body);
+
+        var result=data['data'];
+        if(result!=null){
+          if (kDebugMode) {
+            print("Result:$result");
+          }
+
+          await SharedPrefs().saveToken(data['access_token']);
+          await SharedPrefs().storeUserId(result['apps_user_id'].toString());
+
+          print(await SharedPrefs().getToken());
+          print(await SharedPrefs().getUserId());
+
+
+          successSnackBar(context, data['message']);
+          Get.to(CompleteProfileScreen(mobileNumber: _controller.phoneController.text));
+        }
+      }
+
+    }catch(e){
+      isVerifyingOtp.value=false;
+      errorSnackBar(context, 'Something Went Wrong');
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+
 
 
   sendOtp(BuildContext context, LoginController _controller) async {

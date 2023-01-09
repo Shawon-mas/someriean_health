@@ -1,6 +1,26 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
+
+  //otp verify
+  isOtpVerify(value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isOTP', value);
+  }
+  getOtpVerify() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isOTP');
+  }
+  //save user id
+  storeUserId(userID) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('user_id', userID);
+  }
+  getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_id');
+  }
+
   //Session Manager
   isLogin(value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
