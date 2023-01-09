@@ -72,4 +72,13 @@ class SharedPrefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.clear();
   }
+
+  generalStoreData({required String key, required String value})async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+  Future<String?> generalGetData({required String key})async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
 }
