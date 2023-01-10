@@ -3,6 +3,7 @@ import 'package:somerian_health/utilites/shared_prefs.dart';
 class ApiServices{
 
 static const String BASE_URL='https://somerian-app.noman-it.com/api';
+static const String IMAGE_BASE_URL='https://somerian-app.noman-it.com/public';
 //auth url
 static const String OTP_URL=BASE_URL+'/User/UserOTP';
 static const String OTP_URL_LOGIN=BASE_URL+'/User/UserCheckByNumber';

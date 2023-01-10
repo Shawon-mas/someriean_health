@@ -20,7 +20,14 @@ class SharedPrefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_id');
   }
-
+  storeUserNumber(userNumber) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('user_number', userNumber);
+  }
+  getUserNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_number');
+  }
   //Session Manager
   isLogin(value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

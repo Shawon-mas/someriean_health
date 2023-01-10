@@ -10,6 +10,7 @@ import 'package:somerian_health/global/global_constants.dart';
 import 'dart:io';
 import 'package:somerian_health/global/properties.dart';
 
+import '../../../../utilites/api_services.dart';
 import '../../../widget/text_widget.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
@@ -44,10 +45,10 @@ class PersonalDetailsScreen extends StatelessWidget {
                                         child: CircularProgressIndicator(),
                                       ),
                                     )
-                                  : _controller.imagePath.value != ""
+                                  : _controller.selectImagePath.value != ""
                                       ? CircleAvatar(
                                           backgroundImage: CachedNetworkImageProvider(
-                                            _controller.imagePath.value,
+                                            _controller.selectImagePath.value,
                                           ),
                                           radius: 60,
                                         )

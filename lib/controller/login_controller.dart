@@ -101,9 +101,11 @@ class LoginController extends GetxController {
 
           await SharedPrefs().saveToken(data['access_token']);
           await SharedPrefs().storeUserId(result['apps_user_id'].toString());
+          await SharedPrefs().storeUserNumber(result['apps_user_mobile_number']);
 
           print(await SharedPrefs().getToken());
           print(await SharedPrefs().getUserId());
+          print(await SharedPrefs().getUserNumber());
 
 
           successSnackBar(context, data['message']);

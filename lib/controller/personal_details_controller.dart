@@ -20,8 +20,10 @@ import 'package:http/http.dart' as http;
 class PersonalDetailsController extends GetxController {
   final image = XFile("").obs;
   final imagePath = "".obs;
+  final selectImagePath = "".obs;
   final _box = Hive.box(hiveBox);
   var selectedImagePath = "";
+  var selectedImage = "".obs;
   var isImageUploading = false.obs;
   var isEditable = false.obs;
   var isUpdated = false.obs;
@@ -59,6 +61,7 @@ class PersonalDetailsController extends GetxController {
       nationalityController.text = updateUserProfileModel.data!.appsUserNationality!;
       emiratesIdController.text = updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
       dobController.text = '${updateUserProfileModel.data!.appsUserDob!.year.toString()}-${updateUserProfileModel.data!.appsUserDob!.month.toString()}-${updateUserProfileModel.data!.appsUserDob!.day.toString()}';
+
 
     }
   }
@@ -134,14 +137,33 @@ class PersonalDetailsController extends GetxController {
     _request.headers.addAll(await ApiServices().headerWithToken());
     _request.files.add(_fileFile);
     var _response = await _request.send();
-    if(_response==200){
+    var respond= await http.Response.fromStream(_response);
+    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+    isImageUploading.value = false;
+    await SharedPrefs().storeProfilePath('${ApiServices.IMAGE_BASE_URL}/${pictureUploaded!.data!.appsUserProfilePic!}');
+    selectImagePath.value= await SharedPrefs().getProfilePath();
+   // selectImagePath.value=pictureUploaded!.data!.appsUserProfilePic!;
+    //ApiServices.IMAGE_BASE_URL+pictureUploaded!.data!.appsUserProfilePic!
+    print(pictureUploaded.data!.appsUserProfilePic!);
+
+  /*  final respondData=json.decode(respond.body);
+   final pictureUploaded = respondData['data'];
+
+    print(respondData['data']);
+    print(pictureUploaded['apps_user_profile_pic']);
+    print(pictureUploaded!.data!.appsUserProfilePic!);*/
+
+
+
+   /* if(_response==200){
       print("Photo response success");
       _response.stream.transform(utf8.decoder).listen((event) async {
         Get.back();
         final _data = json.decode(event);
         if(_data["status"]==true){
           final pictureUploaded = updateUserProfileModelFromJson(event);
-          await SharedPrefs().storeProfilePath(ApiServices.USER_UPDATE_PROFILE_PICTURE+pictureUploaded!.data!.appsUserProfilePic!);
+           await SharedPrefs().storeProfilePath(ApiServices.IMAGE_BASE_URL+pictureUploaded!.data!.appsUserProfilePic!);
+           print('link: ${await SharedPrefs().getProfilePath()}');
           print("Photo response $event");
         }else{
           isImageUploading.value = false;
@@ -151,7 +173,7 @@ class PersonalDetailsController extends GetxController {
     }else{
       isImageUploading.value = false;
       print("Photo response failed");
-    }
+    }*/
 
   }
 
@@ -241,8 +263,9 @@ class PersonalDetailsController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async{
     getUserData();
+    selectImagePath.value= await SharedPrefs().getProfilePath();
   //  getUserInfo();
     super.onInit();
   }

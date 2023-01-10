@@ -9,6 +9,7 @@ import 'package:somerian_health/controller/menu_controller.dart';
 import '../../../global/global_constants.dart';
 import '../../../global/properties.dart';
 import '../../../routes/routes.dart';
+import '../../../utilites/api_services.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
 import '../home_screens/contact_us/contact_us.dart';
@@ -42,7 +43,7 @@ class MenuScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    //_controller.getUserInfo();
+    _controller.getUserData();
     return Scaffold(
       appBar: PrimaryToolbar(
         appbarIcons: [
@@ -75,7 +76,8 @@ class MenuScreen extends StatelessWidget {
                         ? CircleAvatar(
                             radius: 80,
                             backgroundImage: NetworkImage(
-                              _controller.imagePath.value,
+                              '${ApiServices.IMAGE_BASE_URL}/${_controller.imagePath.value}',
+                              //_controller.imagePath.value
                             ),
                           )
                         : CircleAvatar(
