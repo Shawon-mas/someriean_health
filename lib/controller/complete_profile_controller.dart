@@ -158,11 +158,18 @@ class CompleteProfileController extends GetxController {
       try {
         final updateUserProfileModel = updateUserProfileModelFromJson(response.body);
         if (updateUserProfileModel!.status! && updateUserProfileModel.data != null) {
+
           /*Get all data*/
           await SharedPrefs().generalStoreData(value: response.body, key: "user_data");
+          await SharedPrefs().isLogin(true);
+          print(await SharedPrefs().getIsLogin());
+
+
           String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
           if (jsonData != null) {
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
+            print(updateUserProfileModel);
+
           }
           Get.offAll(BottomBarScreen());
         }

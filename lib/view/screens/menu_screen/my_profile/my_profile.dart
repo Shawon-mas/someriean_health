@@ -39,7 +39,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final _box = Hive.box(hiveBox);
+     /*   final _box = Hive.box(hiveBox);
         final bool profileUpdated = _box.get(isProfileUpdated) ?? false;
         if (profileUpdated) {
           _box.put(isProfileUpdated, false);
@@ -47,6 +47,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
         } else {
           Get.back();
         }
+        return true;*/
         return true;
       },
       child: Scaffold(

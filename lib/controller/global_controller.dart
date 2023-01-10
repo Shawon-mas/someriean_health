@@ -4,11 +4,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:somerian_health/global/global_constants.dart';
 
 import '../routes/routes.dart';
+import '../utilites/shared_prefs.dart';
 
 class GlobalController extends GetxController {
   final box = Hive.box(hiveBox);
   final backendAsFirebase = true;
-  bool isLogin=false;
+  //bool isLogin=false;
 
   getCurrentUser() {
     if (backendAsFirebase) {
@@ -26,7 +27,8 @@ class GlobalController extends GetxController {
     }
   }
 
-  getCurrentUserFromServer() {
+  getCurrentUserFromServer() async{
+    bool isLogin= await SharedPrefs().getIsLogin()??false;
 
     Future.delayed(const Duration(milliseconds: 3000), () {
       if (isLogin) {

@@ -81,4 +81,13 @@ class SharedPrefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
+
+  storeProfilePath(path) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('profile_image', path);
+  }
+  getProfilePath() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('profile_image');
+  }
 }

@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 
+import '../model/user/update_user_profile_model.dart';
+import '../utilites/shared_prefs.dart';
+
 class MenuController extends GetxController {
   var user = FirebaseAuth.instance.currentUser;
   var imagePath = "".obs;
@@ -15,6 +18,7 @@ class MenuController extends GetxController {
   @override
   void onInit() {
     getUserInfo();
+    getUserData();
     super.onInit();
   }
 
@@ -35,6 +39,14 @@ class MenuController extends GetxController {
           imagePath.value = "";
         }
       });
+    }
+  }
+  getUserData()async {
+    String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
+    if (jsonData != null) {
+      final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
+      print(updateUserProfileModel!.data!.appsUserFirstName!);
+      print(updateUserProfileModel.data!.appsUserLastName!);
     }
   }
 }
