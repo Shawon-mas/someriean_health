@@ -29,28 +29,7 @@ class MenuController extends GetxController {
   }
 
 
-
-  getUserInfo() {
-    if (user != null) {
-      userDoc.doc(user!.phoneNumber).get().then((doc) {
-        name.value =
-            doc[DbDocs.fieldFirstName] + " " + doc[DbDocs.fieldLastName];
-        if (doc.data()!.containsKey(DbDocs.fieldEmiratesId)) {
-          emarites.value = doc[DbDocs.fieldEmiratesId];
-        } else {
-          emarites.value = "";
-        }
-        if (doc.data()!.containsKey(DbDocs.fieldImageUrl)) {
-          imagePath.value = doc[DbDocs.fieldImageUrl];
-          //logger.d(doc[DbDocs.fieldImageUrl]);
-        } else {
-          imagePath.value = "";
-        }
-      });
-    }
-  }
   getUserData()async {
-
 
     Map<String,dynamic> body={
       ApiKeyName.OTP_NUMBER:await SharedPrefs().getUserNumber(),
@@ -69,8 +48,8 @@ class MenuController extends GetxController {
           String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
           if (jsonData != null) {
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
-            imagePath.value=updateUserProfileModel!.data!.appsUserProfilePic!;
-            emarites.value=updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
+         //   imagePath.value=updateUserProfileModel!.data!.appsUserProfilePic!;
+            emarites.value=updateUserProfileModel!.data!.appsUserEmiratesIdNumber!;
             name.value=updateUserProfileModel.data!.appsUserFirstName!+' '+updateUserProfileModel.data!.appsUserLastName!;
             print(imagePath.value);
             print(emarites.value);

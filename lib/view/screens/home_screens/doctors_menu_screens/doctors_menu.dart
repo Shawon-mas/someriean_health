@@ -81,7 +81,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                             _controller.locations.map((items) {
                                           return DropdownMenuItem(
                                             value: items,
-                                            child: Text(items),
+                                            child: Text(items!.hospitalLocationName!),
                                           );
                                         }).toList(),
                                         onChanged: (newValue) {
@@ -121,7 +121,7 @@ class _DoctorsMenuScreenState extends State<DoctorsMenuScreen> {
                                             _controller.speciality.map((items) {
                                           return DropdownMenuItem(
                                             value: items,
-                                            child: Text(items),
+                                            child: Text(items!.doctorSpecialitiesName!),
                                           );
                                         }).toList(),
                                         onChanged: (newValue) {

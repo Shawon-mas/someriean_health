@@ -88,7 +88,7 @@ class SharedPrefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
-
+//Profile Picture Path Pave
   storeProfilePath(path) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('profile_image', path);
@@ -96,5 +96,14 @@ class SharedPrefs {
   getProfilePath() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('profile_image');
+  }
+  //Slider Response save
+  storeSliderResponse(slider) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('slider_response', slider);
+  }
+  getSliderResponse() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('slider_response');
   }
 }

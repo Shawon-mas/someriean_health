@@ -10,7 +10,10 @@ import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
+import '../model/locationResponseModel.dart';
+import '../model/specialistResponseModel.dart';
 import '../routes/routes.dart';
+import '../utilites/api_services.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/widget/general_button.dart';
 import 'package:http/http.dart' as http;
@@ -44,24 +47,16 @@ class DoctorAppointmentController extends GetxController {
   var othersEmiratesIdController = TextEditingController();
 
   var currentUser = FirebaseAuth.instance.currentUser;
-  var locations = <String>[].obs;
+
+  var locations = <LocationDatum?>[].obs;
   var selectedLocation = "".obs;
-  var speciality = <String>[].obs;
+
+  var speciality = <Datum?>[].obs;
   var selectedSpeciality = "".obs;
+
   var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
-
-
-
-
-
-
-
-
-
-
-
 
   final CollectionReference doctors = FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
@@ -78,6 +73,44 @@ class DoctorAppointmentController extends GetxController {
     );
     selectedTime.value = picked!;
   }
+
+  _getSpecialist() async{
+    final _response = await http.get(Uri.parse(ApiServices.SPECIALIST_URL),
+      headers: await ApiServices().headerWithToken(),
+    );
+    if(_response.statusCode==200){
+     // isSliderLoaded.value = true;
+      final specialistModel = specialistResponseModelFromJson(_response.body);
+      //await SharedPrefs().storeSliderResponse(_response.body);
+      if(specialistModel!=null){
+        if(specialistModel.status!){
+          speciality.value = specialistModel.data!;
+        }
+      }
+    }
+  }
+
+  _getLocation() async{
+    final _response = await http.get(Uri.parse(ApiServices.LOCATION_URL),
+      headers: await ApiServices().headerWithToken(),
+    );
+    if(_response.statusCode==200){
+      // isSliderLoaded.value = true;
+      final locationModel = locationResponseModelFromJson(_response.body);
+      //await SharedPrefs().storeSliderResponse(_response.body);
+      if(locationModel!=null){
+        if(locationModel.status!){
+          locations.value = locationModel.data!;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
 
   storeValues(
       {required String firstName,
@@ -114,6 +147,8 @@ class DoctorAppointmentController extends GetxController {
       errorSnackBar(context, "Something went wrong");
     });
   }
+
+
 
   getUserInfo() {
     var currentUser = FirebaseAuth.instance.currentUser;
@@ -379,6 +414,8 @@ class DoctorAppointmentController extends GetxController {
   @override
   void onInit() {
     getUserInfo();
+    _getSpecialist();
+    _getLocation();
     super.onInit();
   }
 }

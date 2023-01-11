@@ -50,7 +50,7 @@ class PersonalDetailsController extends GetxController {
   }
 
   getUserData()async{
-    String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
+    String? jsonData = await SharedPrefs().generalGetData(key:"user_data");
     if (jsonData != null) {
       final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
       firstNameController.text = updateUserProfileModel!.data!.appsUserFirstName!;
@@ -118,17 +118,20 @@ class PersonalDetailsController extends GetxController {
   }
 
   _putImageToServer(String imagePath) async{
+
     Get.back();
     isImageUploading.value = true;
     var user_id;
     String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
-    if (jsonData != null) {
+
+    if (jsonData != null)
+    {
       final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
        user_id = updateUserProfileModel!.data!.appsUserId!.toString();
 
     }
-    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_PICTURE));
 
+    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_PICTURE));
     File _file = File(imagePath);
     var _fileStream = http.ByteStream(_file.openRead()..cast());
     var _fileLength = await _file.length();
@@ -136,6 +139,7 @@ class PersonalDetailsController extends GetxController {
     _request.fields["apps_user_id"] = user_id;
     _request.headers.addAll(await ApiServices().headerWithToken());
     _request.files.add(_fileFile);
+
     var _response = await _request.send();
     var respond= await http.Response.fromStream(_response);
     final pictureUploaded = updateUserProfileModelFromJson(respond.body);
@@ -152,8 +156,6 @@ class PersonalDetailsController extends GetxController {
     print(respondData['data']);
     print(pictureUploaded['apps_user_profile_pic']);
     print(pictureUploaded!.data!.appsUserProfilePic!);*/
-
-
 
    /* if(_response==200){
       print("Photo response success");

@@ -2,8 +2,8 @@ import 'package:somerian_health/utilites/shared_prefs.dart';
 
 class ApiServices{
 
-static const String BASE_URL='https://somerian-app.noman-it.com/api';
-static const String IMAGE_BASE_URL='https://somerian-app.noman-it.com/public';
+static const String BASE_URL='https://appointment.somerianhealth.com/api';
+static const String IMAGE_BASE_URL='https://appointment.somerianhealth.com/public/';
 //auth url
 static const String OTP_URL=BASE_URL+'/User/UserOTP';
 static const String OTP_URL_LOGIN=BASE_URL+'/User/UserCheckByNumber';
@@ -16,6 +16,13 @@ static const String USER_UPDATE_PROFILE_PASSPORT_PICTURE=BASE_URL+'/User/UpdateU
 static const String USER_UPDATE_PROFILE_VISA_PICTURE=BASE_URL+'/User/UpdateUserVisaImage';
 static const String USER_UPDATE_PROFILE_INSURANCE_PICTURE=BASE_URL+'/User/UpdateUserInsuranceImage';
 static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUserOthersFile';
+//slider url
+  static const String SLIDER_URL=BASE_URL+'/GetAllActiveSliderImage';
+
+  //doctor url
+  static const String SPECIALIST_URL=BASE_URL+'/GetAllActiveDoctorSpecialities';
+  static const String LOCATION_URL=BASE_URL+'/GetAllActiveHospitalLocation';
+  static const String DOCTOR_PROFILE_URL=BASE_URL+'/GetAllActiveDoctorProfileData';
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
