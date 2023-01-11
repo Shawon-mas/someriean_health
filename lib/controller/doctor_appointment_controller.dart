@@ -10,6 +10,7 @@ import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
+import '../model/doctorResponseModel.dart';
 import '../model/locationResponseModel.dart';
 import '../model/specialistResponseModel.dart';
 import '../routes/routes.dart';
@@ -19,6 +20,7 @@ import '../view/widget/general_button.dart';
 import 'package:http/http.dart' as http;
 
 class DoctorAppointmentController extends GetxController {
+  var name = "".obs;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
@@ -54,12 +56,15 @@ class DoctorAppointmentController extends GetxController {
   var speciality = <Datum?>[].obs;
   var selectedSpeciality = "".obs;
 
+  var doctorList = <DoctorData?>[].obs;
+
   var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
 
   final CollectionReference doctors = FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
+  var dataFetch=false.obs;
 
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year), firstDate: DateTime(1950, 8), lastDate: DateTime(2101));
@@ -101,6 +106,22 @@ class DoctorAppointmentController extends GetxController {
       if(locationModel!=null){
         if(locationModel.status!){
           locations.value = locationModel.data!;
+        }
+      }
+    }
+  }
+  _getDoctorList() async{
+    final _response = await http.get(Uri.parse(ApiServices.DOCTOR_PROFILE_URL),
+      headers: await ApiServices().headerWithToken(),
+    );
+    if(_response.statusCode==200){
+      // isSliderLoaded.value = true;
+      final doctorListModel = doctorResponseModelFromJson(_response.body);
+      //await SharedPrefs().storeSliderResponse(_response.body);
+      if(doctorListModel!=null){
+        if(doctorListModel.status!){
+          dataFetch.value=true;
+          doctorList.value = doctorListModel.data!;
         }
       }
     }
@@ -413,6 +434,7 @@ class DoctorAppointmentController extends GetxController {
 
   @override
   void onInit() {
+    _getDoctorList();
     getUserInfo();
     _getSpecialist();
     _getLocation();
