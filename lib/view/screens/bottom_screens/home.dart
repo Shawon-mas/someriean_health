@@ -16,6 +16,7 @@ import '../../../routes/routes.dart';
 import '../../../utilites/api_services.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/text_widget.dart';
+import '../../widget/webview.dart';
 import '../book_appointment/appointment_type.dart';
 import '../home_screens/ambulance/ambulance_list.dart';
 import '../home_screens/contact_us/contact_us.dart';
@@ -499,9 +500,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 logger.d("Clicked");
-                /*   Get.to(
-              WebViewScreen(url: item.sliderImageLink),
-            );*/
+                   Get.to(
+             WebViewScreen(url: item.sliderImageLink),
+            );
               },
             ),
           ),
