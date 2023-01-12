@@ -1,81 +1,224 @@
+import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../controller/doctor_appointment_list_controller.dart';
 import '../../../../global/properties.dart';
+import '../../../../model/appointmentListResponseModel.dart';
+import '../../../../model/doctorResponseModel.dart';
+import '../../../../utilites/api_services.dart';
 import '../../../widget/text_widget.dart';
+
 class DoctorAppointmentList extends StatelessWidget {
-  const DoctorAppointmentList({Key? key}) : super(key: key);
+  final controller = Get.put(DoctorAppointmentListController());
+  final _controller = Get.put(DoctorAppointmentController());
+  DoctorAppointmentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final DoctorAppointmentListController controller=Get.put(DoctorAppointmentListController());
+    // final  controller=Get.put(DoctorAppointmentListController());
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-             // margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-              height: 40.h,
-              child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+        body: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Obx(() => controller.dataFetch.value == true
+          ? ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: controller.list.length,
-              itemBuilder: (context, index){
-                return Obx(() => InkWell(
-                  onTap: (){
-                    controller.selectIndex.value=index;
-                    controller.selectStatus.value=index;
-                  },
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 05,
-                                    color: Colors.black12,
-                                    offset: Offset(2, 2))
-                              ],
-                              color: controller.selectStatus.value == index
-                                  ? Properties.primaryColor
-                                  : Colors.grey,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Center(
-                                child: TextWidget(
-                                  edgeInsetsGeometry: EdgeInsets.zero,
-                                  value: controller.list[index],
-                                  textColor: controller.selectStatus.value == index
-                                      ? Colors.white
-                                      : Colors.black,
+              itemCount: controller.allAppointment.length,
+              itemBuilder: (context, index) {
+                List<AppointmentListDatum?> getAllAppointment =
+                    controller.allAppointment;
+                List<DoctorData?> doctorListData = _controller.doctorList;
 
-                                  size: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    //  height: 100.h,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 3),
+                              color: Colors.grey, //edited
+                              spreadRadius: 1,
+                              blurRadius: 2 //edited
                               ),
-                        ),
-                        ),
-                      )
-                    ],
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    edgeInsetsGeometry: EdgeInsets.zero,
+                                    value: getAllAppointment[index]!
+                                        .doctorProfileName!,
+                                    size: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                    textColor: Properties.fontColor,
+                                  ),
+                                  TextWidget(
+                                    edgeInsetsGeometry: EdgeInsets.zero,
+                                    value: getAllAppointment[index]!
+                                        .doctorProfileSpecialitiesName!,
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w300,
+                                    textColor: Properties.fontColor,
+                                  ),
+                                  TextWidget(
+                                    edgeInsetsGeometry: EdgeInsets.zero,
+                                    value: getAllAppointment[index]!
+                                        .doctorProfileHospitalLocationName!,
+                                    size: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    textColor: Properties.fontColor,
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage(
+                                  'https://tinyurl.com/ytbryar3',
+                                ),
+                              )
+                              /*  (getAllAppointment[index]!.doctorProfileId! == doctorListData[index]!.doctorProfileId)
+                                    ?imageShow(doctorListData[index],context)
+                                    :null*/
+                            ],
+                          ),
+                          Divider(
+                            color: Colors.black54,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.calendar_month),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      TextWidget(
+                                        edgeInsetsGeometry: EdgeInsets.zero,
+                                        value: DateFormat("yyyy-MM-dd")
+                                            .format(getAllAppointment[index]!
+                                                .doctorAppointmentPreferDate!)
+                                            .toString(), //getAllAppointment[index]!.doctorAppointmentPreferDate!.toString(),
+                                        size: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        textColor: Properties.fontColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.watch_later_rounded),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      TextWidget(
+                                        edgeInsetsGeometry: EdgeInsets.zero,
+                                        value: getAllAppointment[index]!
+                                            .doctorAppointmentPreferTime!,
+                                        size: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        textColor: Properties.fontColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  getAllAppointment[index]!
+                                      .doctorAppointmentStatus ==
+                                      'Booked'
+                                      ? Row(
+                                    children: [
+                                      Container(
+                                        height: 10.h,
+                                        width: 10.w,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                100)),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      TextWidget(
+                                        edgeInsetsGeometry:
+                                        EdgeInsets.zero,
+                                        value: getAllAppointment[index]!
+                                            .doctorAppointmentStatus!,
+                                        size: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        textColor: Properties.fontColor,
+                                      ),
+                                    ],
+                                  )
+                                      : Row(
+                                    children: [
+                                      Container(
+                                        height: 10.h,
+                                        width: 10.w,
+                                        decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                100)),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      TextWidget(
+                                        edgeInsetsGeometry:
+                                        EdgeInsets.zero,
+                                        value: getAllAppointment[index]!
+                                            .doctorAppointmentStatus!,
+                                        size: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        textColor: Properties.fontColor,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ));
-    },
-              ),
-            ),
-           /* Obx(() => controller.selectIndex.value==0
-                ?Center(child: Text('Showing Pending List'),)
-                :Center(child: Text('Showing Confirmed List'),)
-            )*/
-          ],
-        ),
-      )
-      );
+                );
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            )),
+    ));
   }
+
+
 }
+//Text(getAllAppointment[index]!.doctorProfileName!)

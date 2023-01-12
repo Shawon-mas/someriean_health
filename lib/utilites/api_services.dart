@@ -21,8 +21,14 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
 
   //doctor url
   static const String SPECIALIST_URL=BASE_URL+'/GetAllActiveDoctorSpecialities';
+  static const String DOCTOR_BY_SPECIALIST_URL=BASE_URL+'/GetAllDoctorProfileBySpecialitiesID';
   static const String LOCATION_URL=BASE_URL+'/GetAllActiveHospitalLocation';
   static const String DOCTOR_PROFILE_URL=BASE_URL+'/GetAllActiveDoctorProfileData';
+
+  //doctor appointment url
+  static const String DOCTOR_APPOINTMENT_URL=BASE_URL+'/Booking/AddDoctorAppointment';
+  static const String DOCTOR_APPOINTMENT_LIST_URL=BASE_URL+'/Booking/AllDoctorAppointmentListByUserID';
+
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
@@ -57,4 +63,28 @@ class ApiKeyName{
   static const String USER_PROFILE_PASSPORT_PICTURE='apps_user_passport_pic';
   static const String USER_PROFILE_VISA_PICTURE='apps_user_visa_pic';
   static const String USER_PROFILE_OTHERS_PICTURE='apps_user_others_pic';
+
+  //appointment key
+  static const String DOCTOR_PROFILE_ID='doctor_profile_id';
+  static const String DOCTOR_APPOINTMENT_APPS_USER_ID='doctor_appointment_apps_user_id';
+
+  static const String DOCTOR_APPOINTMENT_PREFER_DATE='doctor_appointment_prefer_date';
+  static const String DOCTOR_APPOINTMENT_PREFER_TIME='doctor_appointment_prefer_time';
+  static const String DOCTOR_APPOINTMENT_USER_FIRST_NAME='doctor_appointment_user_first_name';
+  static const String DOCTOR_APPOINTMENT_USER_LAST_NAME='doctor_appointment_user_last_name';
+  static const String DOCTOR_APPOINTMENT_USER_MOBILE_NUMBER='doctor_appointment_user_mobile_number';
+  static const String DOCTOR_APPOINTMENT_USER_GENDER='doctor_appointment_user_gender';
+  static const String DOCTOR_APPOINTMENT_USER_EMIRATES_ID='doctor_appointment_user_emirates_id';
+  static const String DOCTOR_APPOINTMENT_USER_NATIONALITY='doctor_appointment_user_nationality';
+  static const String DOCTOR_APPOINTMENT_BOOKING_FEE='doctor_appointment_booking_fee';
+  static const String DOCTOR_APPOINTMENT_BOOK_IS_SELF='doctor_appointment_book_is_self';
+
+  static const String DOCTOR_APPOINTMENT_OTHERS_USER_FULL_NAME='doctor_appointment_book_others_user_full_name';
+  static const String DOCTOR_APPOINTMENT_OTHERS_USER_EMIRATES_ID='doctor_appointment_book_others_user_emirates_id';
+  static const String DOCTOR_APPOINTMENT_OTHERS_USER_RELATIONSHIP='doctor_appointment_book_others_user_relationship';
+  static const String DOCTOR_APPOINTMENT_OTHERS_USER_MOBILE_NUMBER='doctor_appointment_book_others_user_mobile_number';
+
+  //doctor key
+
+  static const String DOCTOR_BY_SPECIALIST='doctor_specialities_id';
 }

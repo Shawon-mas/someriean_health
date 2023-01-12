@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     _controller.getUserData();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

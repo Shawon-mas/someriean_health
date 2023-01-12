@@ -10,17 +10,25 @@ import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
+import 'package:somerian_health/view/screens/home_screens/doctors_menu_screens/doctors_list.dart';
+import '../model/doctorAppointmentResponseModel.dart';
+import '../model/doctorBySpecialistResponseModel.dart';
 import '../model/doctorResponseModel.dart';
 import '../model/locationResponseModel.dart';
 import '../model/specialistResponseModel.dart';
+import '../model/user/update_user_profile_model.dart';
 import '../routes/routes.dart';
 import '../utilites/api_services.dart';
+import '../utilites/response_repository.dart';
+import '../utilites/shared_prefs.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/widget/general_button.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class DoctorAppointmentController extends GetxController {
   var name = "".obs;
+  var isSelf="".obs;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
@@ -32,6 +40,7 @@ class DoctorAppointmentController extends GetxController {
   final appointmentType = ['Book for Self', 'Book for Others'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
   var isUploading = false.obs;
+
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var mobileController = TextEditingController();
@@ -54,7 +63,10 @@ class DoctorAppointmentController extends GetxController {
   var selectedLocation = "".obs;
 
   var speciality = <Datum?>[].obs;
+  var specialitiesId = "".obs;
+  var doctorBySpecialitiesIdList = <SpecialistiesDatum?>[].obs;
   var selectedSpeciality = "".obs;
+  var isSpecialityLoaded = false.obs;
 
   var doctorList = <DoctorData?>[].obs;
 
@@ -80,18 +92,57 @@ class DoctorAppointmentController extends GetxController {
   }
 
   _getSpecialist() async{
+
     final _response = await http.get(Uri.parse(ApiServices.SPECIALIST_URL),
       headers: await ApiServices().headerWithToken(),
     );
     if(_response.statusCode==200){
-     // isSliderLoaded.value = true;
+
       final specialistModel = specialistResponseModelFromJson(_response.body);
       //await SharedPrefs().storeSliderResponse(_response.body);
       if(specialistModel!=null){
         if(specialistModel.status!){
+          isSpecialityLoaded.value = true;
           speciality.value = specialistModel.data!;
+          /*for(var data in specialistModel.data!){
+            specialitiesId.value=data!.doctorSpecialitiesId!.toString();
+          }*/
+
+          print('true');
         }
+      }else{
+
       }
+    }
+  }
+  getDoctorBySpecialistId() async{
+    Map<String, dynamic> body = {
+      ApiKeyName.DOCTOR_BY_SPECIALIST: specialitiesId.value,
+    };
+    var response = await authPost(url: ApiServices.DOCTOR_BY_SPECIALIST_URL, body: body);
+    if(response!=null)
+    {
+      //  print(response.body);
+      try{
+        final doctorBySpecialistResponseModel = doctorBySpecialistResponseModelFromJson(response.body);
+        if (doctorBySpecialistResponseModel!.status! && doctorBySpecialistResponseModel.data != null){
+          doctorBySpecialitiesIdList.value=doctorBySpecialistResponseModel.data!;
+         // dataFetch.value=true;
+          //    Get.off(() => CompleteAppointmentScreen(controller: controller));
+          print(response.body);
+        }
+        else
+        {
+          dataFetch.value=false;
+        }
+
+      }catch(e){
+        print(e.toString());
+        dataFetch.value=false;
+      }
+
+    }else{
+      //  isProcessing.value = false;
     }
   }
 
@@ -127,8 +178,85 @@ class DoctorAppointmentController extends GetxController {
     }
   }
 
+  bookedDoctorAppointment(BuildContext context,DoctorAppointmentController controller) async{
+    isProcessing.value = true;
+    var bookingDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    //'${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}'
+    var bookingTime=selectedTime.value.format(context).toString();
+    print(bookingDate);
 
+    Map<String, dynamic> body = {
+      ApiKeyName.DOCTOR_APPOINTMENT_APPS_USER_ID: await SharedPrefs().getUserId(),
+      ApiKeyName.DOCTOR_PROFILE_ID: selectedDoctor.uid,
 
+      ApiKeyName.DOCTOR_APPOINTMENT_PREFER_DATE: bookingDate,
+      ApiKeyName.DOCTOR_APPOINTMENT_PREFER_TIME: bookingTime,
+
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_FIRST_NAME: firstNameController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_LAST_NAME: lastNameController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_MOBILE_NUMBER: mobileController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_GENDER: genderController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_EMIRATES_ID: emiratesController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_USER_NATIONALITY: nationalityController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_BOOK_IS_SELF: isSelf.value,
+      ApiKeyName.DOCTOR_APPOINTMENT_OTHERS_USER_FULL_NAME: fullNameController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_OTHERS_USER_EMIRATES_ID: othersEmiratesIdController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_OTHERS_USER_RELATIONSHIP: relationController.text,
+      ApiKeyName.DOCTOR_APPOINTMENT_OTHERS_USER_MOBILE_NUMBER: numberController.text,
+  };
+    print(await SharedPrefs().getUserId());
+    var response = await authPost(url: ApiServices.DOCTOR_APPOINTMENT_URL, body: body);
+    if(response!=null)
+    {
+    //  print(response.body);
+     try{
+       final doctorAppointmentResponseModel = doctorAppointmentResponseModelFromJson(response.body);
+       if (doctorAppointmentResponseModel!.status! && doctorAppointmentResponseModel.data != null){
+         Get.off(() => CompleteAppointmentScreen(controller: controller));
+         print(response.body);
+       }
+       else
+       {
+         isProcessing.value = false;
+       }
+
+     }catch(e){
+     print(e.toString());
+      isProcessing.value = false;
+     }
+
+    }else{
+      isProcessing.value = false;
+    }
+
+  }
+  /*
+   isProcessing.value = false;
+      Get.off(() => CompleteAppointmentScreen(controller: controller));
+      print(response.body);
+   final doctorAppointmentResponseModel = doctorAppointmentResponseModelFromJson(response.body);
+      if (doctorAppointmentResponseModel!.status! && doctorAppointmentResponseModel.data != null){
+        print(response.body);
+      }
+      else
+      {
+        isProcessing.value = false;
+      }
+   */
+
+  _getUserData()async{
+    String? jsonData = await SharedPrefs().generalGetData(key:"user_data");
+    if (jsonData != null) {
+      final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
+      firstNameController.text = updateUserProfileModel!.data!.appsUserFirstName!;
+      lastNameController.text = updateUserProfileModel.data!.appsUserLastName!;
+      mobileController.text = updateUserProfileModel.data!.appsUserMobileNumber!;
+      emailController.text = updateUserProfileModel.data!.appsUserEmail!;
+      genderController.text = updateUserProfileModel.data!.appsUserGender!;
+      nationalityController.text = updateUserProfileModel.data!.appsUserNationality!;
+      emiratesController.text = updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
+    }
+  }
 
 
 
@@ -310,7 +438,7 @@ class DoctorAppointmentController extends GetxController {
   }
 
   test() {
-    logger.d(selectedDoctor.serviceProvider.name);
+    logger.d(selectedDoctor.serviceProvider!.name);
   }
 
   proceedPayment(BuildContext context, DoctorAppointmentController controller) async {
@@ -321,7 +449,7 @@ class DoctorAppointmentController extends GetxController {
       DbDocs.fieldPatientNumber: mobileController.text,
       DbDocs.fieldMessage: messageController.text,
       DbDocs.fieldOtherNumber: numberController.text,
-      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider!.name,
       DbDocs.fieldFile:'',
       DbDocs.fieldPaymentMethod:'',
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
@@ -339,7 +467,7 @@ class DoctorAppointmentController extends GetxController {
       }
       /* Setting appointment for doctor or nurse according to service providers*/
       FirebaseFirestore.instance
-          .collection(serviceProvider(selectedDoctor.serviceProvider.name))
+          .collection(serviceProvider(selectedDoctor.serviceProvider!.name))
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
@@ -364,7 +492,7 @@ class DoctorAppointmentController extends GetxController {
     Get.back();
     Get.back();
     Get.back();
-    Get.off(() => CompleteAppointmentScreen(controller: controller));
+   // Get.off(() => CompleteAppointmentScreen(controller: controller));
   }
   proceedOthersPayment(BuildContext context, DoctorAppointmentController controller) async {
     isProcessing.value = true;
@@ -376,7 +504,7 @@ class DoctorAppointmentController extends GetxController {
       DbDocs.fieldOtherNumber: numberController.text,
       DbDocs.fieldOthersName: fullNameController.text,
       DbDocs.fieldOthersEmiratesId: othersEmiratesIdController.text,
-      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider.name,
+      DbDocs.fieldServiceProvider: selectedDoctor.serviceProvider!.name,
       DbDocs.fieldAppointsType: 'Book for others',
       DbDocs.fieldTime: selectedTime.value.format(context).toString(),
       DbDocs.fieldDateEpoch: selectedDate.value.millisecondsSinceEpoch.toString(),
@@ -393,7 +521,7 @@ class DoctorAppointmentController extends GetxController {
       }
       /* Setting appointment for doctor or nurse according to service providers*/
       FirebaseFirestore.instance
-          .collection(serviceProvider(selectedDoctor.serviceProvider.name))
+          .collection(serviceProvider(selectedDoctor.serviceProvider!.name))
           .doc(selectedDoctor.uid)
           .collection(DbCollections.collectionAppointments)
           .doc(doc.id)
@@ -418,7 +546,7 @@ class DoctorAppointmentController extends GetxController {
     Get.back();
     Get.back();
     Get.back();
-    Get.off(() => CompleteAppointmentScreen(controller: controller));
+   // Get.off(() => CompleteAppointmentScreen(controller: controller));
   }
 
   String serviceProvider(String data) {
@@ -434,8 +562,9 @@ class DoctorAppointmentController extends GetxController {
 
   @override
   void onInit() {
+    getDoctorBySpecialistId();
+    _getUserData();
     _getDoctorList();
-    getUserInfo();
     _getSpecialist();
     _getLocation();
     super.onInit();

@@ -48,12 +48,14 @@ class MenuController extends GetxController {
           String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
           if (jsonData != null) {
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
-         //   imagePath.value=updateUserProfileModel!.data!.appsUserProfilePic!;
-            emarites.value=updateUserProfileModel!.data!.appsUserEmiratesIdNumber!;
+
+            imagePath.value=updateUserProfileModel!.data!.appsUserProfilePic!;
+            emarites.value=updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
             name.value=updateUserProfileModel.data!.appsUserFirstName!+' '+updateUserProfileModel.data!.appsUserLastName!;
             print(imagePath.value);
             print(emarites.value);
             print(name.value);
+            print(await SharedPrefs().getUserId());
 
           }
         }

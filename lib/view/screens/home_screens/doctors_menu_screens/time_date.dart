@@ -272,6 +272,12 @@ class TimeDateScreen extends StatelessWidget {
                                       controller.othersEmiratesIdController.clear();
                                       controller.relationController.clear();
                                       controller.numberController.clear();
+                                      controller.isSelf.value="Yes";
+                                      print(controller.isSelf.value);
+                                    }else{
+                                      controller.isSelf.value="No";
+                                      print(controller.isSelf.value);
+
                                     }
                                   },
                                   items:
@@ -343,10 +349,11 @@ class TimeDateScreen extends StatelessWidget {
                                           errorSnackBar(context,'Mobile Number Required');
                                         }
                                         else{
-                                          controller.proceedOthersPayment(context, controller);
+                                         // controller.proceedOthersPayment(context, controller);
+                                          controller.bookedDoctorAppointment(context, controller);
                                         }
                                       }else{
-                                        controller.proceedPayment(context, controller);
+                                        controller.bookedDoctorAppointment(context, controller);
                                       }
                                     },
                                     value: 'Proceed',

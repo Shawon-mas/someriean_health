@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:somerian_health/model/selected_doctor_model.dart';
+import 'package:somerian_health/view/screens/home_screens/doctors_menu_screens/time_date.dart';
 
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../global/properties.dart';
@@ -238,13 +240,13 @@ class _DoctorListState extends State<DoctorList> {
                   ),
                 ),
                 child: Image.network(
-                  ApiServices.IMAGE_BASE_URL +
-                      doctorListData!.doctorProfileImage!,
+                  ApiServices.IMAGE_BASE_URL + doctorListData!.doctorProfileImage!,
                   height: 100,
                   width: 100,
                   fit: BoxFit.contain,
                 ),
               ),
+              SizedBox(width: 5.w,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -275,7 +277,13 @@ class _DoctorListState extends State<DoctorList> {
           ),
           AppointmentButton(
             onPressed: () {
-
+                 _controller.selectedDoctor=SelectedDoctorModel(
+                     uid: doctorListData.doctorProfileId!.toString(),
+                     name: doctorListData.doctorProfileSpecialitiesName!,
+                     image: ApiServices.IMAGE_BASE_URL + doctorListData.doctorProfileImage!,
+                     location: doctorListData.doctorProfileHospitalLocationName!,
+                     title: doctorListData.doctorProfileSpecialitiesName!);
+                 Get.to(()=> TimeDateScreen(controller: _controller,));
 
               /* _controller.selectedDoctor = SelectedDoctorModel(
                 uid: documentSnapshot.id,

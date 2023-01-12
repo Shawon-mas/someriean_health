@@ -62,7 +62,6 @@ class PersonalDetailsController extends GetxController {
       emiratesIdController.text = updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
       dobController.text = '${updateUserProfileModel.data!.appsUserDob!.year.toString()}-${updateUserProfileModel.data!.appsUserDob!.month.toString()}-${updateUserProfileModel.data!.appsUserDob!.day.toString()}';
 
-
     }
   }
 

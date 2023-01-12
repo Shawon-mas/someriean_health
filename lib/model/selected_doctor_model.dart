@@ -6,13 +6,13 @@ class SelectedDoctorModel {
   final String image;
   final String location;
   final String title;
-  final ServiceProvider serviceProvider;
+  final ServiceProvider? serviceProvider;
 
   SelectedDoctorModel(
       {required this.uid,
       required this.name,
       required this.image,
       required this.location,
-      required this.serviceProvider,
+       this.serviceProvider,
       required this.title,});
 }

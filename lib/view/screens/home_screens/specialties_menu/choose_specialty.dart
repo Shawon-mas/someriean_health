@@ -6,13 +6,14 @@ import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../global/db_paths.dart';
+import '../../../../model/specialistResponseModel.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
 import 'doctors_list.dart';
 
 class ChooseSpecialty extends StatefulWidget {
-  final _controller = Get.put(DoctorAppointmentController());
+
   ChooseSpecialty({Key? key}) : super(key: key);
 
   @override
@@ -20,6 +21,7 @@ class ChooseSpecialty extends StatefulWidget {
 }
 
 class _ChooseSpecialtyState extends State<ChooseSpecialty> {
+  final _controller = Get.put(DoctorAppointmentController());
   final CollectionReference _doctors =
       FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final List selectedIndexs = [];
@@ -31,7 +33,60 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
       body: Column(
         children: [
           CustomContainer(value: "Find a Doctor by Speciality"),
-          Expanded(
+           Obx(() => _controller.isSpecialityLoaded.value==true
+               ?Expanded(
+                 child: ListView.builder(
+                 itemCount: _controller.speciality.length,
+                 itemBuilder: (context, index){
+                   List<Datum?> specialityData = _controller.speciality;
+                   return Obx(() => InkWell(
+                     onTap: () {
+                       //DoctorsList
+                       _controller.specialitiesId.value=specialityData[index]!.doctorSpecialitiesId!.toString();
+                       Get.to(()=>DoctorsBySpecialities(speciality: specialityData[index]!.doctorSpecialitiesId!.toString(),controller: _controller,));
+                       setState(() {
+                         selectionStatus=index;
+                       });
+
+                     },
+                     child: Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: Container(
+                         decoration: BoxDecoration(
+                           borderRadius:
+                           BorderRadius.all(Radius.circular(10)),
+                           border: Border.all(
+                             color: Colors.red, //                   <--- border color
+                             width: 1.w,
+                           ),
+                           color:selectionStatus==index?Properties.primaryColor: Colors.white,
+                         ),
+                         width: double.maxFinite,
+                         height: 50.h,
+                         padding:
+                         const EdgeInsets.symmetric(horizontal: 10),
+                         child: Center(
+                           child: TextWidget(
+                             value: specialityData[index]!.doctorSpecialitiesName!,
+                             size: 14.sp,
+                             fontWeight: FontWeight.w500,
+                             textColor:selectionStatus==index?Colors.white:Properties.primaryColor,
+                           ),
+                         ),
+                       ),
+                     ),
+                   ));
+
+                 }
+             ),
+           )
+               :Center(child: CircularProgressIndicator(),)
+           )
+
+
+
+
+        /*  Expanded(
             child: StreamBuilder(
                 stream: _doctors.snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -108,7 +163,7 @@ class _ChooseSpecialtyState extends State<ChooseSpecialty> {
                     child: CircularProgressIndicator(),
                   );
                 }),
-          )
+          )*/
         ],
       ),
     );

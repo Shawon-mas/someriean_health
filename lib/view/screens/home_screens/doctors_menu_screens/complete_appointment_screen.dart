@@ -7,8 +7,10 @@ import 'package:somerian_health/controller/doctor_appointment_controller.dart';
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
+import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 import '../../bottombar_screen.dart';
+import '../manage_appiontment/appointment_section.dart';
 
 class CompleteAppointmentScreen extends StatelessWidget {
   final DoctorAppointmentController controller;
@@ -92,7 +94,8 @@ class CompleteAppointmentScreen extends StatelessWidget {
                         edgeInsetsGeometry: EdgeInsets.all(3),
                       ),
 
-                     Obx(() =>  Visibility(
+
+                     /*Obx(() =>  Visibility(
                          visible: controller.valueAppointment.value=='Book for others',
                          child: Column(
                            children: [
@@ -106,7 +109,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                              ),
                            ],
                          )
-                     ))
+                     ))*/
                     ],
                   ),
                 ),
@@ -114,6 +117,15 @@ class CompleteAppointmentScreen extends StatelessWidget {
 
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: AppointmentButton(
+          onPressed: () {
+            Get.to(()=> AppointmentSection());
+          },
+          value: 'My Appointment',
         ),
       ),
     );
