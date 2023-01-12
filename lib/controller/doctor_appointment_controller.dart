@@ -562,7 +562,6 @@ class DoctorAppointmentController extends GetxController {
 
   @override
   void onInit() {
-    getDoctorBySpecialistId();
     _getUserData();
     _getDoctorList();
     _getSpecialist();
