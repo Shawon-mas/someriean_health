@@ -11,10 +11,10 @@ import 'dart:io';
 import 'package:somerian_health/global/properties.dart';
 
 import '../../../../utilites/api_services.dart';
+import '../../../widget/custom_button.dart';
 import '../../../widget/text_widget.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
-
   final _controller = Get.put(PersonalDetailsController());
   PersonalDetailsScreen({
     Key? key,
@@ -48,7 +48,8 @@ class PersonalDetailsScreen extends StatelessWidget {
                                     )
                                   : _controller.selectImagePath.value != ""
                                       ? CircleAvatar(
-                                          backgroundImage: CachedNetworkImageProvider(
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
                                             _controller.selectImagePath.value,
                                           ),
                                           radius: 60,
@@ -196,25 +197,27 @@ class PersonalDetailsScreen extends StatelessWidget {
                     ),
                     Visibility(
                       visible: _controller.isEditable.value,
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                        child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                          height: 50,
-                          minWidth: double.maxFinite,
-                          color: Properties.primaryColor,
-                          child: Text(
-                            "Update profile",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold),
+                      child: Obx(
+                        () => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomButton(
+                            value: "Submit",
+                            onPressed: () {
+                              /* _controller.storeValues(
+                  firstName: _controller.firstNameController.text,
+                  lastName: _controller.lastNameController.text,
+                  dob: _controller.selectedDate.value,
+                  mobileNo: mobileNumber,
+                  email: _controller.emailController.text,
+                  gender: _controller.valueChoose.value,
+                  nationality: _controller.valueNationality.value,
+                  passport: _controller.passportController.text,
+                  context: context,
+                );*/
+                              _controller.checkFieldCheck(context);
+                            },
+                            isLoading: _controller.isUploading.value,
                           ),
-                          onPressed: () {
-                          //  _controller.updateInfo(context);
-                          },
                         ),
                       ),
                     ),

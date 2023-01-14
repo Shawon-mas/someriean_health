@@ -14,8 +14,11 @@ import 'package:somerian_health/global/global_constants.dart';
 import '../global/properties.dart';
 import '../model/user/update_user_profile_model.dart';
 import '../utilites/api_services.dart';
+import '../utilites/response_repository.dart';
 import '../utilites/shared_prefs.dart';
 import 'package:http/http.dart' as http;
+
+import '../view/screens/bottom_screens/menu.dart';
 
 class PersonalDetailsController extends GetxController {
   final image = XFile("").obs;
@@ -28,9 +31,10 @@ class PersonalDetailsController extends GetxController {
   var isEditable = false.obs;
   var isUpdated = false.obs;
   var user = FirebaseAuth.instance.currentUser;
-  var dobController = TextEditingController();
+  var isUploading = false.obs;
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
+  var dobController = TextEditingController();
   var mobileController = TextEditingController();
   var emailController = TextEditingController();
   var genderController = TextEditingController();
@@ -46,7 +50,75 @@ class PersonalDetailsController extends GetxController {
         lastDate: DateTime(2101));
     selectedDate.value = picked!;
     dobController.text =
-        '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
+    '${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}';
+  }
+
+
+  checkFieldCheck(BuildContext context) {
+    if (firstNameController.text.toString().isEmpty) {
+      //getErrorSnack('First Name Required');
+      errorSnackBar(context, "First Name Required");
+    } else if (lastNameController.text.toString().isEmpty) {
+      errorSnackBar(context, "Last Name Required");
+    } else if (dobController.text.toString().isEmpty) {
+      errorSnackBar(context, "Date of Birth Required");
+    } else if (mobileController.text.toString().isEmpty) {
+      errorSnackBar(context, "Mobile Number Required");
+    } else if (emailController.text.toString().isEmpty) {
+      errorSnackBar(context, "Email Required");
+    } else if (genderController.text.toString().isEmpty) {
+      errorSnackBar(context, "Gender Required");
+    } else if (nationalityController.text.toString().isEmpty) {
+      errorSnackBar(context, "Nationality Required");
+    }  else if (emiratesIdController.text.toString().isEmpty) {
+      errorSnackBar(context, "Emirates ID Required");
+    }
+    else {
+      _submitProfileNew(context);
+    }
+  }
+  _submitProfileNew(context) async {
+    isUploading.value = true;
+   // var dob = '${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}';
+
+    Map<String, dynamic> body = {
+      ApiKeyName.USER_ID: await SharedPrefs().getUserId(),
+      ApiKeyName.USER_FIRST_NAME: firstNameController.text,
+      ApiKeyName.USER_LAST_NAME: lastNameController.text,
+      ApiKeyName.USER_DOB: dobController.text,
+      ApiKeyName.USER_EMAIL: emailController.text.toString(),
+      ApiKeyName.USER_GENDER: genderController.text.toString(),
+      ApiKeyName.USER_NATIONALITY: nationalityController.text.toString(),
+      ApiKeyName.USER_EMIRATES_ID: emiratesIdController.text,
+    };
+
+    var response = await authPost(url: ApiServices.USER_UPDATE_URL, body: body);
+    if (response != null) {
+      try {
+        final updateUserProfileModel = updateUserProfileModelFromJson(response.body);
+        if (updateUserProfileModel!.status! && updateUserProfileModel.data != null) {
+
+          /*Get all data*/
+          //  await SharedPrefs().generalStoreData(value: response.body, key: "user_data");
+     /*     await SharedPrefs().isLogin(true);
+          print(await SharedPrefs().getIsLogin());*/
+
+          /* String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
+          if (jsonData != null) {
+            final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
+            print(updateUserProfileModel);
+
+          }*/
+          Get.to(()=>MenuScreen());
+          isUploading.value = false;
+          successSnackBar(context, "Submitted successfully");
+        }
+        /*Do the rest*/
+      } catch (e) {
+        isUploading.value = false;
+        /*Handle error*/
+      }
+    }
   }
 
   getUserData()async{
@@ -61,7 +133,7 @@ class PersonalDetailsController extends GetxController {
       nationalityController.text = updateUserProfileModel.data!.appsUserNationality!;
       emiratesIdController.text = updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
       dobController.text = '${updateUserProfileModel.data!.appsUserDob!.year.toString()}-${updateUserProfileModel.data!.appsUserDob!.month.toString()}-${updateUserProfileModel.data!.appsUserDob!.day.toString()}';
-
+      selectImagePath.value=ApiServices.IMAGE_BASE_URL+updateUserProfileModel.data!.appsUserProfilePic!;
     }
   }
 
@@ -177,6 +249,14 @@ class PersonalDetailsController extends GetxController {
     }*/
 
   }
+
+
+
+
+
+
+
+
 
   uploadPhoto() async {
     Get.back();

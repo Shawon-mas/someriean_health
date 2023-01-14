@@ -24,6 +24,7 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   static const String DOCTOR_BY_SPECIALIST_URL=BASE_URL+'/GetAllDoctorProfileBySpecialitiesID';
   static const String LOCATION_URL=BASE_URL+'/GetAllActiveHospitalLocation';
   static const String DOCTOR_PROFILE_URL=BASE_URL+'/GetAllActiveDoctorProfileData';
+  static const String HOSPITAL_BY_DOCTOR_PROFILE_URL=BASE_URL+'/GetAllDoctorProfileByHospitalID';
 
   //doctor appointment url
   static const String DOCTOR_APPOINTMENT_URL=BASE_URL+'/Booking/AddDoctorAppointment';
@@ -88,4 +89,5 @@ class ApiKeyName{
   //doctor key
 
   static const String DOCTOR_BY_SPECIALIST='doctor_specialities_id';
+  static const String DOCTOR_BY_LOCATION=' hospital_location_id';
 }

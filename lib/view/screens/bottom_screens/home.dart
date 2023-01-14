@@ -25,6 +25,7 @@ import '../home_screens/doctors_menu_screens/doctors_list.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/e-pharmacy/epharmacy_item.dart';
 import '../home_screens/emergency/emergency_contact.dart';
+import '../home_screens/find_us/choose_location.dart';
 import '../home_screens/find_us/location_one.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
@@ -291,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LocationOneScreen(
+                                  builder: (context) => ChooseLocation(
                                         title: 'Find us',
                                       )));
                           //  infoSnackBar(context,'Coming soon');

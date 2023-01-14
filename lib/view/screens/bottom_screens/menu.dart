@@ -10,6 +10,7 @@ import '../../../global/global_constants.dart';
 import '../../../global/properties.dart';
 import '../../../routes/routes.dart';
 import '../../../utilites/api_services.dart';
+import '../../../utilites/shared_prefs.dart';
 import '../../widget/primary_toolbar.dart';
 import '../../widget/text_widget.dart';
 import '../home_screens/contact_us/contact_us.dart';
@@ -48,9 +49,10 @@ class MenuScreen extends StatelessWidget {
       appBar: PrimaryToolbar(
         appbarIcons: [
           TextButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Get.offAllNamed(splash);
+            onPressed: () async{
+              await SharedPrefs().prefsClear();
+              // FirebaseAuth.instance.signOut();
+              Get.offAllNamed(login);
             },
             child: const Text(
               'Logout',

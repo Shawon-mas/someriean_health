@@ -4,6 +4,7 @@ import 'package:somerian_health/global/properties.dart';
 
 import '../../widget/common_toolbar.dart';
 import '../../widget/text_widget.dart';
+import '../home_screens/doctors_menu_screens/doctors_list.dart';
 import '../home_screens/doctors_menu_screens/doctors_menu.dart';
 import '../home_screens/visa/visa_screening_center.dart';
 class AppointmentType extends StatelessWidget {
@@ -24,10 +25,10 @@ class AppointmentType extends StatelessWidget {
           return InkWell(
             onTap: (){
               if(index==0){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorsMenuScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorList()));
 
               }else{
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+             //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
 
               }
             },

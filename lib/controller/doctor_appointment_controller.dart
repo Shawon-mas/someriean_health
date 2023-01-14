@@ -61,12 +61,14 @@ class DoctorAppointmentController extends GetxController {
 
   var locations = <LocationDatum?>[].obs;
   var selectedLocation = "".obs;
+  var isSpecialityLoaded = false.obs;
 
   var speciality = <Datum?>[].obs;
   var specialitiesId = "".obs;
+
   var doctorBySpecialitiesIdList = <SpecialistiesDatum?>[].obs;
   var selectedSpeciality = "".obs;
-  var isSpecialityLoaded = false.obs;
+  var isHospitalLoaded = false.obs;
 
   var doctorList = <DoctorData?>[].obs;
 
@@ -156,6 +158,7 @@ class DoctorAppointmentController extends GetxController {
       //await SharedPrefs().storeSliderResponse(_response.body);
       if(locationModel!=null){
         if(locationModel.status!){
+          isHospitalLoaded.value = true;
           locations.value = locationModel.data!;
         }
       }
