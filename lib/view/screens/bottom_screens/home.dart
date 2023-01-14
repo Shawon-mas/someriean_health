@@ -76,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Spacer(),
                     TextButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         await SharedPrefs().prefsClear();
-                       // FirebaseAuth.instance.signOut();
+                        // FirebaseAuth.instance.signOut();
                         Get.offAllNamed(login);
                       },
                       child: const Text(
@@ -94,8 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Obx(
                 () => _homeController.isSliderLoaded.value == true
                     ? _homeController.sliderList.value.isEmpty == true
-                        ?  SizedBox(height: 150.h,width: double.infinity,
-                              child: Center(child: CircularProgressIndicator(),),)
+                        ? SizedBox(
+                            height: 150.h,
+                            width: double.infinity,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
                         : _imageSlider(context)
                     //: const SizedBox()
                     : SizedBox(
@@ -483,14 +488,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Stack(
                   children: <Widget>[
                     CachedNetworkImage(
-
                       imageUrl:
                           ApiServices.IMAGE_BASE_URL + item!.sliderImagePath!,
                       fit: BoxFit.cover,
                       width: 1000.0,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Center(
-                               child: CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                             value: downloadProgress.progress),
                       ),
                       errorWidget: (context, url, error) => const Icon(
@@ -503,16 +507,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {
                 logger.d("Clicked");
-                   Get.to(
-             WebViewScreen(url: item.sliderImageLink),
-            );
+                Get.to(
+                  WebViewScreen(url: item.sliderImageLink),
+                );
               },
             ),
           ),
         )
         .toList();
     return Stack(
-
       children: [
         CarouselSlider(
           items: imageSliders,
@@ -541,17 +544,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     width: _homeController.sliderIndex.value == entry.key
-                        ? 10.w
-                        : 3.w,
-                    height: 1.h,
+                        ? 20.w
+                        : 10.w,
+                    height: 10.h,
                     margin: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 4.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0.5.h),
+                     borderRadius: BorderRadius.circular(5.h),
                       shape: BoxShape.rectangle,
                       color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.deepOrange.shade300
-                              : Colors.deepOrange)
+                              ? const Color.fromRGBO(0, 0, 0, 0.9)
+                              : const Color.fromRGBO(0, 0, 0, 0.4))
                           .withOpacity(
                               _homeController.sliderIndex.value == entry.key
                                   ? 0.9
@@ -566,4 +569,79 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+
+  Column imageSlider(BuildContext context) {
+    return Column(
+      children: [
+        Obx(() => CarouselSlider(
+          options: CarouselOptions(
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+              autoPlay: true,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                _homeController.sliderIndex.value == index;
+              }),
+          items: _homeController.sliderList.reversed
+              .map(
+                (e) => ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.to(
+                        WebViewScreen(url: e!.sliderImageLink!),
+                      );
+                    },
+                    child: SizedBox(
+                        height: 100.h,
+                        child: CachedNetworkImage(
+                          imageUrl: ApiServices.IMAGE_BASE_URL+e!.sliderImagePath!,
+                          height: 100.h,
+                          fit: BoxFit.contain,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Center(
+                            child: CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                          ),
+                        )
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+              .toList(),
+        )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _homeController.sliderList.reversed.map((url) {
+            int index = _homeController.sliderList.indexOf(url);
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin: const EdgeInsets.symmetric(
+                  vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _homeController.sliderIndex.value == index
+                    ? const Color.fromRGBO(0, 0, 0, 0.9)
+                    : const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
 }
+/*
+Image.network(
+                            'e.imageUrl',
+                            height: 100.h,
+                            fit: BoxFit.cover,
+                          ),
+ */

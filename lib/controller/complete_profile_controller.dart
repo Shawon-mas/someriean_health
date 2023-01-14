@@ -100,7 +100,7 @@ class CompleteProfileController extends GetxController {
     } else if (passportController.text.toString().isEmpty) {
       errorSnackBar(context, "Emirates ID Required");
     } else {
-      _submitProfileNew();
+      _submitProfileNew(context);
     }
   }
 
@@ -139,7 +139,8 @@ class CompleteProfileController extends GetxController {
     }
   }
 
-  _submitProfileNew() async {
+  _submitProfileNew(context) async {
+    isUploading.value = true;
     var dob = '${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}';
 
     Map<String, dynamic> body = {
@@ -171,6 +172,8 @@ class CompleteProfileController extends GetxController {
 
           }*/
           Get.offAll(BottomBarScreen());
+          isUploading.value = false;
+          successSnackBar(context, "Submitted successfully");
         }
         /*Do the rest*/
       } catch (e) {

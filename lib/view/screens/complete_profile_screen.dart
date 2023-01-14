@@ -62,7 +62,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     height: 5,
                   ),
                   TextWidget(
-                    value: 'Select Preferred Time',
+                    value: 'Select Date of Birth',
                     size: 14.sp,
                     fontWeight: FontWeight.w300,
                     textColor: Colors.grey,

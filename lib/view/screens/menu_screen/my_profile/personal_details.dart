@@ -14,6 +14,7 @@ import '../../../../utilites/api_services.dart';
 import '../../../widget/text_widget.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
+
   final _controller = Get.put(PersonalDetailsController());
   PersonalDetailsScreen({
     Key? key,
