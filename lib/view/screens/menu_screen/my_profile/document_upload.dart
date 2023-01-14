@@ -9,6 +9,7 @@ import '../../../../global/properties.dart';
 import '../../../../utilites/api_services.dart';
 import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
+import '../../../widget/webview.dart';
 
 class DocumentUpload extends StatelessWidget {
   final controller = Get.put(DocumentController());
@@ -43,16 +44,16 @@ class DocumentUpload extends StatelessWidget {
                             )
                           : InkWell(
                               onTap: () async {
-                                if (await canLaunchUrl(Uri.parse(
-                                    ApiServices.IMAGE_BASE_URL +
-                                        controller.emiratesFront.value))) {
+                                Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.emiratesFront.value));
+                               /* if (await canLaunchUrl(Uri.parse(
+                                    ApiServices.IMAGE_BASE_URL + controller.emiratesFront.value))) {
                                   launchUrl(
                                     Uri.parse(ApiServices.IMAGE_BASE_URL +
                                         controller.emiratesFront.value),
                                     mode: LaunchMode
                                         .externalNonBrowserApplication,
-                                  );
-                                }
+                                  );*/
+
                               },
                               child: Text(
                                 controller.emiratesFront.value
@@ -62,7 +63,9 @@ class DocumentUpload extends StatelessWidget {
                               ),
                             ),
                     ),
-                    SizedBox(height: 10.h,),
+                     SizedBox(
+                      height: 10.h,
+                    ),
                     Obx(
                       () => controller.emiratesBack.value == ''
                           ? AppointmentButton(
@@ -73,7 +76,8 @@ class DocumentUpload extends StatelessWidget {
                             )
                           : InkWell(
                               onTap: () async {
-                                if (await canLaunchUrl(Uri.parse(
+                                Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.emiratesBack.value));
+                                /*   if (await canLaunchUrl(Uri.parse(
                                     ApiServices.IMAGE_BASE_URL +
                                         controller.emiratesBack.value))) {
                                   launchUrl(
@@ -82,7 +86,7 @@ class DocumentUpload extends StatelessWidget {
                                     mode: LaunchMode
                                         .externalNonBrowserApplication,
                                   );
-                                }
+                                }*/
                               },
                               child: Text(
                                 controller.emiratesBack.value
@@ -92,11 +96,198 @@ class DocumentUpload extends StatelessWidget {
                               ),
                             ),
                     ),
-
                   ],
                 ))
               ],
-            )
+            ),
+            Divider(
+              color: Colors.black12,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextWidget(
+                  value: 'Passport',
+                  size: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  textColor: Properties.colorTextBlue,
+                )),
+                Expanded(
+                  child: Obx(
+                    () => controller.passport.value == ''
+                        ? AppointmentButton(
+                            onPressed: () {
+                              controller.pickPassportImage();
+                            },
+                            value: 'Upload',
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.passport.value));
+
+                              /*  if (await canLaunchUrl(Uri.parse(
+                                  ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value))) {
+                                launchUrl(
+                                  Uri.parse(ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value),
+                                  mode:
+                                      LaunchMode.externalNonBrowserApplication,
+                                );
+                              }*/
+                            },
+                            child: Text(
+                              controller.passport.value
+                                  .replaceAll('assets/', ''),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                  ),
+                )
+              ],
+            ),
+            Divider(
+              color: Colors.black12,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextWidget(
+                  value: 'Visa',
+                  size: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  textColor: Properties.colorTextBlue,
+                )),
+                Expanded(
+                  child: Obx(
+                    () => controller.visa.value == ''
+                        ? AppointmentButton(
+                            onPressed: () {
+                              controller.pickVisaImage();
+                            },
+                            value: 'Upload',
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.visa.value));
+
+                              /*  if (await canLaunchUrl(Uri.parse(
+                                  ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value))) {
+                                launchUrl(
+                                  Uri.parse(ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value),
+                                  mode:
+                                      LaunchMode.externalNonBrowserApplication,
+                                );
+                              }*/
+                            },
+                            child: Text(
+                              controller.visa .value
+                                  .replaceAll('assets/', ''),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                  ),
+                )
+              ],
+            ),
+            Divider(
+              color: Colors.black12,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextWidget(
+                  value: 'Insurance',
+                  size: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  textColor: Properties.colorTextBlue,
+                )),
+                Expanded(
+                  child: Obx(
+                    () => controller.insurance.value == ''
+                        ? AppointmentButton(
+                            onPressed: () {
+                              controller.pickInsuranceImage();
+                            },
+                            value: 'Upload',
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.insurance.value));
+
+                              /*if (await canLaunchUrl(Uri.parse(
+                                  ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value))) {
+                                launchUrl(
+                                  Uri.parse(ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value),
+                                  mode:
+                                      LaunchMode.externalNonBrowserApplication,
+                                );
+                              }*/
+                            },
+                            child: Text(
+                              controller.insurance.value
+                                  .replaceAll('assets/', ''),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                  ),
+                )
+              ],
+            ),
+            Divider(
+              color: Colors.black12,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: TextWidget(
+                  value: 'Others',
+                  size: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  textColor: Properties.colorTextBlue,
+                )),
+                Expanded(
+                  child: Obx(
+                    () => controller.others.value == ''
+                        ? AppointmentButton(
+                            onPressed: () {
+                              controller.pickOthersImage();
+                            },
+                            value: 'Upload',
+                          )
+                        : InkWell(
+                            onTap: () async {
+                              Get.to(()=> WebViewScreen(url: ApiServices.IMAGE_BASE_URL + controller.others.value));
+
+                              /*   if (await canLaunchUrl(Uri.parse(
+                                  ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value))) {
+                                launchUrl(
+                                  Uri.parse(ApiServices.IMAGE_BASE_URL +
+                                      controller.emiratesFront.value),
+                                  mode:
+                                      LaunchMode.externalNonBrowserApplication,
+                                );
+                              }*/
+                            },
+                            child: Text(
+                              controller.others.value
+                                  .replaceAll('assets/', ''),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),

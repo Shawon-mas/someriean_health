@@ -62,6 +62,7 @@ class ApiKeyName{
   static const String USER_PROFILE_EMIRATES_BACK_PICTURE='apps_user_emirates_id_back_pic';
   static const String USER_PROFILE_PASSPORT_PICTURE='apps_user_passport_pic';
   static const String USER_PROFILE_VISA_PICTURE='apps_user_visa_pic';
+  static const String USER_PROFILE_INSURANCE_PICTURE='apps_user_insurance_pic';
   static const String USER_PROFILE_OTHERS_PICTURE='apps_user_others_pic';
 
   //appointment key

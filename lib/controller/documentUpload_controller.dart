@@ -19,6 +19,10 @@ class DocumentController extends GetxController{
   final imagePath = "".obs;
   var emiratesFront=''.obs;
   var emiratesBack=''.obs;
+  var passport=''.obs;
+  var visa=''.obs;
+  var insurance=''.obs;
+  var others=''.obs;
 
 
 
@@ -163,6 +167,286 @@ class DocumentController extends GetxController{
     Get.back();
   }
 
+  pickPassportImage() {
+    Get.defaultDialog(
+      title: "Choose Option",
+      middleText: "Pick one of the option to pick",
+      content: Column(
+        children: [
+          ListTile(
+            title: const Text("Choose from gallery"),
+            leading: const Icon(
+              Icons.photo_size_select_actual_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.gallery);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putPassportImageToServer(photo.path);
+                //   uploadPhoto();
+              } else {
+                Get.back();
+              }
+            },
+          ),
+          ListTile(
+            title: const Text("Capture image"),
+            leading: const Icon(
+              Icons.camera_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.camera);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putPassportImageToServer(photo.path);
+              } else {
+                Get.back();
+              }
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: true,
+    );
+  }
+  _putPassportImageToServer(String path) async{
+    //await SharedPrefs().getUserId()
+    Get.back();
+    showBottom();
+    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_PASSPORT_PICTURE));
+    File _file = File(path);
+    var _fileStream = http.ByteStream(_file.openRead()..cast());
+    var _fileLength = await _file.length();
+    var _fileFile = http.MultipartFile(ApiKeyName.USER_PROFILE_PASSPORT_PICTURE, _fileStream, _fileLength, filename: (_file.path));
+    _request.fields["apps_user_id"] = await SharedPrefs().getUserId();
+    _request.headers.addAll(await ApiServices().headerWithToken());
+    _request.files.add(_fileFile);
+    var _response = await _request.send();
+    var respond= await http.Response.fromStream(_response);
+    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+    print(pictureUploaded!.data!.appsUserPassportPic!);
+    _getUserData();
+    Get.back();
+  }
+
+  pickVisaImage() {
+    Get.defaultDialog(
+      title: "Choose Option",
+      middleText: "Pick one of the option to pick",
+      content: Column(
+        children: [
+          ListTile(
+            title: const Text("Choose from gallery"),
+            leading: const Icon(
+              Icons.photo_size_select_actual_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.gallery);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putVisaImageToServer(photo.path);
+                //   uploadPhoto();
+              } else {
+                Get.back();
+              }
+            },
+          ),
+          ListTile(
+            title: const Text("Capture image"),
+            leading: const Icon(
+              Icons.camera_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.camera);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putVisaImageToServer(photo.path);
+              } else {
+                Get.back();
+              }
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: true,
+    );
+  }
+  _putVisaImageToServer(String path) async{
+    //await SharedPrefs().getUserId()
+    Get.back();
+    showBottom();
+    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_VISA_PICTURE));
+    File _file = File(path);
+    var _fileStream = http.ByteStream(_file.openRead()..cast());
+    var _fileLength = await _file.length();
+    var _fileFile = http.MultipartFile(ApiKeyName.USER_PROFILE_VISA_PICTURE, _fileStream, _fileLength, filename: (_file.path));
+    _request.fields["apps_user_id"] = await SharedPrefs().getUserId();
+    _request.headers.addAll(await ApiServices().headerWithToken());
+    _request.files.add(_fileFile);
+    var _response = await _request.send();
+    var respond= await http.Response.fromStream(_response);
+    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+    print(pictureUploaded!.data!.appsUserVisaPic!);
+    _getUserData();
+    Get.back();
+  }
+
+  pickInsuranceImage() {
+    Get.defaultDialog(
+      title: "Choose Option",
+      middleText: "Pick one of the option to pick",
+      content: Column(
+        children: [
+          ListTile(
+            title: const Text("Choose from gallery"),
+            leading: const Icon(
+              Icons.photo_size_select_actual_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.gallery);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putInsuranceImageToServer(photo.path);
+                //   uploadPhoto();
+              } else {
+                Get.back();
+              }
+            },
+          ),
+          ListTile(
+            title: const Text("Capture image"),
+            leading: const Icon(
+              Icons.camera_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.camera);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putInsuranceImageToServer(photo.path);
+              } else {
+                Get.back();
+              }
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: true,
+    );
+  }
+  _putInsuranceImageToServer(String path) async{
+    //await SharedPrefs().getUserId()
+    Get.back();
+    showBottom();
+    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_INSURANCE_PICTURE));
+    File _file = File(path);
+    var _fileStream = http.ByteStream(_file.openRead()..cast());
+    var _fileLength = await _file.length();
+    var _fileFile = http.MultipartFile(ApiKeyName.USER_PROFILE_INSURANCE_PICTURE, _fileStream, _fileLength, filename: (_file.path));
+    _request.fields["apps_user_id"] = await SharedPrefs().getUserId();
+    _request.headers.addAll(await ApiServices().headerWithToken());
+    _request.files.add(_fileFile);
+    var _response = await _request.send();
+    var respond= await http.Response.fromStream(_response);
+    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+    print(pictureUploaded!.data!.appsUserInsurancePic!);
+    _getUserData();
+    Get.back();
+  }
+
+  pickOthersImage() {
+    Get.defaultDialog(
+      title: "Choose Option",
+      middleText: "Pick one of the option to pick",
+      content: Column(
+        children: [
+          ListTile(
+            title: const Text("Choose from gallery"),
+            leading: const Icon(
+              Icons.photo_size_select_actual_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.gallery);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putOthersImageToServer(photo.path);
+                //   uploadPhoto();
+              } else {
+                Get.back();
+              }
+            },
+          ),
+          ListTile(
+            title: const Text("Capture image"),
+            leading: const Icon(
+              Icons.camera_rounded,
+              color: Properties.primaryColor,
+            ),
+            onTap: () async {
+              final ImagePicker _picker = ImagePicker();
+              final XFile? photo =
+              await _picker.pickImage(source: ImageSource.camera);
+              if (photo != null) {
+                image.value = photo;
+                imagePath.value = photo.path;
+                _putOthersImageToServer(photo.path);
+              } else {
+                Get.back();
+              }
+            },
+          ),
+        ],
+      ),
+      barrierDismissible: true,
+    );
+  }
+  _putOthersImageToServer(String path) async{
+    //await SharedPrefs().getUserId()
+    Get.back();
+    showBottom();
+    var _request = http.MultipartRequest("POST", Uri.parse(ApiServices.USER_UPDATE_PROFILE_OTHER_PICTURE));
+    File _file = File(path);
+    var _fileStream = http.ByteStream(_file.openRead()..cast());
+    var _fileLength = await _file.length();
+    var _fileFile = http.MultipartFile(ApiKeyName.USER_PROFILE_OTHERS_PICTURE, _fileStream, _fileLength, filename: (_file.path));
+    _request.fields["apps_user_id"] = await SharedPrefs().getUserId();
+    _request.headers.addAll(await ApiServices().headerWithToken());
+    _request.files.add(_fileFile);
+    var _response = await _request.send();
+    var respond= await http.Response.fromStream(_response);
+    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+    print(pictureUploaded!.data!.appsUserOthersFile!);
+    _getUserData();
+    Get.back();
+  }
+
   _getUserData()async {
 
     Map<String,dynamic> body={
@@ -184,8 +468,10 @@ class DocumentController extends GetxController{
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
                 emiratesFront.value=updateUserProfileModel!.data!.appsUserEmiratesIdFrontPic!;
                 emiratesBack.value=updateUserProfileModel.data!.appsUserEmiratesIdBackPic!;
-
-
+                passport.value=updateUserProfileModel.data!.appsUserPassportPic!;
+                visa.value=updateUserProfileModel.data!.appsUserVisaPic!;
+                insurance.value=updateUserProfileModel.data!.appsUserInsurancePic!;
+                others.value=updateUserProfileModel.data!.appsUserOthersFile!;
 
           }
         }

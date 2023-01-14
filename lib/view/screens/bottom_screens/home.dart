@@ -14,6 +14,7 @@ import '../../../global/global_constants.dart';
 import '../../../model/slider_model.dart';
 import '../../../routes/routes.dart';
 import '../../../utilites/api_services.dart';
+import '../../../utilites/shared_prefs.dart';
 import '../../widget/homeMenu.dart';
 import '../../widget/text_widget.dart';
 import '../../widget/webview.dart';
@@ -75,9 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Spacer(),
                     TextButton(
-                      onPressed: () {
-                        FirebaseAuth.instance.signOut();
-                        Get.offAllNamed(splash);
+                      onPressed: () async{
+                        await SharedPrefs().prefsClear();
+                       // FirebaseAuth.instance.signOut();
+                        Get.offAllNamed(login);
                       },
                       child: const Text(
                         'Logout',
