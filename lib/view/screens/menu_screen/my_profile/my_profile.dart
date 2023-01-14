@@ -11,6 +11,7 @@ import 'package:somerian_health/view/screens/menu_screen/my_profile/personal_det
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../../bottom_screens/menu.dart';
+import 'document_upload.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -120,7 +121,7 @@ class _MyProfileScreenState extends State<MyProfileScreen>
                 controller: tabController,
                 children: [
                   PersonalDetailsScreen(),
-                  Document(),
+                  DocumentUpload(),
                 ],
               ),
             )

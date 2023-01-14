@@ -212,7 +212,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
-                            _controller.updateInfo(context);
+                          //  _controller.updateInfo(context);
                           },
                         ),
                       ),
