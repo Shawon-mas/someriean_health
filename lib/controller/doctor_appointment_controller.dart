@@ -81,7 +81,10 @@ class DoctorAppointmentController extends GetxController {
   var dataFetch=false.obs;
 
   selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(context: context, initialDate: DateTime(DateTime.now().year), firstDate: DateTime(1950, 8), lastDate: DateTime(2101));
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate.value,
+        firstDate: DateTime(1950, 8), lastDate: DateTime(2101));
     selectedDate.value = picked!;
   }
 

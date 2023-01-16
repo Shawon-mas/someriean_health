@@ -1,16 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/properties.dart';
-import 'package:somerian_health/model/selected_doctor_model.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
-import '../../../../global/db_paths.dart';
 import '../../../../model/locationResponseModel.dart';
-import '../../../../model/specialistResponseModel.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/custom_container.dart';
 import '../../../widget/text_widget.dart';
+import 'doctor_list_by_location.dart';
 
 
 class ChooseLocation extends StatefulWidget {
@@ -34,8 +32,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         children: [
           CustomContainer(value: "Find a Doctor by Hospital Location"),
           Obx(() => _controller.isHospitalLoaded.value==true
-              ?Expanded(
-            child: ListView.builder(
+              ?Expanded( child: ListView.builder(
                 itemCount: _controller.locations.length,
                 itemBuilder: (context, index){
                   List<LocationDatum?> locationData = _controller.locations;
@@ -43,7 +40,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                     onTap: () {
                       //DoctorsList
 
-                    //  Get.to(()=>DoctorsBySpecialities(speciality: specialityData[index]!.doctorSpecialitiesId!.toString(),controller: _controller,));
+                     Get.to(()=>DoctorsByLocation(location: locationData[index]!.hospitalLocationId.toString(),controller: _controller,));
                       setState(() {
                         selectionStatus=index;
                       });

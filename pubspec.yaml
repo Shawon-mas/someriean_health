@@ -68,6 +68,7 @@ dependencies:
   zego_uikit_prebuilt_call:
   webview_flutter: ^2.3.1
   intl: ^0.17.0
+  country_list_pick: ^1.0.1+6
 
 
 dependency_overrides:

@@ -34,10 +34,17 @@ class CompleteProfileController extends GetxController {
   var selectedLocation = "".obs;
   var speciality = <String>[].obs;
   var selectedSpeciality = "".obs;
+
+  var selectedCountry = "".obs;
   final CollectionReference doctors = FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
 
   selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(context: context, initialDate: selectedDate.value, firstDate: DateTime(1950, 8), lastDate: DateTime(2101), helpText: 'Select Date of Birth');
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate.value,
+        firstDate: DateTime(1950, 8),
+        lastDate: DateTime(2101),
+        helpText: 'Select Date of Birth');
     selectedDate.value = picked!;
   }
 
@@ -95,8 +102,8 @@ class CompleteProfileController extends GetxController {
       errorSnackBar(context, "Email Required");
     } else if (valueChoose.value.isEmpty) {
       errorSnackBar(context, "Gender Required");
-    } else if (valueNationality.value.isEmpty) {
-      errorSnackBar(context, "Nationality Required");
+    } else if (selectedCountry.value=='') {
+      errorSnackBar(context, "Country Required");
     } else if (passportController.text.toString().isEmpty) {
       errorSnackBar(context, "Emirates ID Required");
     } else {
@@ -150,7 +157,7 @@ class CompleteProfileController extends GetxController {
       ApiKeyName.USER_DOB: dob,
       ApiKeyName.USER_EMAIL: emailController.text.toString(),
       ApiKeyName.USER_GENDER: valueChoose.value.toString(),
-      ApiKeyName.USER_NATIONALITY: valueNationality.value,
+      ApiKeyName.USER_NATIONALITY: selectedCountry.value,
       ApiKeyName.USER_EMIRATES_ID: passportController.text,
     };
 

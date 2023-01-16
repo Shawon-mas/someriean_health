@@ -41,7 +41,7 @@ class DoctorAppointmentListController extends GetxController{
        }
 
      }else{
-     //  isProcessing.value = false;
+     //  dataFetch.value=true;
      }
 
 

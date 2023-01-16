@@ -31,7 +31,7 @@ class DoctorAppointmentList extends StatelessWidget {
               itemBuilder: (context, index) {
                 List<AppointmentListDatum?> getAllAppointment =
                     controller.allAppointment;
-                List<DoctorData?> doctorListData = _controller.doctorList;
+
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -88,7 +88,8 @@ class DoctorAppointmentList extends StatelessWidget {
                               CircleAvatar(
                                 radius: 30,
                                 backgroundImage: NetworkImage(
-                                  'https://tinyurl.com/ytbryar3',
+                                  ApiServices.IMAGE_BASE_URL+getAllAppointment[index]!
+                                      .doctorProfileImage!,
                                 ),
                               )
                               /*  (getAllAppointment[index]!.doctorProfileId! == doctorListData[index]!.doctorProfileId)

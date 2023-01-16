@@ -338,23 +338,30 @@ class TimeDateScreen extends StatelessWidget {
                               child: Obx(() => AppointmentButton(
                                     isLoading: controller.isProcessing.value,
                                     onPressed: () {
-                                      if(controller.valueAppointment.value == 'Book for Others'){
-                                        if(controller.fullNameController.text.isEmpty){
-                                          errorSnackBar(context,'Full Name Required');
-                                        }else if(controller.othersEmiratesIdController.text.isEmpty){
-                                          errorSnackBar(context,'Emirates ID Required');
-                                        }else if(controller.relationController.text.isEmpty){
-                                          errorSnackBar(context,'Relationship Required');
-                                        }else if(controller.othersEmiratesIdController.text.isEmpty){
-                                          errorSnackBar(context,'Mobile Number Required');
-                                        }
-                                        else{
-                                         // controller.proceedOthersPayment(context, controller);
-                                          controller.bookedDoctorAppointment(context, controller);
+
+                                      if(controller.valueAppointment.value==''){
+                                        errorSnackBar(context,'For Whom Required');
+                                        if(controller.valueAppointment.value == 'Book for Others'){
+                                          if(controller.fullNameController.text.isEmpty){
+                                            errorSnackBar(context,'Full Name Required');
+                                          }else if(controller.othersEmiratesIdController.text.isEmpty){
+                                            errorSnackBar(context,'Emirates ID Required');
+                                          }else if(controller.relationController.text.isEmpty){
+                                            errorSnackBar(context,'Relationship Required');
+                                          }else if(controller.othersEmiratesIdController.text.isEmpty){
+                                            errorSnackBar(context,'Mobile Number Required');
+                                          }
+                                          else{
+                                            // controller.proceedOthersPayment(context, controller);
+                                            controller.bookedDoctorAppointment(context, controller);
+                                          }
+                                        }else{
+                                         // controller.bookedDoctorAppointment(context, controller);
                                         }
                                       }else{
                                         controller.bookedDoctorAppointment(context, controller);
                                       }
+
                                     },
                                     value: 'Proceed',
                                   )),

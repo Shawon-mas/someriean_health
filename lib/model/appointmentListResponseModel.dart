@@ -63,6 +63,8 @@ class AppointmentListDatum {
     this.doctorProfileName,
     this.doctorProfileSpecialitiesName,
     this.doctorProfileHospitalLocationName,
+    this.doctorProfileImage,
+    this.doctorProfileMobileNumber,
   });
 
   int? doctorAppointmentId;
@@ -90,6 +92,8 @@ class AppointmentListDatum {
   String? doctorProfileName;
   String? doctorProfileSpecialitiesName;
   String? doctorProfileHospitalLocationName;
+  String? doctorProfileImage;
+  String? doctorProfileMobileNumber;
 
   factory AppointmentListDatum.fromJson(Map<String, dynamic> json) => AppointmentListDatum(
     doctorAppointmentId: json["doctor_appointment_id"],
@@ -117,6 +121,8 @@ class AppointmentListDatum {
     doctorProfileName: json["doctor_profile_name"],
     doctorProfileSpecialitiesName: json["doctor_profile_specialities_name"],
     doctorProfileHospitalLocationName: json["doctor_profile_hospital_location_name"],
+    doctorProfileImage: json["doctor_profile_image"],
+    doctorProfileMobileNumber: json["doctor_profile_mobile_number"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -145,5 +151,7 @@ class AppointmentListDatum {
     "doctor_profile_name": doctorProfileName,
     "doctor_profile_specialities_name": doctorProfileSpecialitiesName,
     "doctor_profile_hospital_location_name": doctorProfileHospitalLocationName,
+    "doctor_profile_image": doctorProfileImage,
+    "doctor_profile_mobile_number": doctorProfileMobileNumber,
   };
 }

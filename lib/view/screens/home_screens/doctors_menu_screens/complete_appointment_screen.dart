@@ -123,7 +123,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: AppointmentButton(
           onPressed: () {
-            Get.to(()=> AppointmentSection());
+            Get.off(()=> AppointmentSection());
           },
           value: 'My Appointment',
         ),

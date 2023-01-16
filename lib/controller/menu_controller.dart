@@ -49,9 +49,10 @@ class MenuController extends GetxController {
           if (jsonData != null) {
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
 
-            imagePath.value=updateUserProfileModel!.data!.appsUserProfilePic!;
-            emarites.value=updateUserProfileModel.data!.appsUserEmiratesIdNumber!;
+
+            emarites.value=updateUserProfileModel!.data!.appsUserEmiratesIdNumber!;
             name.value=updateUserProfileModel.data!.appsUserFirstName!+' '+updateUserProfileModel.data!.appsUserLastName!;
+            imagePath.value=updateUserProfileModel.data!.appsUserProfilePic!;
             print(imagePath.value);
             print(emarites.value);
             print(name.value);
@@ -59,7 +60,6 @@ class MenuController extends GetxController {
 
           }
         }
-
       }
 
     }catch(e){

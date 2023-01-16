@@ -7,6 +7,7 @@ import 'package:somerian_health/view/widget/custom_button.dart';
 import '../../global/properties.dart';
 import '../widget/custom_container.dart';
 import '../widget/text_widget.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
   final _controller = Get.put(CompleteProfileController());
@@ -155,6 +156,52 @@ class CompleteProfileScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
+                    width: double.maxFinite,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Obx(() => Row(
+                        children: [
+                          TextWidget(
+                            value: _controller.selectedCountry.value==''
+                                ?'Select Your Country'
+                                :_controller.selectedCountry.value,
+                            size: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            textColor: Colors.black,
+                            edgeInsetsGeometry: EdgeInsets.zero,
+                          ),
+                          Spacer(),
+                          CountryListPick(
+                            appBar: AppBar(
+                              backgroundColor: Properties.primaryColor,
+                              title: Text('Select Country'),
+                            ),
+                            theme: CountryTheme(
+                              isShowFlag: false,
+                              isShowTitle: true,
+                              isShowCode: false,
+                              isDownIcon: true,
+                              showEnglishName: true,
+                              labelColor: Properties.primaryColor,
+                            ),
+                            onChanged: (code) {
+
+                              _controller.selectedCountry.value=code!.name!;
+                                print(code.name!);
+
+                            },
+                          ),
+                        ],
+                      )),
+                    ),
+                  ),
+
+                  /*Container(
                     height: 50.h,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
@@ -183,7 +230,7 @@ class CompleteProfileScreen extends StatelessWidget {
                         }).toList(),
                       ),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(
                     height: 10,
                   ),
