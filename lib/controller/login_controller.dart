@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
+import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 import 'package:somerian_health/view/screens/otp_screen.dart';
 import 'package:http/http.dart' as http;
@@ -106,10 +107,14 @@ class LoginController extends GetxController {
           print(await SharedPrefs().getToken());
           print(await SharedPrefs().getUserId());
           print(await SharedPrefs().getUserNumber());
-
-
           successSnackBar(context, data['message']);
-          Get.to(CompleteProfileScreen(mobileNumber: _controller.phoneController.text));
+          print(data['is_userexist']);
+          if(data['is_userexist']==true)
+          {
+            Get.to(()=> BottomBarScreen());
+          }else{
+            Get.to(CompleteProfileScreen(mobileNumber: _controller.phoneController.text));
+          }
         }
       }
 

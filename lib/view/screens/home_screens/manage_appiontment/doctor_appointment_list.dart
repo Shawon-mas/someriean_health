@@ -35,6 +35,7 @@ class DoctorAppointmentList extends StatelessWidget {
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
+
                   child: Container(
                     //  height: 100.h,
                     width: double.maxFinite,
@@ -85,16 +86,36 @@ class DoctorAppointmentList extends StatelessWidget {
                                 ],
                               ),
                               Spacer(),
-                              CircleAvatar(
+
+                              Container(
+                                height: 50.h,
+                                width: 50.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.white10,
+                                    borderRadius:
+                                    BorderRadius.circular(100)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0
+                                  ),
+                                  child: Image.network(
+                                    ApiServices.IMAGE_BASE_URL+getAllAppointment[index]!
+                                        .doctorProfileImage!,
+                                    height: 50.h,
+                                    width: 50.w,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                             /* CircleAvatar(
                                 radius: 30,
                                 backgroundImage: NetworkImage(
                                   ApiServices.IMAGE_BASE_URL+getAllAppointment[index]!
                                       .doctorProfileImage!,
                                 ),
-                              )
-                              /*  (getAllAppointment[index]!.doctorProfileId! == doctorListData[index]!.doctorProfileId)
-                                    ?imageShow(doctorListData[index],context)
-                                    :null*/
+                              )*/
+
+
                             ],
                           ),
                           Divider(

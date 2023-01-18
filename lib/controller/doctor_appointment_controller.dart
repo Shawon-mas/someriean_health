@@ -84,8 +84,9 @@ class DoctorAppointmentController extends GetxController {
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
-        firstDate: DateTime(1950, 8), lastDate: DateTime(2101));
-    selectedDate.value = picked!;
+        firstDate: selectedDate.value,
+        lastDate: DateTime.now().add(Duration(days: 7)));
+      selectedDate.value = picked!;
   }
 
   selectTime(BuildContext context) async {
@@ -236,19 +237,7 @@ class DoctorAppointmentController extends GetxController {
     }
 
   }
-  /*
-   isProcessing.value = false;
-      Get.off(() => CompleteAppointmentScreen(controller: controller));
-      print(response.body);
-   final doctorAppointmentResponseModel = doctorAppointmentResponseModelFromJson(response.body);
-      if (doctorAppointmentResponseModel!.status! && doctorAppointmentResponseModel.data != null){
-        print(response.body);
-      }
-      else
-      {
-        isProcessing.value = false;
-      }
-   */
+
 
   _getUserData()async{
     String? jsonData = await SharedPrefs().generalGetData(key:"user_data");

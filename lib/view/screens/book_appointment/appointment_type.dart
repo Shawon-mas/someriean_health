@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/global/properties.dart';
 
 import '../../widget/common_toolbar.dart';
@@ -28,7 +30,8 @@ class AppointmentType extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorList()));
 
               }else{
-             //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+                Get.to(()=>VisaScreeningCenterScreen());
+             //  Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
 
               }
             },

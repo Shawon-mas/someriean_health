@@ -68,8 +68,7 @@ class _DoctorListState extends State<DoctorList> {
                                 icon: const Icon(Icons.keyboard_arrow_down),
                                 items: _controller.locations.map((items) {
                                   return DropdownMenuItem(
-                                    value:
-                                        items!.hospitalLocationName!.toString(),
+                                    value: items!.hospitalLocationName!.toString(),
                                     child: Text(
                                         items.hospitalLocationName!.toString()),
                                   );

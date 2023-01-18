@@ -14,30 +14,95 @@ import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../vaccination/vaccination_date.dart';
 
-class VisaScreeningCenterScreen extends StatefulWidget {
+class VisaScreeningCenterScreen extends StatelessWidget {
   const VisaScreeningCenterScreen({Key? key}) : super(key: key);
 
-  @override
-  State<VisaScreeningCenterScreen> createState() =>
-      _VisaScreeningCenterScreenState();
-}
-
-class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
   @override
   Widget build(BuildContext context) {
     final CollectionReference _vaccination = FirebaseFirestore.instance
         .collection(DbCollections.collectionVisaScreeningVaccination);
 
-    String name = "";
     final _controller =
         Get.put(VaccinationAppointmentController(context: context));
-    _controller.getUserInfo(context);
+ //   _controller.getUserInfo(context);
+    List<String> name=['Residency Visa screening','Occupational Health Screening','Corporate Group Screening'];
+    List<String> image=[
+      'https://www.alhabbaidkh.ae/wp-content/uploads/2021/03/i9a8702-1012x675-1.jpg',
+      'https://pr1.nicelocal.ae/e3xVFDu7aXBd-FbyPVoqFA/1120x700,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2fzk64ooXsXRtGCqY7U-oOgj1xnla0neF511oK6hU3fyiat3EZpcisll2ctSKvH-EA',
+      'https://www.alhabbaidkh.ae/wp-content/uploads/2021/03/i9a8702-1012x675-1.jpg',
+      ]
+    ;
 
     return Scaffold(
-      appBar: CommonToolbar(title: "Visa Screening"),
-      body: Column(
-        children: [
-          Container(
+      appBar: CommonToolbar(title: "Select Your Services"),
+      body: ListView.builder(
+        itemCount: image.length,
+        itemBuilder: (context,index){
+          return InkWell(
+            onTap: (){
+              if(index==0){
+              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorList()));
+
+              }else{
+                //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 140.h,
+                child: Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    Image.network(
+                      image[index],
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      color: Colors.white.withOpacity(0.8), colorBlendMode: BlendMode.modulate,
+                    ),
+
+                    Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 40.h,
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10),
+                            child: TextWidget(
+                              value: name[index],
+                              size: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              textColor: Colors.white,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.white60,
+                                    Properties.primaryColor,
+                                  ])),
+                        )
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+
+      ),
+    );
+  }
+}
+
+/*
+ Container(
             color: Colors.grey.shade300,
             height: 60.h,
             width: double.infinity,
@@ -166,8 +231,4 @@ class _VisaScreeningCenterScreenState extends State<VisaScreeningCenterScreen> {
                   );
                 }),
           )
-        ],
-      ),
-    );
-  }
-}
+ */
