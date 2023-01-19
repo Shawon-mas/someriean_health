@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:somerian_health/global/properties.dart';
 import '../../../../controller/doctor_appointment_controller.dart';
 import '../../../../global/global_constants.dart';
@@ -15,21 +16,24 @@ class TimeDateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         controller.valueAppointment.value = 'Book for Self';
         controller.fullNameController.clear();
         controller.othersEmiratesIdController.clear();
         controller.relationController.clear();
         controller.numberController.clear();
+        controller.selectedDate.value = DateTime.now();
+        controller.timeSlotList.clear();
+        controller.tap.value = false;
+        controller.selectedTimeSlot.value='';
+        controller.timeId.value='';
         return true;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: CommonToolbar(
-            title: 'Doctors',
-
+          title: 'Doctors',
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -104,84 +108,117 @@ class TimeDateScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWidget(
-                          value: 'Select Preferred Date',
-                          size: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          textColor: Properties.colorTextBlue,
+                        SizedBox(
+                          height: 5.h,
                         ),
-                        InkWell(
-                          onTap: () {
-                            controller.selectDate(context);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            height: 40.h,
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Obx(
-                                  () => TextWidget(
-                                    value:
-                                        '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
-                                    size: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                    textColor: Colors.grey,
+                        Obx(() => InkWell(
+                              onTap: () {
+                                controller.selectDate(context);
+                                controller.tap.value = true;
+                              },
+                              child: Container(
+                                height: 40.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      TextWidget(
+                                        value: controller.tap.value == true
+                                            ? DateFormat("yyyy-MM-dd")
+                                                .format(controller
+                                                    .selectedDate.value)
+                                                .toString()
+                                            : 'Select Date',
+                                        size: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                        textColor: Colors.black,
+                                        edgeInsetsGeometry: EdgeInsets.zero,
+                                      ),
+                                      const Spacer(),
+                                      const Icon(
+                                        Icons.calendar_today,
+                                        color: Colors.grey,
+                                      )
+                                    ],
                                   ),
                                 ),
-                                const Spacer(),
-                                const Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.grey,
-                                )
-                              ],
+                              ),
+                            )),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Obx(() => controller.timeSlotList.isEmpty
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    child: TextWidget(
+                                      value: 'No Time Slot Found',
+                                      size: 14.sp,
+                                      fontWeight: FontWeight.w700,
+                                      textColor: Colors.black,
+                                    ),
+                                  )
+                                : InkWell(
+                                        onTap: () {
+                                          controller.getTimeSlot(context);
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          child: TextWidget(
+                                            value: controller.selectedTimeSlot.value==''
+                                                ? 'Pick Slot'
+                                                :controller.selectedTimeSlot.value,
+                                            size: 14.sp,
+                                            fontWeight: FontWeight.w700,
+                                            textColor: Colors.black,
+                                          ),
+                                        ),
+                                      )
+
+                            /*Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                child: DropdownButton(
+                                  hint: Text('Select Time Slot'),
+                                  isExpanded: true,
+                                  underline: const SizedBox(),
+                                  value: controller.selectedTimeSlot.value == ""
+                                      ? null
+                                      : controller.selectedTimeSlot.value,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: controller.timeSlotList.map((items) {
+                                    return DropdownMenuItem(
+                                      value: items!.doctorSlotTime.toString(),
+                                      child: Text(items.doctorSlotTime.toString()),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    controller.selectedTimeSlot.value = newValue.toString();
+                                    //   controller.timeSlotList.clear();
+                                  },
+                                ),
+                              )*/
                             ),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10))),
-                          ),
-                        ),
-                        TextWidget(
-                          value: 'Select Preferred Time',
-                          size: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          textColor: Properties.colorTextBlue,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            controller.selectTime(context);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            height: 40.h,
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Obx(
-                                  () => TextWidget(
-                                    value: controller.selectedTime.value
-                                        .format(context)
-                                        .toString(),
-                                    size: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                    textColor: Colors.grey,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Image.asset('assets/images/clock.png')
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10))),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -231,7 +268,8 @@ class TimeDateScreen extends StatelessWidget {
                           height: 20,
                         ),
                         customTextField(
-                            textEditingController: controller.emiratesController,
+                            textEditingController:
+                                controller.emiratesController,
                             helperText: "Emirates Id"),
                         const SizedBox(
                           height: 20,
@@ -267,22 +305,23 @@ class TimeDateScreen extends StatelessWidget {
                                       : controller.valueAppointment.value,
                                   underline: const SizedBox(),
                                   onChanged: (newValue) {
-                                    controller.valueAppointment.value = newValue as String;
-                                    if(newValue=='Book for Self'){
+                                    controller.valueAppointment.value =
+                                        newValue as String;
+                                    if (newValue == 'Book for Self') {
                                       controller.fullNameController.clear();
-                                      controller.othersEmiratesIdController.clear();
+                                      controller.othersEmiratesIdController
+                                          .clear();
                                       controller.relationController.clear();
                                       controller.numberController.clear();
-                                      controller.isSelf.value="Yes";
+                                      controller.isSelf.value = "Yes";
                                       print(controller.isSelf.value);
-                                    }else{
-                                      controller.isSelf.value="No";
+                                    } else {
+                                      controller.isSelf.value = "No";
                                       print(controller.isSelf.value);
-
                                     }
                                   },
-                                  items:
-                                      controller.appointmentType.map((valuItem) {
+                                  items: controller.appointmentType
+                                      .map((valuItem) {
                                     return DropdownMenuItem(
                                       value: valuItem,
                                       child: Text(valuItem),
@@ -292,21 +331,22 @@ class TimeDateScreen extends StatelessWidget {
                               ),
                             ),
                             Obx(() => Visibility(
-                                  visible: controller.valueAppointment.value == 'Book for Others',
+                                  visible: controller.valueAppointment.value ==
+                                      'Book for Others',
                                   child: Column(
                                     children: [
                                       customTextField(
                                           enabled: true,
                                           textEditingController:
-                                          controller.fullNameController,
+                                              controller.fullNameController,
                                           helperText: "Full Name"),
                                       SizedBox(
                                         height: 5.h,
                                       ),
                                       customTextField(
                                           enabled: true,
-                                          textEditingController:
-                                          controller.othersEmiratesIdController,
+                                          textEditingController: controller
+                                              .othersEmiratesIdController,
                                           helperText: "Emirates Id"),
                                       SizedBox(
                                         height: 5.h,
@@ -314,7 +354,7 @@ class TimeDateScreen extends StatelessWidget {
                                       customTextField(
                                           enabled: true,
                                           textEditingController:
-                                          controller.relationController,
+                                              controller.relationController,
                                           helperText: "Relationship"),
                                       SizedBox(
                                         height: 5.h,
@@ -323,12 +363,12 @@ class TimeDateScreen extends StatelessWidget {
                                           textInputType: TextInputType.number,
                                           enabled: true,
                                           textEditingController:
-                                          controller.numberController,
+                                              controller.numberController,
                                           helperText: "Mobile Number"),
                                     ],
                                   ),
                                 )),
-                        //    Obx(() => controller.valueAppointment.value == 'Book for Self'?controller.fullNameController.clear():),
+                            //    Obx(() => controller.valueAppointment.value == 'Book for Self'?controller.fullNameController.clear():),
 
                             SizedBox(
                               height: 20,
@@ -339,30 +379,46 @@ class TimeDateScreen extends StatelessWidget {
                               child: Obx(() => AppointmentButton(
                                     isLoading: controller.isProcessing.value,
                                     onPressed: () {
-
-                                      if(controller.valueAppointment.value==''){
-                                        errorSnackBar(context,'For Whom Required');
-                                        if(controller.valueAppointment.value == 'Book for Others'){
-                                          if(controller.fullNameController.text.isEmpty){
-                                            errorSnackBar(context,'Full Name Required');
-                                          }else if(controller.othersEmiratesIdController.text.isEmpty){
-                                            errorSnackBar(context,'Emirates ID Required');
-                                          }else if(controller.relationController.text.isEmpty){
-                                            errorSnackBar(context,'Relationship Required');
-                                          }else if(controller.othersEmiratesIdController.text.isEmpty){
-                                            errorSnackBar(context,'Mobile Number Required');
-                                          }
-                                          else{
+                                      if (controller.valueAppointment.value ==
+                                          '') {
+                                        errorSnackBar(
+                                            context, 'For Whom Required');
+                                        if (controller.valueAppointment.value ==
+                                            'Book for Others') {
+                                          if (controller.fullNameController.text
+                                              .isEmpty) {
+                                            errorSnackBar(
+                                                context, 'Full Name Required');
+                                          } else if (controller
+                                              .othersEmiratesIdController
+                                              .text
+                                              .isEmpty) {
+                                            errorSnackBar(context,
+                                                'Emirates ID Required');
+                                          } else if (controller
+                                              .relationController
+                                              .text
+                                              .isEmpty) {
+                                            errorSnackBar(context,
+                                                'Relationship Required');
+                                          } else if (controller
+                                              .othersEmiratesIdController
+                                              .text
+                                              .isEmpty) {
+                                            errorSnackBar(context,
+                                                'Mobile Number Required');
+                                          } else {
                                             // controller.proceedOthersPayment(context, controller);
-                                            controller.bookedDoctorAppointment(context, controller);
+                                            controller.bookedDoctorAppointment(
+                                                context, controller);
                                           }
-                                        }else{
-                                         // controller.bookedDoctorAppointment(context, controller);
+                                        } else {
+                                          // controller.bookedDoctorAppointment(context, controller);
                                         }
-                                      }else{
-                                        controller.bookedDoctorAppointment(context, controller);
+                                      } else {
+                                        controller.bookedDoctorAppointment(
+                                            context, controller);
                                       }
-
                                     },
                                     value: 'Proceed',
                                   )),
@@ -386,7 +442,8 @@ class TimeDateScreen extends StatelessWidget {
 
   Widget customTextField(
       {required TextEditingController textEditingController,
-      required String helperText,TextInputType? textInputType,
+      required String helperText,
+      TextInputType? textInputType,
       EdgeInsets? edgeInsets,
       bool? enabled = false}) {
     return Column(
@@ -402,7 +459,7 @@ class TimeDateScreen extends StatelessWidget {
           height: 10,
         ),
         TextField(
-         keyboardType: textInputType,
+          keyboardType: textInputType,
           enabled: enabled,
           controller: textEditingController,
           decoration: InputDecoration(

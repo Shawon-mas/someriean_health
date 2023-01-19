@@ -69,8 +69,7 @@ class _DoctorListState extends State<DoctorList> {
                                 items: _controller.locations.map((items) {
                                   return DropdownMenuItem(
                                     value: items!.hospitalLocationName!.toString(),
-                                    child: Text(
-                                        items.hospitalLocationName!.toString()),
+                                    child: Text(items.hospitalLocationName!.toString()),
                                   );
                                 }).toList(),
                                 onChanged: (newValue) {
@@ -278,7 +277,7 @@ class _DoctorListState extends State<DoctorList> {
             onPressed: () {
                  _controller.selectedDoctor=SelectedDoctorModel(
                      uid: doctorListData.doctorProfileId!.toString(),
-                     name: doctorListData.doctorProfileSpecialitiesName!,
+                     name: doctorListData.doctorProfileName!,
                      image: ApiServices.IMAGE_BASE_URL + doctorListData.doctorProfileImage!,
                      location: doctorListData.doctorProfileHospitalLocationName!,
                      title: doctorListData.doctorProfileSpecialitiesName!);

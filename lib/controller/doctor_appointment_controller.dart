@@ -30,6 +30,7 @@ import 'package:intl/intl.dart';
 class DoctorAppointmentController extends GetxController {
   var name = "".obs;
   var isSelf="".obs;
+  var tap=false.obs;
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
@@ -72,7 +73,10 @@ class DoctorAppointmentController extends GetxController {
   var isHospitalLoaded = false.obs;
 
   var doctorList = <DoctorData?>[].obs;
-  var timeSlotList = <TimeSlotDatum>[].obs;
+
+  var timeSlotList = <TimeSlotDatum?>[].obs;
+  var selectedTimeSlot="".obs;
+  var isTimeSlotFound=false.obs;
 
   var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
@@ -82,6 +86,8 @@ class DoctorAppointmentController extends GetxController {
   final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
   var dataFetch=false.obs;
 
+  var timeId=''.obs;
+
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,
@@ -90,6 +96,7 @@ class DoctorAppointmentController extends GetxController {
         lastDate: DateTime(2101),
         helpText: 'Select Appointment Date');
       selectedDate.value = picked!;
+    isTimeSlotFound.value=false;
     getDoctorTimeSlot(DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
   }
 
@@ -198,20 +205,24 @@ class DoctorAppointmentController extends GetxController {
     if(response!=null) {
       try{
         final doctorTimeSlotResponseModel = doctorTimeSlotResponseModelFromJson(response.body);
-         timeSlotList.value=doctorTimeSlotResponseModel.data;
-         print(response.body);
+        if(doctorTimeSlotResponseModel.status!=null && doctorTimeSlotResponseModel.data!=null){
+          timeSlotList.value=doctorTimeSlotResponseModel.data!;
+          print(response.body);
+          print(timeSlotList.length);
+          isTimeSlotFound.value=true;
+        }
+
 
       }catch(e){
         print(e.toString());
-        isProcessing.value = false;
+        isTimeSlotFound.value=false;
       }
 
     }else{
-      isProcessing.value = false;
+    //  isProcessing.value = false;
     }
 
   }
-
   bookedDoctorAppointment(BuildContext context,DoctorAppointmentController controller) async{
     isProcessing.value = true;
     var bookingDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
@@ -279,7 +290,34 @@ class DoctorAppointmentController extends GetxController {
   }
 
 
-
+  getTimeSlot(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Select Slot'),
+            content: Container(
+              width: double.minPositive,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: timeSlotList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  List<TimeSlotDatum?> getSlot=timeSlotList;
+                  return ListTile(
+                    title: Text(getSlot[index]!.doctorSlotTime!),
+                    onTap: () {
+                      selectedTimeSlot.value=getSlot[index]!.doctorSlotTime!;
+                      timeId.value=getSlot[index]!.doctorTimeSlotId!.toString();
+                      print(getSlot[index]!.doctorTimeSlotId!.toString());
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            ),
+          );
+        });
+  }
 
   storeValues(
       {required String firstName,

@@ -10,28 +10,28 @@ String doctorTimeSlotResponseModelToJson(DoctorTimeSlotResponseModel data) => js
 
 class DoctorTimeSlotResponseModel {
   DoctorTimeSlotResponseModel({
-    required this.status,
-    required this.message,
-    required this.data,
-    required this.statusCode,
+     this.status,
+     this.message,
+     this.data,
+     this.statusCode,
   });
 
-  bool status;
-  String message;
-  List<TimeSlotDatum> data;
-  int statusCode;
+  bool? status;
+  String? message;
+  List<TimeSlotDatum?>? data;
+  int? statusCode;
 
   factory DoctorTimeSlotResponseModel.fromJson(Map<String, dynamic> json) => DoctorTimeSlotResponseModel(
     status: json["status"],
     message: json["message"],
-    data: List<TimeSlotDatum>.from(json["data"].map((x) => TimeSlotDatum.fromJson(x))),
+    data: json["data"] == null ? [] : List<TimeSlotDatum?>.from(json["data"]!.map((x) => TimeSlotDatum.fromJson(x))),
     statusCode: json["status_code"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x!.toJson())),
     "status_code": statusCode,
   };
 }
@@ -50,16 +50,16 @@ class TimeSlotDatum {
     required this.updatedAt,
   });
 
-  int doctorTimeSlotId;
-  int doctorProfileId;
-  DateTime doctorSlotDate;
-  String doctorSlotTime;
-  String doctorSlotTimeIsBooked;
+  int? doctorTimeSlotId;
+  int? doctorProfileId;
+  DateTime? doctorSlotDate;
+  String? doctorSlotTime;
+  String? doctorSlotTimeIsBooked;
   dynamic doctorSlotTimeBookedTime;
   dynamic doctorSlotTimeBookedAppsUserId;
-  int doctorSlotTimeAddedUserId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? doctorSlotTimeAddedUserId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory TimeSlotDatum.fromJson(Map<String, dynamic> json) => TimeSlotDatum(
     doctorTimeSlotId: json["doctor_time_slot_id"],
@@ -77,13 +77,13 @@ class TimeSlotDatum {
   Map<String, dynamic> toJson() => {
     "doctor_time_slot_id": doctorTimeSlotId,
     "doctor_profile_id": doctorProfileId,
-    "doctor_slot_date": "${doctorSlotDate.year.toString().padLeft(4, '0')}-${doctorSlotDate.month.toString().padLeft(2, '0')}-${doctorSlotDate.day.toString().padLeft(2, '0')}",
+    "doctor_slot_date": doctorSlotDate?.toIso8601String(),
     "doctor_slot_time": doctorSlotTime,
     "doctor_slot_time_is_booked": doctorSlotTimeIsBooked,
     "doctor_slot_time_booked_time": doctorSlotTimeBookedTime,
     "doctor_slot_time_booked_apps_user_id": doctorSlotTimeBookedAppsUserId,
     "doctor_slot_time_added_user_id": doctorSlotTimeAddedUserId,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }
