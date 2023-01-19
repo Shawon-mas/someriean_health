@@ -30,6 +30,9 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   static const String DOCTOR_APPOINTMENT_URL=BASE_URL+'/Booking/AddDoctorAppointment';
   static const String DOCTOR_APPOINTMENT_LIST_URL=BASE_URL+'/Booking/AllDoctorAppointmentListByUserID';
 
+  //Doctor Time Slot By Doctor ID And DateDoctor Time Slot By Doctor ID And Date
+  static const String DOCTOR_APPOINTMENT_SLOT_TIME=BASE_URL+'/Doctor/GetDoctorAllSlotByDocID';
+
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
@@ -72,6 +75,7 @@ class ApiKeyName{
 
   static const String DOCTOR_APPOINTMENT_PREFER_DATE='doctor_appointment_prefer_date';
   static const String DOCTOR_APPOINTMENT_PREFER_TIME='doctor_appointment_prefer_time';
+  static const String DOCTOR_TIME_SLOT_ID='doctor_time_slot_id';
   static const String DOCTOR_APPOINTMENT_USER_FIRST_NAME='doctor_appointment_user_first_name';
   static const String DOCTOR_APPOINTMENT_USER_LAST_NAME='doctor_appointment_user_last_name';
   static const String DOCTOR_APPOINTMENT_USER_MOBILE_NUMBER='doctor_appointment_user_mobile_number';
@@ -89,5 +93,7 @@ class ApiKeyName{
   //doctor key
 
   static const String DOCTOR_BY_SPECIALIST='doctor_specialities_id';
-  static const String DOCTOR_BY_LOCATION=' hospital_location_id';
+  static const String DOCTOR_BY_LOCATION='hospital_location_id';
+  static const String DOCTOR_DATE_SLOT='doctor_slot_date';
+
 }

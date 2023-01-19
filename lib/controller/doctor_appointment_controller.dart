@@ -14,6 +14,7 @@ import 'package:somerian_health/view/screens/home_screens/doctors_menu_screens/d
 import '../model/doctorAppointmentResponseModel.dart';
 import '../model/doctorBySpecialistResponseModel.dart';
 import '../model/doctorResponseModel.dart';
+import '../model/doctorTimeSlotResponseModel.dart';
 import '../model/locationResponseModel.dart';
 import '../model/specialistResponseModel.dart';
 import '../model/user/update_user_profile_model.dart';
@@ -71,6 +72,7 @@ class DoctorAppointmentController extends GetxController {
   var isHospitalLoaded = false.obs;
 
   var doctorList = <DoctorData?>[].obs;
+  var timeSlotList = <TimeSlotDatum>[].obs;
 
   var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
@@ -84,9 +86,11 @@ class DoctorAppointmentController extends GetxController {
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
-        firstDate: selectedDate.value,
-        lastDate: DateTime.now().add(Duration(days: 7)));
+        firstDate: DateTime.now().subtract(Duration(days: 0)),
+        lastDate: DateTime(2101),
+        helpText: 'Select Appointment Date');
       selectedDate.value = picked!;
+    getDoctorTimeSlot(DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
   }
 
   selectTime(BuildContext context) async {
@@ -184,6 +188,29 @@ class DoctorAppointmentController extends GetxController {
       }
     }
   }
+  getDoctorTimeSlot(selectDate) async{
+   // var selectDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    Map<String, dynamic> body = {
+      ApiKeyName.DOCTOR_PROFILE_ID: selectedDoctor.uid,
+      ApiKeyName.DOCTOR_DATE_SLOT: selectDate,
+    };
+    var response = await authPost(url: ApiServices.DOCTOR_APPOINTMENT_SLOT_TIME, body: body);
+    if(response!=null) {
+      try{
+        final doctorTimeSlotResponseModel = doctorTimeSlotResponseModelFromJson(response.body);
+         timeSlotList.value=doctorTimeSlotResponseModel.data;
+         print(response.body);
+
+      }catch(e){
+        print(e.toString());
+        isProcessing.value = false;
+      }
+
+    }else{
+      isProcessing.value = false;
+    }
+
+  }
 
   bookedDoctorAppointment(BuildContext context,DoctorAppointmentController controller) async{
     isProcessing.value = true;
@@ -213,9 +240,7 @@ class DoctorAppointmentController extends GetxController {
   };
     print(await SharedPrefs().getUserId());
     var response = await authPost(url: ApiServices.DOCTOR_APPOINTMENT_URL, body: body);
-    if(response!=null)
-    {
-    //  print(response.body);
+    if(response!=null) {
      try{
        final doctorAppointmentResponseModel = doctorAppointmentResponseModelFromJson(response.body);
        if (doctorAppointmentResponseModel!.status! && doctorAppointmentResponseModel.data != null){
