@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/home_screens/health_packages/package_details.dart';
-
 import '../../../../controller/healthcare_controller.dart';
 import '../../../../model/healthPackageListResponseModel.dart';
 import '../../../../utilites/api_services.dart';
@@ -71,6 +70,11 @@ class PackagesListScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
+                      Get.to(()=> PackageDetails(
+                        image: ApiServices.IMAGE_BASE_URL + getPackageList[index]!.healthPackageImage!,
+                        title: getPackageList[index]!.healthPackageName!,
+                      ));
+
                       /*Navigator.push(
                           context,
                           MaterialPageRoute(

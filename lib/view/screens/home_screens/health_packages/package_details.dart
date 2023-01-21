@@ -15,9 +15,9 @@ import '../../../widget/text_widget.dart';
 class PackageDetails extends StatelessWidget {
   final String image;
   final String title;
-  final String docId;
+  final String? docId;
   const PackageDetails(
-      {Key? key, required this.image, required this.title, required this.docId})
+      {Key? key, required this.image, required this.title, this.docId})
       : super(key: key);
 
   @override
@@ -88,13 +88,13 @@ class PackageDetails extends StatelessWidget {
                             padding: const EdgeInsets.all(10.0),
                             child: AppointmentButton(
                               onPressed: () {
-                                Get.to(
+                                /*Get.to(
                                       () => BookHealthCarePackageScreen(
                                     uid: documentSnapshot.id,
                                     price: documentSnapshot['price'],
                                     healthCareId: docId,
                                   ),
-                                );
+                                );*/
                               },
                               value: 'Book Now',
                             ),
@@ -136,13 +136,13 @@ class PackageDetails extends StatelessWidget {
                   Html(data: documentSnapshot['details']),
                   AppointmentButton(
                     onPressed: () {
-                      Get.to(
+                      /*Get.to(
                         () => BookHealthCarePackageScreen(
                           uid: documentSnapshot.id,
                           price: documentSnapshot['price'],
                           healthCareId: docId,
                         ),
-                      );
+                      );*/
                     },
                     value: 'Book Now',
                   ),
