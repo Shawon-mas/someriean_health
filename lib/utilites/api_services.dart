@@ -33,6 +33,9 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   //Doctor Time Slot By Doctor ID And DateDoctor Time Slot By Doctor ID And Date
   static const String DOCTOR_APPOINTMENT_SLOT_TIME=BASE_URL+'/Doctor/GetDoctorAllSlotByDocID';
 
+  //health package
+  static const String ALL_ACTIVE_HEALTH_PACKAGE=BASE_URL+'/Package/GetAllActiveHealthPackage';
+
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',

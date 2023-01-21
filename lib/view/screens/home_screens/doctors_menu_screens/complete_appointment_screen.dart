@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:somerian_health/controller/doctor_appointment_controller.dart';
 
 
@@ -69,7 +70,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                       ),
                       TextWidget(
                         value:
-                        'Date: ${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
+                        'Date: ${DateFormat("yyyy-MM-dd").format(controller.selectedDate.value).toString()}',
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,
@@ -77,9 +78,7 @@ class CompleteAppointmentScreen extends StatelessWidget {
                       ),
                       TextWidget(
                         value:
-                        'Time: ${controller.selectedTime.value
-                            .format(context)
-                            .toString()}',
+                        'Time: ${controller.selectedTimeSlot}',
                         size: 12.sp,
                         fontWeight: FontWeight.w500,
                         textColor: Properties.fontColor,

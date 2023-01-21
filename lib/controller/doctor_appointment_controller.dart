@@ -96,8 +96,7 @@ class DoctorAppointmentController extends GetxController {
         lastDate: DateTime(2101),
         helpText: 'Select Appointment Date');
       selectedDate.value = picked!;
-    isTimeSlotFound.value=false;
-    getDoctorTimeSlot(DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
+    getDoctorTimeSlot(context,DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
   }
 
   selectTime(BuildContext context) async {
@@ -195,8 +194,10 @@ class DoctorAppointmentController extends GetxController {
       }
     }
   }
-  getDoctorTimeSlot(selectDate) async{
+  getDoctorTimeSlot(BuildContext context,selectDate) async{
    // var selectDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+
+
     Map<String, dynamic> body = {
       ApiKeyName.DOCTOR_PROFILE_ID: selectedDoctor.uid,
       ApiKeyName.DOCTOR_DATE_SLOT: selectDate,
@@ -207,19 +208,23 @@ class DoctorAppointmentController extends GetxController {
         final doctorTimeSlotResponseModel = doctorTimeSlotResponseModelFromJson(response.body);
         if(doctorTimeSlotResponseModel.status!=null && doctorTimeSlotResponseModel.data!=null){
           timeSlotList.value=doctorTimeSlotResponseModel.data!;
-          print(response.body);
+        //  print(response.body);
           print(timeSlotList.length);
           isTimeSlotFound.value=true;
+          infoSnackBar(context, 'Time Slot Found');
+        }else{
+          infoSnackBar(context, 'No Time Slot Found');
         }
-
 
       }catch(e){
         print(e.toString());
+
         isTimeSlotFound.value=false;
       }
 
     }else{
     //  isProcessing.value = false;
+      infoSnackBar(context, 'No Time Slot Found');
     }
 
   }
@@ -233,10 +238,9 @@ class DoctorAppointmentController extends GetxController {
     Map<String, dynamic> body = {
       ApiKeyName.DOCTOR_APPOINTMENT_APPS_USER_ID: await SharedPrefs().getUserId(),
       ApiKeyName.DOCTOR_PROFILE_ID: selectedDoctor.uid,
-
       ApiKeyName.DOCTOR_APPOINTMENT_PREFER_DATE: bookingDate,
-      ApiKeyName.DOCTOR_APPOINTMENT_PREFER_TIME: bookingTime,
-
+      ApiKeyName.DOCTOR_APPOINTMENT_PREFER_TIME: selectedTimeSlot.value,
+      ApiKeyName.DOCTOR_TIME_SLOT_ID: timeId.value,
       ApiKeyName.DOCTOR_APPOINTMENT_USER_FIRST_NAME: firstNameController.text,
       ApiKeyName.DOCTOR_APPOINTMENT_USER_LAST_NAME: lastNameController.text,
       ApiKeyName.DOCTOR_APPOINTMENT_USER_MOBILE_NUMBER: mobileController.text,
@@ -257,10 +261,11 @@ class DoctorAppointmentController extends GetxController {
        if (doctorAppointmentResponseModel!.status! && doctorAppointmentResponseModel.data != null){
          Get.off(() => CompleteAppointmentScreen(controller: controller));
          print(response.body);
+         isProcessing.value = false;
        }
        else
        {
-         isProcessing.value = false;
+
        }
 
      }catch(e){
@@ -269,7 +274,7 @@ class DoctorAppointmentController extends GetxController {
      }
 
     }else{
-      isProcessing.value = false;
+
     }
 
   }

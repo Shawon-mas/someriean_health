@@ -47,21 +47,18 @@ class TimeDateScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(
-                              5,
-                            ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                            5,
                           ),
-                          child: Image.network(
-                            controller.selectedDoctor.image,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.contain,
-                          ),
+                        ),
+                        child: Image.network(
+                          controller.selectedDoctor.image,
+                          height: 100.h,
+                          width: 100.w,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       FittedBox(
@@ -143,8 +140,8 @@ class TimeDateScreen extends StatelessWidget {
                                       ),
                                       const Spacer(),
                                       const Icon(
-                                        Icons.calendar_today,
-                                        color: Colors.grey,
+                                        Icons.calendar_today_outlined,
+                                        color: Colors.black,
                                       )
                                     ],
                                   ),
@@ -154,7 +151,8 @@ class TimeDateScreen extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Obx(() => controller.timeSlotList.isEmpty
+                        Obx(() =>
+                                controller.timeSlotList.isEmpty
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10),
@@ -174,20 +172,24 @@ class TimeDateScreen extends StatelessWidget {
                                           controller.getTimeSlot(context);
                                         },
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                          width: 150.w,
+                                          padding: const EdgeInsets.symmetric(horizontal: 10),
                                           decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0)),
-                                          child: TextWidget(
-                                            value: controller.selectedTimeSlot.value==''
-                                                ? 'Pick Slot'
-                                                :controller.selectedTimeSlot.value,
-                                            size: 14.sp,
-                                            fontWeight: FontWeight.w700,
-                                            textColor: Colors.black,
+                                              border: Border.all(color: Colors.grey),
+                                              borderRadius: BorderRadius.circular(10.0)),
+                                          child: Row(
+                                            children: [
+                                              TextWidget(
+                                                value: controller.selectedTimeSlot.value==''
+                                                    ? 'Pick Slot'
+                                                    :controller.selectedTimeSlot.value,
+                                                size: 14.sp,
+                                                fontWeight: FontWeight.w700,
+                                                textColor: Colors.black,
+                                              ),
+                                               Spacer(),
+                                               Icon(Icons.watch_later_sharp)
+                                            ],
                                           ),
                                         ),
                                       )

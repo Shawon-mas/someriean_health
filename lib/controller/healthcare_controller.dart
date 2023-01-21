@@ -10,17 +10,17 @@ import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
+import '../model/healthPackageListResponseModel.dart';
 import '../routes/routes.dart';
+import '../utilites/api_services.dart';
+import '../utilites/response_repository.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/screens/home_screens/health_packages/complete_healthcare_screen.dart';
 import '../view/widget/general_button.dart';
 import 'package:http/http.dart' as http;
 
 class HealthcareController extends GetxController {
-  final BuildContext context;
-  final String price;
-  final String uid;
-  final String healthcareId;
+
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
   var valueChoose = "".obs;
@@ -56,17 +56,13 @@ class HealthcareController extends GetxController {
   var selectedLocation = "".obs;
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
-
+  var healthPackageList = <HealthPackageDatum?>[].obs;
   final CollectionReference doctors =
       FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
   final CollectionReference patients =
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
+  var isDataFetch = false.obs;
 
-  HealthcareController(
-      {required this.context,
-      required this.price,
-      required this.uid,
-      required this.healthcareId});
 
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -125,7 +121,34 @@ class HealthcareController extends GetxController {
     });
   }
 
-  getUserInfo() {
+
+  _getHealthPackage() async{
+
+
+    var response = await authPost(url: ApiServices.ALL_ACTIVE_HEALTH_PACKAGE, body: {});
+    if(response!=null) {
+      try{
+        final healthPackageListResponseModel = healthPackageListResponseModelFromJson(response.body);
+        if(healthPackageListResponseModel.status!=null && healthPackageListResponseModel.data!=null){
+          healthPackageList.value=healthPackageListResponseModel.data!;
+          isDataFetch.value=true;
+          print(response.body);
+
+        }else{
+
+        }
+
+      }catch(e){
+        print(e.toString());
+      }
+
+    }else{
+      //  isProcessing.value = false;
+
+    }
+  }
+
+/*  getUserInfo() {
     var currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       var number = currentUser.phoneNumber;
@@ -215,7 +238,7 @@ class HealthcareController extends GetxController {
         ),
       ),
     );
-  }
+  }*/
 
   filePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -224,7 +247,7 @@ class HealthcareController extends GetxController {
     }
   }
 
-  proceedPayment(BuildContext context, HealthcareController controller) async {
+  /*proceedPayment(BuildContext context, HealthcareController controller) async {
     isProcessing.value = true;
     await FirebaseFirestore.instance
         .collection(DbCollections.collectionPatients)
@@ -259,11 +282,12 @@ class HealthcareController extends GetxController {
       );
     });
     //Get.to(() => CompleteAppointmentScreen(controller: controller));
-  }
+  }*/
 
   @override
   void onInit() {
-    getUserInfo();
+    //getUserInfo();
+    _getHealthPackage();
     super.onInit();
   }
 }

@@ -23,7 +23,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HealthcareController(
-        context: context, uid: uid, price: price, healthcareId: healthCareId));
+        ));
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonToolbar(title: 'Book Healthcare Package'),
@@ -448,7 +448,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               child: Obx(() => AppointmentButton(
                     isLoading: controller.isProcessing.value,
                     onPressed: () {
-                      controller.proceedPayment(context, controller);
+                     // controller.proceedPayment(context, controller);
                     },
                     value: 'Proceed',
                   )),
