@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/view/screens/home_screens/covid19/screening_date.dart';
+import 'package:somerian_health/view/screens/home_screens/visa/residency_visa.dart';
 
 import '../../../../controller/covid19_appionment_controller.dart';
 import '../../../../controller/vaccination_appionment_controller.dart';
@@ -41,6 +42,8 @@ class VisaScreeningCenterScreen extends StatelessWidget {
           return InkWell(
             onTap: (){
               if(index==0){
+                Get.to(()=>ResidencyVisa(title: name[index],));
+
               //  Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorList()));
 
               }else{
