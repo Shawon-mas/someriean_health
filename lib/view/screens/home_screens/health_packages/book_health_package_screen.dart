@@ -9,26 +9,18 @@ import '../../../widget/general_button.dart';
 import '../../../widget/text_widget.dart';
 
 class BookHealthCarePackageScreen extends StatelessWidget {
-  final String uid;
-  final String price;
-  final String healthCareId;
-
-  BookHealthCarePackageScreen(
-      {Key? key,
-      required this.uid,
-      required this.price,
-      required this.healthCareId})
-      : super(key: key);
+  final HealthcareController controller;
+  BookHealthCarePackageScreen({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HealthcareController(
-        ));
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonToolbar(title: 'Book Healthcare Package'),
       body: SingleChildScrollView(
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -98,7 +90,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                     height: 20,
                   ),
                   Row(
-                  //  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //  mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
                         child: InkWell(
@@ -112,9 +104,9 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Obx(
-                                      () => TextWidget(
+                                  () => TextWidget(
                                     value:
-                                    '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
+                                        '${controller.selectedDate.value.day}/${controller.selectedDate.value.month}/${controller.selectedDate.value.year}',
                                     size: 14.sp,
                                     fontWeight: FontWeight.w700,
                                     textColor: Colors.grey,
@@ -131,8 +123,8 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
                           ),
                         ),
                       ),
@@ -140,7 +132,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                         width: 5,
                       ),
                       Expanded(
-                        child:  InkWell(
+                        child: InkWell(
                           onTap: () {
                             controller.selectTime(context);
                           },
@@ -151,7 +143,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Obx(
-                                      () => TextWidget(
+                                  () => TextWidget(
                                     value: controller.selectedTime.value
                                         .format(context)
                                         .toString(),
@@ -168,113 +160,48 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    width: 10,
+                   SizedBox(
+                    height: 10.h,
                   ),
-                  StreamBuilder(
-                    stream: controller.doctors.snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        for (var data in snapshot.data!.docs) {
-                          controller.locations.value.add(data['location']);
-                        }
-                        controller.selectedLocation.value =
-                            controller.locations.first;
-                        controller.locations.value =
-                            controller.locations.toSet().toList();
-                      }
-                      return snapshot.hasData
-                          ? Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 4,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Location',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              //color: Colors.white,
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(10),
-                                              ),
-                                            ),
-                                            child: Obx(
-                                              () => DropdownButton(
-                                                hint: Text('Location'),
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: controller
-                                                            .selectedLocation
-                                                            .value ==
-                                                        ""
-                                                    ? null
-                                                    : controller
-                                                        .selectedLocation.value,
-                                                icon: const Icon(
-                                                    Icons.keyboard_arrow_down),
-                                                items: controller.locations
-                                                    .map((items) {
-                                                  return DropdownMenuItem(
-                                                    value: items,
-                                                    child: Text(items),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (newValue) {
-                                                  controller.selectedLocation
-                                                          .value =
-                                                      newValue as String;
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                    },
-                  ),
+                 Obx(() => InkWell(
+                   onTap: () {
+                     controller.getLocationList(context);
+                   },
+                   child: Container(
+                     height: 40.h,
+                     width: double.maxFinite,
+                     padding: const EdgeInsets.symmetric(horizontal: 10),
+                     decoration: BoxDecoration(
+                         border: Border.all(color: Colors.grey),
+                         borderRadius: BorderRadius.circular(10.0)),
+                     child: Row(
+                       children: [
+                         TextWidget(
+                           value: controller.selectedLocationName.value==''
+                               ? 'Pick Hospital Location'
+                               :controller.selectedLocationName.value,
+                           size: 14.sp,
+                           fontWeight: FontWeight.w700,
+                           textColor: Colors.black54,
+                         ),
+                         Spacer(),
+                         Icon(Icons.location_city_outlined,color: Colors.black54,)
+                       ],
+                     ),
+                   ),
+                 ))
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 'Price',
                 style: TextStyle(
@@ -297,7 +224,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "AED " + price,
+                  "AED " + controller.selectedPackage.price,
                 ),
               ),
             ),
@@ -407,7 +334,6 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                         SizedBox(
                           height: 5.h,
                         ),
-
                         customTextField(
                             enabled: true,
                             textEditingController: controller.c_emailController,
@@ -448,7 +374,7 @@ class BookHealthCarePackageScreen extends StatelessWidget {
               child: Obx(() => AppointmentButton(
                     isLoading: controller.isProcessing.value,
                     onPressed: () {
-                     // controller.proceedPayment(context, controller);
+                      // controller.proceedPayment(context, controller);
                     },
                     value: 'Proceed',
                   )),
@@ -510,3 +436,97 @@ class BookHealthCarePackageScreen extends StatelessWidget {
     );
   }
 }
+/*
+   StreamBuilder(
+                    stream: controller.doctors.snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        for (var data in snapshot.data!.docs) {
+                          controller.locations.value.add(data['location']);
+                        }
+                        controller.selectedLocation.value =
+                            controller.locations.first;
+                        controller.locations.value =
+                            controller.locations.toSet().toList();
+                      }
+                      return snapshot.hasData
+                          ? Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 4,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Location',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              //color: Colors.white,
+                                              border: Border.all(
+                                                color: Colors.grey,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
+                                            ),
+                                            child: Obx(
+                                              () => DropdownButton(
+                                                hint: Text('Location'),
+                                                isExpanded: true,
+                                                underline: const SizedBox(),
+                                                value: controller
+                                                            .selectedLocation
+                                                            .value ==
+                                                        ""
+                                                    ? null
+                                                    : controller
+                                                        .selectedLocation.value,
+                                                icon: const Icon(
+                                                    Icons.keyboard_arrow_down),
+                                                items: controller.locations
+                                                    .map((items) {
+                                                  return DropdownMenuItem(
+                                                    value: items,
+                                                    child: Text(items),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (newValue) {
+                                                  controller.selectedLocation
+                                                          .value =
+                                                      newValue as String;
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    },
+                  ),
+ */

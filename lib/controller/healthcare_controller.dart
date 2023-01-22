@@ -11,9 +11,13 @@ import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
 import '../model/healthPackageListResponseModel.dart';
+import '../model/locationResponseModel.dart';
+import '../model/selected_health_package.dart';
+import '../model/user/update_user_profile_model.dart';
 import '../routes/routes.dart';
 import '../utilites/api_services.dart';
 import '../utilites/response_repository.dart';
+import '../utilites/shared_prefs.dart';
 import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
 import '../view/screens/home_screens/health_packages/complete_healthcare_screen.dart';
 import '../view/widget/general_button.dart';
@@ -51,9 +55,12 @@ class HealthcareController extends GetxController {
   var c_addressController = TextEditingController();
   var c_employeesController = TextEditingController();
 
+  var selectedPackage=SelectedHealthPackageModel(
+    name: '',image: '',title: '',id: '',price: '',details: ''
+  );
+
   var currentUser = FirebaseAuth.instance.currentUser;
-  var locations = <String>[].obs;
-  var selectedLocation = "".obs;
+
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
   var healthPackageList = <HealthPackageDatum?>[].obs;
@@ -62,7 +69,10 @@ class HealthcareController extends GetxController {
   final CollectionReference patients =
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
   var isDataFetch = false.obs;
-
+  var locations = <LocationDatum?>[].obs;
+  var selectedLocation = "".obs;
+  var selectedLocationId=''.obs;
+  var selectedLocationName=''.obs;
 
   selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -121,7 +131,19 @@ class HealthcareController extends GetxController {
     });
   }
 
+  _getUserData()async{
+    String? jsonData = await SharedPrefs().generalGetData(key:"user_data");
+    if (jsonData != null) {
+      final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
+      firstNameController.text = updateUserProfileModel!.data!.appsUserFirstName!;
+      lastNameController.text = updateUserProfileModel.data!.appsUserLastName!;
+      mobileController.text = updateUserProfileModel.data!.appsUserMobileNumber!;
+      emailController.text = updateUserProfileModel.data!.appsUserEmail!;
+      genderController.text = updateUserProfileModel.data!.appsUserGender!;
+      nationalityController.text = updateUserProfileModel.data!.appsUserNationality!;
 
+    }
+  }
   _getHealthPackage() async{
 
 
@@ -147,7 +169,62 @@ class HealthcareController extends GetxController {
 
     }
   }
+  _getLocation() async{
+    final _response = await http.get(Uri.parse(ApiServices.LOCATION_URL),
+      headers: await ApiServices().headerWithToken(),
+    );
+    if(_response.statusCode==200){
+      // isSliderLoaded.value = true;
+      final locationModel = locationResponseModelFromJson(_response.body);
+      //await SharedPrefs().storeSliderResponse(_response.body);
+      if(locationModel!=null){
+        if(locationModel.status!){
+          locations.value = locationModel.data!;
+        }
+      }
+    }
+  }
+  getLocationList(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Select Hospital Location'),
+            content: Container(
+              width: double.minPositive,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: locations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  List<LocationDatum?> getLocationName=locations;
+                  return ListTile(
+                    title: Text(getLocationName[index]!.hospitalLocationName!),
+                    onTap: () {
+                      selectedLocationName.value=getLocationName[index]!.hospitalLocationName!;
+                      selectedLocationId.value=getLocationName[index]!.hospitalLocationId!.toString();
 
+
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            ),
+          );
+        });
+  }
+
+
+  @override
+  void onInit() {
+    //getUserInfo();
+    _getHealthPackage();
+    _getUserData();
+    _getLocation();
+    super.onInit();
+  }
+}
+/*
 /*  getUserInfo() {
     var currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
@@ -283,11 +360,4 @@ class HealthcareController extends GetxController {
     });
     //Get.to(() => CompleteAppointmentScreen(controller: controller));
   }*/
-
-  @override
-  void onInit() {
-    //getUserInfo();
-    _getHealthPackage();
-    super.onInit();
-  }
-}
+ */

@@ -35,6 +35,7 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
 
   //health package
   static const String ALL_ACTIVE_HEALTH_PACKAGE=BASE_URL+'/Package/GetAllActiveHealthPackage';
+  static const String HEALTH_PACKAGE_BOOKING=BASE_URL+'/Booking/AddHealthPackageBooking';
 
 
   Map<String, String> defaultHeader = {
@@ -98,5 +99,27 @@ class ApiKeyName{
   static const String DOCTOR_BY_SPECIALIST='doctor_specialities_id';
   static const String DOCTOR_BY_LOCATION='hospital_location_id';
   static const String DOCTOR_DATE_SLOT='doctor_slot_date';
+
+  //health package booking key
+  static const String HOSPITAL_LOCATION_ID='hospital_location_id';
+  static const String HEALTH_PACKAGE_ID='health_package_id';
+  static const String HEALTH_PACKAGE_BOOKING_USER_FIRST_NAME='health_package_booking_user_first_name';
+  static const String HEALTH_PACKAGE_BOOKING_USER_LAST_NAME='health_package_booking_user_last_name';
+  static const String HEALTH_PACKAGE_BOOKING_USER_NUMBER='health_package_booking_user_number';
+  static const String HEALTH_PACKAGE_BOOKING_USER_GENDER='health_package_booking_user_gender';
+  static const String HEALTH_PACKAGE_BOOKING_USER_EMAIL='health_package_booking_user_email_id';
+  static const String HEALTH_PACKAGE_BOOKING_USER_NATIONALITY='health_package_booking_user_nationality';
+  static const String HEALTH_PACKAGE_BOOKING_DATE='health_package_booking_prepable_date';
+  static const String HEALTH_PACKAGE_BOOKING_TIME='health_package_booking_prepable_time';
+  static const String HEALTH_PACKAGE_BOOKING_PRICE='health_package_booking_price';
+  static const String HEALTH_PACKAGE_BOOKING_MESSAGE='health_package_booking_any_message';
+  static const String HEALTH_PACKAGE_BOOKING_PAYMENT_METHOD='health_package_booking_payment_method';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_WHOM='health_package_booking_for_whom';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_NAME='health_package_booking_for_company_name';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_NUMBER='health_package_booking_for_company_number';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_EMAIL='health_package_booking_for_company_email';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_AUTH_PERSON='health_package_booking_for_company_authorized_person';
+  static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_ADDRESS='health_package_booking_for_company_address';
+
 
 }

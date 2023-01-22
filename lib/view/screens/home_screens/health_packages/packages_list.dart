@@ -7,6 +7,7 @@ import 'package:somerian_health/global/properties.dart';
 import 'package:somerian_health/view/screens/home_screens/health_packages/package_details.dart';
 import '../../../../controller/healthcare_controller.dart';
 import '../../../../model/healthPackageListResponseModel.dart';
+import '../../../../model/selected_health_package.dart';
 import '../../../../utilites/api_services.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
@@ -49,7 +50,7 @@ class PackagesListScreen extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10),
                                 child: TextWidget(
-                                  value: getPackageList[index]!.healthPackageTitle!,
+                                  value: getPackageList[index]!.healthPackageName!,
                                   size: 18.sp,
                                   fontWeight: FontWeight.w700,
                                   textColor: Colors.white,
@@ -68,11 +69,19 @@ class PackagesListScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  InkWell(
+                  Obx(()=>InkWell(
                     onTap: () {
-                      Get.to(()=> PackageDetails(
+                      controller.selectedPackage=SelectedHealthPackageModel(
+                        price: getPackageList[index]!.healthPackagePrice!,
+                        id: getPackageList[index]!.healthPackagePrice!.toString(),
+                        title: getPackageList[index]!.healthPackageTitle!,
                         image: ApiServices.IMAGE_BASE_URL + getPackageList[index]!.healthPackageImage!,
-                        title: getPackageList[index]!.healthPackageName!,
+                        name: getPackageList[index]!.healthPackageName!,
+                        details: getPackageList[index]!.healthPackageDetails!
+                      );
+                      Get.to(()=> PackageDetails(
+                       controller: controller,
+
                       ));
 
                       /*Navigator.push(
@@ -112,7 +121,7 @@ class PackagesListScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ))
                 ],
               ),
             );
