@@ -53,7 +53,7 @@ class LoginController extends GetxController {
           headers: ApiServices().defaultHeader
       );
       if(response.statusCode==200){
-       isSendingOtp.value = true;
+       isSendingOtp.value = false;
         if (kDebugMode) {
           print("Response:${response.body}");
         }

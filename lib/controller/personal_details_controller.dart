@@ -221,40 +221,7 @@ class PersonalDetailsController extends GetxController {
     //ApiServices.IMAGE_BASE_URL+pictureUploaded!.data!.appsUserProfilePic!
     print(pictureUploaded.data!.appsUserProfilePic!);
 
-  /*  final respondData=json.decode(respond.body);
-   final pictureUploaded = respondData['data'];
-
-    print(respondData['data']);
-    print(pictureUploaded['apps_user_profile_pic']);
-    print(pictureUploaded!.data!.appsUserProfilePic!);*/
-
-   /* if(_response==200){
-      print("Photo response success");
-      _response.stream.transform(utf8.decoder).listen((event) async {
-        Get.back();
-        final _data = json.decode(event);
-        if(_data["status"]==true){
-          final pictureUploaded = updateUserProfileModelFromJson(event);
-           await SharedPrefs().storeProfilePath(ApiServices.IMAGE_BASE_URL+pictureUploaded!.data!.appsUserProfilePic!);
-           print('link: ${await SharedPrefs().getProfilePath()}');
-          print("Photo response $event");
-        }else{
-          isImageUploading.value = false;
-          print("Photo response failed");
-        }
-      });
-    }else{
-      isImageUploading.value = false;
-      print("Photo response failed");
-    }*/
-
   }
-
-
-
-
-
-
 
 
 

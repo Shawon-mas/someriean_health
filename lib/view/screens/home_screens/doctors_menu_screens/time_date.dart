@@ -26,8 +26,8 @@ class TimeDateScreen extends StatelessWidget {
         controller.selectedDate.value = DateTime.now();
         controller.timeSlotList.clear();
         controller.tap.value = false;
-        controller.selectedTimeSlot.value='';
-        controller.timeId.value='';
+        controller.selectedTimeSlot.value = '';
+        controller.timeId.value = '';
         return true;
       },
       child: Scaffold(
@@ -151,76 +151,68 @@ class TimeDateScreen extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Obx(() =>
+                        Obx(() => Row(
+                              children: [
                                 controller.timeSlotList.isEmpty
-                                ? Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    child: TextWidget(
-                                      value: 'No Time Slot Found',
-                                      size: 14.sp,
-                                      fontWeight: FontWeight.w700,
-                                      textColor: Colors.black,
-                                    ),
-                                  )
-                                : InkWell(
+                                    ? Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        child: TextWidget(
+                                          value: 'No Time Slot Found',
+                                          size: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                          textColor: Colors.black,
+                                        ),
+                                      )
+                                    : InkWell(
                                         onTap: () {
                                           controller.getTimeSlot(context);
                                         },
                                         child: Container(
-                                          width: 150.w,
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          width: 200.w,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
                                           decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.grey),
-                                              borderRadius: BorderRadius.circular(10.0)),
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
                                           child: Row(
                                             children: [
                                               TextWidget(
-                                                value: controller.selectedTimeSlot.value==''
+                                                value: controller
+                                                            .selectedTimeSlot
+                                                            .value ==
+                                                        ''
                                                     ? 'Pick Slot'
-                                                    :controller.selectedTimeSlot.value,
+                                                    : controller
+                                                        .selectedTimeSlot.value,
                                                 size: 14.sp,
                                                 fontWeight: FontWeight.w700,
                                                 textColor: Colors.black,
                                               ),
-                                               Spacer(),
-                                               Icon(Icons.watch_later_sharp)
+                                              Spacer(),
+                                              Icon(Icons.watch_later_sharp)
                                             ],
                                           ),
                                         ),
-                                      )
-
-                            /*Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                child: DropdownButton(
-                                  hint: Text('Select Time Slot'),
-                                  isExpanded: true,
-                                  underline: const SizedBox(),
-                                  value: controller.selectedTimeSlot.value == ""
-                                      ? null
-                                      : controller.selectedTimeSlot.value,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: controller.timeSlotList.map((items) {
-                                    return DropdownMenuItem(
-                                      value: items!.doctorSlotTime.toString(),
-                                      child: Text(items.doctorSlotTime.toString()),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    controller.selectedTimeSlot.value = newValue.toString();
-                                    //   controller.timeSlotList.clear();
-                                  },
-                                ),
-                              )*/
-                            ),
+                                      ),
+                                Spacer(),
+                                Visibility(
+                                    visible: !controller.isTimeSlotLoaded.value,
+                                    child: SizedBox(
+                                        height: 30.h,
+                                        width: 30.w,
+                                        child: CircularProgressIndicator(
+                                          color: Properties.primaryColor,
+                                        )))
+                              ],
+                            )),
                       ],
                     ),
                   ),

@@ -32,16 +32,17 @@ class DoctorAppointmentListController extends GetxController{
          }
          else
          {
-           dataFetch.value=false;
+        //   dataFetch.value=false;
          }
 
        }catch(e){
          print(e.toString());
-         dataFetch.value=false;
+       //  dataFetch.value=false;
        }
 
      }else{
      //  dataFetch.value=true;
+       //dataFetch.value=true;
      }
 
 

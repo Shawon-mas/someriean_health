@@ -76,7 +76,7 @@ class DoctorAppointmentController extends GetxController {
 
   var timeSlotList = <TimeSlotDatum?>[].obs;
   var selectedTimeSlot="".obs;
-  var isTimeSlotFound=false.obs;
+  var isTimeSlotLoaded=true.obs;
 
   var selectedDoctor = SelectedDoctorModel(uid: "", name: "", image: "", location: "", title: "", serviceProvider: ServiceProvider.Doctor);
   var selectedFile = "Attachment (previous report file if available)".obs;
@@ -89,13 +89,19 @@ class DoctorAppointmentController extends GetxController {
   var timeId=''.obs;
 
   selectDate(BuildContext context) async {
+    isTimeSlotLoaded.value=false;
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
         firstDate: DateTime.now().subtract(Duration(days: 0)),
         lastDate: DateTime(2101),
         helpText: 'Select Appointment Date');
-      selectedDate.value = picked!;
+    if(picked==null)
+    {
+      isTimeSlotLoaded.value=true;
+      return;
+    }
+      selectedDate.value = picked;
     getDoctorTimeSlot(context,DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
   }
 
@@ -197,12 +203,12 @@ class DoctorAppointmentController extends GetxController {
   getDoctorTimeSlot(BuildContext context,selectDate) async{
    // var selectDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
 
-
     Map<String, dynamic> body = {
       ApiKeyName.DOCTOR_PROFILE_ID: selectedDoctor.uid,
       ApiKeyName.DOCTOR_DATE_SLOT: selectDate,
     };
     var response = await authPost(url: ApiServices.DOCTOR_APPOINTMENT_SLOT_TIME, body: body);
+    isTimeSlotLoaded.value=true;
     if(response!=null) {
       try{
         final doctorTimeSlotResponseModel = doctorTimeSlotResponseModelFromJson(response.body);
@@ -210,8 +216,13 @@ class DoctorAppointmentController extends GetxController {
           timeSlotList.value=doctorTimeSlotResponseModel.data!;
         //  print(response.body);
           print(timeSlotList.length);
-          isTimeSlotFound.value=true;
-          infoSnackBar(context, 'Time Slot Found');
+
+         // infoSnackBar(context, 'Time Slot Found');
+          if(timeSlotList.isNotEmpty){
+            infoSnackBar(context, 'Time Slot Found');
+          }else{
+            infoSnackBar(context, 'No Time Slot Found');
+          }
         }else{
           infoSnackBar(context, 'No Time Slot Found');
         }
@@ -219,7 +230,6 @@ class DoctorAppointmentController extends GetxController {
       }catch(e){
         print(e.toString());
 
-        isTimeSlotFound.value=false;
       }
 
     }else{

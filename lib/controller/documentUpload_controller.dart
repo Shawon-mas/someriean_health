@@ -91,8 +91,8 @@ class DocumentController extends GetxController{
     _request.files.add(_fileFile);
     var _response = await _request.send();
     var respond= await http.Response.fromStream(_response);
-    final pictureUploaded = updateUserProfileModelFromJson(respond.body);
-    print(pictureUploaded!.data!.appsUserEmiratesIdFrontPic!);
+   // final pictureUploaded = updateUserProfileModelFromJson(respond.body);
+  //  print(pictureUploaded!.data!.appsUserEmiratesIdFrontPic!);
     _getUserData();
     Get.back();
   }
@@ -466,12 +466,12 @@ class DocumentController extends GetxController{
           String? jsonData = await SharedPrefs().generalGetData(key: "user_data");
           if (jsonData != null) {
             final updateUserProfileModel = updateUserProfileModelFromJson(jsonData);
-                emiratesFront.value=updateUserProfileModel!.data!.appsUserEmiratesIdFrontPic!;
-                emiratesBack.value=updateUserProfileModel.data!.appsUserEmiratesIdBackPic!;
-                passport.value=updateUserProfileModel.data!.appsUserPassportPic!;
-                visa.value=updateUserProfileModel.data!.appsUserVisaPic!;
-                insurance.value=updateUserProfileModel.data!.appsUserInsurancePic!;
-                others.value=updateUserProfileModel.data!.appsUserOthersFile!;
+                emiratesFront.value=updateUserProfileModel!.data!.appsUserEmiratesIdFrontPic!??'';
+                emiratesBack.value=updateUserProfileModel.data!.appsUserEmiratesIdBackPic!??'';
+                passport.value=updateUserProfileModel.data!.appsUserPassportPic!??'';
+                visa.value=updateUserProfileModel.data!.appsUserVisaPic!??'';
+                insurance.value=updateUserProfileModel.data!.appsUserInsurancePic!??'';
+                others.value=updateUserProfileModel.data!.appsUserOthersFile!??'';
 
           }
         }
