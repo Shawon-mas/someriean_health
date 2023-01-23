@@ -17,12 +17,58 @@ class ResidencyVisa extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: customTextField(
+                      textEditingController:
+                      controller.firstNameController,
+                      helperText: "First Name"),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: customTextField(
+                      textEditingController:
+                      controller.lastNameController,
+                      helperText: "Last Name"),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             customTextField(
-                textInputType: TextInputType.number,
-                enabled: true,
+                textEditingController: controller.mobileController,
+                helperText: "Mobile No"),
+            const SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                textEditingController: controller.emailController,
+                helperText: "Email Id"),
+            const SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                textEditingController: controller.genderController,
+                helperText: "Gender"),
+            const SizedBox(
+              height: 20,
+            ),
+            customTextField(
                 textEditingController:
-                controller.mobileController,
-                helperText: "Mobile Number"),
+                controller.emiratesController,
+                helperText: "Emirates Id"),
+            const SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                textEditingController:
+                controller.nationalityController,
+                helperText: "Nationality"),
           ],
         ),
       ),

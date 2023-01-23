@@ -13,7 +13,7 @@ class VisaScreeningController extends GetxController{
   var selectPayment = "".obs;
 
   final gender = ['Male', 'Female', 'Others'];
-  final paymentMethods = ['Cash on Board', 'RazorPay', 'Paypal'];
+  final paymentMethods = [' Pay Online', ' Pay at CHSC'];
   var firstNameController = TextEditingController();
   var lastNameController = TextEditingController();
   var mobileController = TextEditingController();

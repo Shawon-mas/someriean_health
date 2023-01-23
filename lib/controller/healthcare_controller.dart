@@ -176,7 +176,8 @@ class HealthcareController extends GetxController {
   bookedHealthPackage(BuildContext context) async{
     isProcessing.value = true;
     var bookingDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
-    //'${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}'
+    //'${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.
+    // day}'
     var bookingTime=selectedTime.value.format(context).toString();
     print(bookingDate);
     print('Package Id:${selectedPackage.id}');

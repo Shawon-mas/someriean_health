@@ -37,6 +37,10 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   static const String ALL_ACTIVE_HEALTH_PACKAGE=BASE_URL+'/Package/GetAllActiveHealthPackage';
   static const String HEALTH_PACKAGE_BOOKING=BASE_URL+'/Booking/AddHealthPackageBooking';
 
+  //visa screening for residency
+  static const String VISA_SCREENING_EMIRATES=BASE_URL+'/GetAllVisaScreeningEmirate';
+  static const String VISA_SCREENING_PACKAGES=BASE_URL+'/GetAllVisaScreeningPackage';
+  static const String RESIDENCY_VISA_SCREENING_BOOKINGS=BASE_URL+'/Visa/AddVisaScreeningBooking';
 
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
@@ -122,5 +126,21 @@ class ApiKeyName{
   static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_AUTH_PERSON='health_package_booking_for_company_authorized_person';
   static const String HEALTH_PACKAGE_BOOKING_FOR_COMPANY_ADDRESS='health_package_booking_for_company_address';
 
+  //residency visa screening
+
+  static const String VISA_SCREENING_TYPES_ID='visa_screening_service_type_id';
+  static const String VISA_SCREENING_EMIRATES_ID='visa_screening_emirate_id';
+  static const String VISA_SCREENING_PACKAGES_ID='visa_screening_package_id';
+  static const String VISA_SCREENING_APP_USER_ID='visa_screening_apps_user_id';
+  static const String VISA_SCREENING_APP_USER_FIRST_NAME='visa_screening_user_first_name';
+  static const String VISA_SCREENING_APP_USER_LAST_NAME='visa_screening_user_last_name';
+  static const String VISA_SCREENING_APP_USER_DOB='visa_screening_user_birth_date';
+  static const String VISA_SCREENING_APP_USER_GENDER='visa_screening_user_gender';
+  static const String VISA_SCREENING_APP_USER_EMAIL='visa_screening_user_email';
+  static const String VISA_SCREENING_APP_USER_PHONE_NUMBER='visa_screening_user_phone_number';
+  static const String VISA_SCREENING_APP_USER_VISA_TYPE='visa_screening_user_visa_type';
+  static const String VISA_SCREENING_APP_USER_BOOKING_DATE='visa_screening_user_prepared_date';
+  static const String VISA_SCREENING_APP_USER_BOOKING_TIME='visa_screening_user_prepared_time';
+  static const String VISA_SCREENING_APP_USER_PAYMENT_TYPE='visa_screening_user_payment_type';
 
 }
