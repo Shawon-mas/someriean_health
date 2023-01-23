@@ -103,6 +103,7 @@ class ApiKeyName{
   //health package booking key
   static const String HOSPITAL_LOCATION_ID='hospital_location_id';
   static const String HEALTH_PACKAGE_ID='health_package_id';
+  static const String HEALTH_PACKAGE_USER_ID='health_package_apps_user_id';
   static const String HEALTH_PACKAGE_BOOKING_USER_FIRST_NAME='health_package_booking_user_first_name';
   static const String HEALTH_PACKAGE_BOOKING_USER_LAST_NAME='health_package_booking_user_last_name';
   static const String HEALTH_PACKAGE_BOOKING_USER_NUMBER='health_package_booking_user_number';

@@ -73,7 +73,7 @@ class PackagesListScreen extends StatelessWidget {
                     onTap: () {
                       controller.selectedPackage=SelectedHealthPackageModel(
                         price: getPackageList[index]!.healthPackagePrice!,
-                        id: getPackageList[index]!.healthPackagePrice!.toString(),
+                        id: getPackageList[index]!.healthPackageId!.toString(),
                         title: getPackageList[index]!.healthPackageTitle!,
                         image: ApiServices.IMAGE_BASE_URL + getPackageList[index]!.healthPackageImage!,
                         name: getPackageList[index]!.healthPackageName!,

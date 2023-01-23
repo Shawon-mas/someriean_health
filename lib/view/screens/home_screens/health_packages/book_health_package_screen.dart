@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../controller/healthcare_controller.dart';
+import '../../../../global/global_constants.dart';
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/general_button.dart';
@@ -262,6 +263,11 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                     underline: const SizedBox(),
                     onChanged: (newValue) {
                       controller.valueAppointment.value = newValue as String;
+                      if(newValue=='Book for Self'){
+                        controller.bookForWhom.value='Book for Self';
+                      }else{
+                        controller.bookForWhom.value='Book for Company';
+                      }
                     },
                     items: controller.appointmentType.map((valuItem) {
                       return DropdownMenuItem(
@@ -375,6 +381,34 @@ class BookHealthCarePackageScreen extends StatelessWidget {
                     isLoading: controller.isProcessing.value,
                     onPressed: () {
                       // controller.proceedPayment(context, controller);
+                      if(controller.selectedLocationName.value==''){
+                        errorSnackBar(context, 'Hospital Location Required');
+                      } else if(controller.valueAppointment.value == ''){
+                        errorSnackBar(context, 'For Whom Required');
+                      }else if(controller.valuePayment.value==''){
+                        errorSnackBar(context, 'Payment Method Required');
+                      } else if(controller.valueAppointment.value == 'Book for Company'){
+                         if(controller.c_nameController.text.isEmpty){
+                           errorSnackBar(context, 'Company Name Required');
+                         }else if(controller.c_nameController.text.isEmpty){
+                           errorSnackBar(context, 'Company Name Required');
+                         }else if(controller.c_nameController.text.isEmpty){
+                           errorSnackBar(context, 'Company Number Required');
+                         }else if(controller.c_emailController.text.isEmpty){
+                           errorSnackBar(context, 'Company Email Required');
+                         }else if(controller.c_personController.text.isEmpty){
+                           errorSnackBar(context, 'Company Authorized Person Name Required');
+                         }else if(controller.c_addressController.text.isEmpty){
+                           errorSnackBar(context, 'Company Address Required');
+                         }else{
+                           controller.bookedHealthPackage(context);
+                         }
+
+                      } else{
+                        controller.bookedHealthPackage(context);
+                        print(true);
+                      }
+
                     },
                     value: 'Proceed',
                   )),
@@ -383,15 +417,6 @@ class BookHealthCarePackageScreen extends StatelessWidget {
         ),
       ),
 
-      /*bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AppointmentButton(
-          onPressed: () {
-            controller.proceedDialog(context, controller);
-          },
-          value: 'Proceed',
-        ),
-      ),*/
     );
   }
 

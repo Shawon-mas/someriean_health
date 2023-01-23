@@ -6,10 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
 import 'package:somerian_health/model/selected_doctor_model.dart';
 import 'package:path/path.dart';
+import 'package:somerian_health/view/screens/bottombar_screen.dart';
+import '../model/healthPackageBookingResponseModel.dart';
 import '../model/healthPackageListResponseModel.dart';
 import '../model/locationResponseModel.dart';
 import '../model/selected_health_package.dart';
@@ -55,6 +58,8 @@ class HealthcareController extends GetxController {
   var c_addressController = TextEditingController();
   var c_employeesController = TextEditingController();
 
+  var bookForWhom=''.obs;
+
   var selectedPackage=SelectedHealthPackageModel(
     name: '',image: '',title: '',id: '',price: '',details: ''
   );
@@ -70,6 +75,7 @@ class HealthcareController extends GetxController {
       FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
   var isDataFetch = false.obs;
   var locations = <LocationDatum?>[].obs;
+
   var selectedLocation = "".obs;
   var selectedLocationId=''.obs;
   var selectedLocationName=''.obs;
@@ -145,8 +151,6 @@ class HealthcareController extends GetxController {
     }
   }
   _getHealthPackage() async{
-
-
     var response = await authPost(url: ApiServices.ALL_ACTIVE_HEALTH_PACKAGE, body: {});
     if(response!=null) {
       try{
@@ -169,6 +173,64 @@ class HealthcareController extends GetxController {
 
     }
   }
+  bookedHealthPackage(BuildContext context) async{
+    isProcessing.value = true;
+    var bookingDate = DateFormat("yyyy-MM-dd").format(selectedDate.value).toString();
+    //'${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}'
+    var bookingTime=selectedTime.value.format(context).toString();
+    print(bookingDate);
+    print('Package Id:${selectedPackage.id}');
+    print('Hospital Location Id:${selectedLocationId.value}');
+
+    Map<String, dynamic> body = {
+      ApiKeyName.HEALTH_PACKAGE_USER_ID: await SharedPrefs().getUserId(),
+      ApiKeyName.HEALTH_PACKAGE_ID: selectedPackage.id,
+      ApiKeyName.HOSPITAL_LOCATION_ID: selectedLocationId.value,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_DATE: bookingDate,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_TIME: bookingTime,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_FIRST_NAME: firstNameController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_LAST_NAME: lastNameController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_NUMBER: mobileController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_GENDER: genderController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_EMAIL: emailController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_USER_NATIONALITY: nationalityController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_MESSAGE: messageController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_PRICE: selectedPackage.price,
+
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_WHOM: bookForWhom.value,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_PAYMENT_METHOD: valuePayment.value,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_COMPANY_NAME: c_nameController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_COMPANY_NUMBER: c_numberController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_COMPANY_EMAIL: c_emailController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_COMPANY_AUTH_PERSON: c_personController.text,
+      ApiKeyName.HEALTH_PACKAGE_BOOKING_FOR_COMPANY_ADDRESS: c_addressController.text,
+    };
+    print(await SharedPrefs().getUserId());
+    var response = await authPost(url: ApiServices.HEALTH_PACKAGE_BOOKING, body: body);
+    if(response!=null) {
+      try{
+          final packageBookingResponseModel=healthPackageBookingResponseModelFromJson(response.body);
+          if (packageBookingResponseModel!.status! && packageBookingResponseModel.data != null){
+            successSnackBar(context, 'Your Health Package Booking Done');
+            Get.to(()=>BottomBarScreen());
+            isProcessing.value = false;
+            print(response.body);
+          }else{
+
+          }
+
+
+      }catch(e){
+        print(e.toString());
+        isProcessing.value = false;
+      }
+
+    }else{
+
+    }
+
+  }
+
   _getLocation() async{
     final _response = await http.get(Uri.parse(ApiServices.LOCATION_URL),
       headers: await ApiServices().headerWithToken(),
@@ -202,9 +264,8 @@ class HealthcareController extends GetxController {
                     onTap: () {
                       selectedLocationName.value=getLocationName[index]!.hospitalLocationName!;
                       selectedLocationId.value=getLocationName[index]!.hospitalLocationId!.toString();
-
-
                       Navigator.pop(context);
+                      print(selectedLocationId.value);
                     },
                   );
                 },
