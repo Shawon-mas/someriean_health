@@ -185,10 +185,7 @@ class TimeDateScreen extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               TextWidget(
-                                                value: controller
-                                                            .selectedTimeSlot
-                                                            .value ==
-                                                        ''
+                                                value: controller.selectedTimeSlot.value == ''
                                                     ? 'Pick Slot'
                                                     : controller
                                                         .selectedTimeSlot.value,

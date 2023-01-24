@@ -9,6 +9,7 @@ import '../utilites/shared_prefs.dart';
 
 class DoctorAppointmentListController extends GetxController{
   var dataFetch=false.obs;
+ // var dataPackageFetch=false.obs;
   var selectIndex = 0.obs;
   var selectStatus = 0.obs;
   var allAppointment = <AppointmentListDatum?>[].obs;

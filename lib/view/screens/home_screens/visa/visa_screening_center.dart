@@ -14,6 +14,8 @@ import '../../../../model/common_model.dart';
 import '../../../widget/common_toolbar.dart';
 import '../../../widget/text_widget.dart';
 import '../vaccination/vaccination_date.dart';
+import 'corporate_visa.dart';
+import 'occupational_visa.dart';
 
 class VisaScreeningCenterScreen extends StatelessWidget {
   const VisaScreeningCenterScreen({Key? key}) : super(key: key);
@@ -43,11 +45,10 @@ class VisaScreeningCenterScreen extends StatelessWidget {
             onTap: (){
               if(index==0){
                 Get.to(()=>ResidencyVisa(title: name[index],));
-
-              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorList()));
-
+              }else if(index==1){
+                Get.to(()=>OccupationalVisa(title: name[index],));
               }else{
-                //   Navigator.push(context, MaterialPageRoute(builder: (context)=>VisaScreeningCenterScreen()));
+                Get.to(()=>CorporateVisa(title: name[index],));
 
               }
             },

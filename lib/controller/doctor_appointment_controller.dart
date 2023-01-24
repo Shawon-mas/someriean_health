@@ -119,17 +119,12 @@ class DoctorAppointmentController extends GetxController {
       headers: await ApiServices().headerWithToken(),
     );
     if(_response.statusCode==200){
-
       final specialistModel = specialistResponseModelFromJson(_response.body);
       //await SharedPrefs().storeSliderResponse(_response.body);
       if(specialistModel!=null){
         if(specialistModel.status!){
           isSpecialityLoaded.value = true;
           speciality.value = specialistModel.data!;
-          /*for(var data in specialistModel.data!){
-            specialitiesId.value=data!.doctorSpecialitiesId!.toString();
-          }*/
-
           print('true');
         }
       }else{

@@ -42,7 +42,8 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   static const String VISA_SCREENING_EMIRATES=BASE_URL+'/GetAllVisaScreeningEmirate';
   static const String VISA_SCREENING_PACKAGES=BASE_URL+'/GetAllVisaScreeningPackage';
   static const String RESIDENCY_VISA_SCREENING_BOOKINGS=BASE_URL+'/Visa/AddVisaScreeningBooking';
-
+//visa location
+  static const String VISA_SCREENING_LOCATIONS=BASE_URL+'/GetAllVisaScreeningLocation';
   Map<String, String> defaultHeader = {
     'Accept': 'application/json',
   };
@@ -143,5 +144,14 @@ class ApiKeyName{
   static const String VISA_SCREENING_APP_USER_BOOKING_DATE='visa_screening_user_prepared_date';
   static const String VISA_SCREENING_APP_USER_BOOKING_TIME='visa_screening_user_prepared_time';
   static const String VISA_SCREENING_APP_USER_PAYMENT_TYPE='visa_screening_user_payment_type';
+  static const String VISA_SCREENING_APP_USER_ADDRESS='visa_screening_user_address';
 
+  //occupational visa
+  static const String VISA_SCREENING_LOCATION='visa_screening_location_id';
+  static const String occVISA_SCREENING_TYPES='visa_screening_user_type_of_screening';
+
+  //corporate visa
+  static const String corVISA_SCREENING_COMPANY_NAME='visa_screening_user_company_name';
+  static const String corVISA_SCREENING_COMPANY_REPRESENTATIVE_NAME='visa_screening_user_representative_name';
+  static const String corVISA_SCREENING_COMPANY_NOP='visa_screening_user_number_of_people';
 }
