@@ -151,7 +151,23 @@ class HealthcareController extends GetxController {
     }
   }
   _getHealthPackage() async{
-    var response = await authPost(url: ApiServices.ALL_ACTIVE_HEALTH_PACKAGE, body: {});
+    final _response = await http.get(Uri.parse(ApiServices.ALL_ACTIVE_HEALTH_PACKAGE),
+      headers: await ApiServices().headerWithToken(),
+    );
+    if(_response.statusCode==200){
+      // isSliderLoaded.value = true;
+      final healthPackageListResponseModel = healthPackageListResponseModelFromJson(_response.body);
+      //await SharedPrefs().storeSliderResponse(_response.body);
+      if(healthPackageListResponseModel.status!=null && healthPackageListResponseModel.data!=null){
+        healthPackageList.value=healthPackageListResponseModel.data!;
+        isDataFetch.value=true;
+        print(_response.body);
+
+      }else{
+
+      }
+    }
+    /*var response = await generalGet(url: ApiServices.ALL_ACTIVE_HEALTH_PACKAGE);
     if(response!=null) {
       try{
         final healthPackageListResponseModel = healthPackageListResponseModelFromJson(response.body);
@@ -171,7 +187,7 @@ class HealthcareController extends GetxController {
     }else{
       //  isProcessing.value = false;
 
-    }
+    }*/
   }
   bookedHealthPackage(BuildContext context) async{
     isProcessing.value = true;

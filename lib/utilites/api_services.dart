@@ -36,6 +36,7 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   //health package
   static const String ALL_ACTIVE_HEALTH_PACKAGE=BASE_URL+'/Package/GetAllActiveHealthPackage';
   static const String HEALTH_PACKAGE_BOOKING=BASE_URL+'/Booking/AddHealthPackageBooking';
+  static const String HEALTH_PACKAGE_BOOKING_LIST=BASE_URL+'/Booking/AllHealthPackageListByUserID';
 
   //visa screening for residency
   static const String VISA_SCREENING_EMIRATES=BASE_URL+'/GetAllVisaScreeningEmirate';
