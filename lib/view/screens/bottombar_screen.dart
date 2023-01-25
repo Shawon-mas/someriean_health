@@ -1,4 +1,3 @@
-
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -11,24 +10,20 @@ import 'bottom_screens/search.dart';
 import 'home_screens/doctors_menu_screens/doctors_menu.dart';
 import 'home_screens/reports/reports_type.dart';
 
-
-
-
 class BottomBarScreen extends StatefulWidget {
   @override
   State<BottomBarScreen> createState() => _BottomBarScreenState();
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-
   int _selectedIndex = 0;
-  static final List<Widget> _widgetOptions=[
+  static final List<Widget> _widgetOptions = [
     HomeScreen(),
     Search(),
     ReportsType(),
     MenuScreen(),
-
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -50,16 +45,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             backgroundColor: Properties.primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(IconlyLight.search,),
+            icon: Icon(
+              IconlyLight.search,
+            ),
             label: 'Search',
             backgroundColor: Properties.primaryColor,
           ),
+          BottomNavigationBarItem(icon: Icon(IconlyLight.paper), label: 'Report', backgroundColor: Properties.primaryColor),
           BottomNavigationBarItem(
-              icon: Icon(IconlyLight.paper),
-              label: 'Report',
-              backgroundColor: Properties.primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(IconlyLight.profile,),
+              icon: Icon(
+                IconlyLight.profile,
+              ),
               label: 'Menu',
               backgroundColor: Properties.primaryColor),
         ],
@@ -76,5 +72,3 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   }
 }
 //ed1c24
-
-
