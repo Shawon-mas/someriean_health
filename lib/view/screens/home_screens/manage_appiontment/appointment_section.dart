@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:somerian_health/view/screens/home_screens/manage_appiontment/visa_appointment.dart';
 
 import '../../../../global/properties.dart';
 import '../../../widget/common_toolbar.dart';
@@ -68,12 +69,14 @@ class _AppointmentSectionState extends State<AppointmentSection> with SingleTick
                       ),
                       controller: tabController,
                       tabs: [
+
                         Tab(
                           text: 'Doctor Appointment',
                         ),
                         Tab(
                           text: 'Health Packages Appointment',
                         ),
+
                       ],
                     ),
                   ),
@@ -85,8 +88,10 @@ class _AppointmentSectionState extends State<AppointmentSection> with SingleTick
             child: TabBarView(
               controller: tabController,
               children: [
+               // VisaAppointmentList(),
                 DoctorAppointmentList(),
                 HealthPackagesAppointmentList(),
+
               ],
             ),
           )

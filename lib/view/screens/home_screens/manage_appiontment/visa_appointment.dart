@@ -7,11 +7,12 @@ import 'package:intl/intl.dart';
 import '../../../../controller/doctor_appointment_list_controller.dart';
 import '../../../../global/properties.dart';
 import '../../../../model/healthPackageBookingListResponseModel.dart';
+import '../../../../model/visaScreeningBookingListModel.dart';
 import '../../../widget/text_widget.dart';
 
-class HealthPackagesAppointmentList extends StatelessWidget {
+class VisaAppointmentList extends StatelessWidget {
   final controller = Get.put(DoctorAppointmentListController());
-  HealthPackagesAppointmentList({Key? key}) : super(key: key);
+  VisaAppointmentList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,9 @@ class HealthPackagesAppointmentList extends StatelessWidget {
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: controller.packageAppointmentList.length,
+              itemCount: controller.visaAppointmentList.length,
               itemBuilder: (context, index) {
-                List<HealthPackageBookingList?> getAllAppointment =
-                    controller.packageAppointmentList;
+                List<VisaBookingList?> getAllAppointment = controller.visaAppointmentList;
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -51,26 +51,24 @@ class HealthPackagesAppointmentList extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+
                                   TextWidget(
                                     edgeInsetsGeometry: EdgeInsets.zero,
-                                    value: getAllAppointment[index]!
-                                        .healthPackageName!,
+                                    value: getAllAppointment[index]!.visaScreeningUserPackageName!??'',
                                     size: 16.sp,
                                     fontWeight: FontWeight.w700,
                                     textColor: Properties.fontColor,
                                   ),
                                   TextWidget(
                                     edgeInsetsGeometry: EdgeInsets.zero,
-                                    value: getAllAppointment[index]!
-                                        .healthPackageTitle!,
+                                    value: getAllAppointment[index]!.visaScreeningUserEmirateName!??'',
                                     size: 14.sp,
                                     fontWeight: FontWeight.w300,
                                     textColor: Properties.fontColor,
                                   ),
                                   TextWidget(
                                     edgeInsetsGeometry: EdgeInsets.zero,
-                                    value: getAllAppointment[index]!
-                                        .healthPackageBookingLocation!,
+                                    value: getAllAppointment[index]!.visaScreeningUserVisaType!??'',
                                     size: 14.sp,
                                     fontWeight: FontWeight.w500,
                                     textColor: Properties.fontColor,
@@ -97,7 +95,7 @@ class HealthPackagesAppointmentList extends StatelessWidget {
                                         edgeInsetsGeometry: EdgeInsets.zero,
                                         value: DateFormat("yyyy-MM-dd")
                                             .format(getAllAppointment[index]!
-                                                .healthPackageBookingPrepableDate!)
+                                                .visaScreeningUserPreparedDate!)
                                             .toString(), //getAllAppointment[index]!.doctorAppointmentPreferDate!.toString(),
                                         size: 12.sp,
                                         fontWeight: FontWeight.w500,
@@ -120,7 +118,7 @@ class HealthPackagesAppointmentList extends StatelessWidget {
                                       TextWidget(
                                         edgeInsetsGeometry: EdgeInsets.zero,
                                         value: getAllAppointment[index]!
-                                            .healthPackageBookingPrepableTime!,
+                                            .visaScreeningUserPreparedTime!,
                                         size: 12.sp,
                                         fontWeight: FontWeight.w500,
                                         textColor: Properties.fontColor,
@@ -129,14 +127,7 @@ class HealthPackagesAppointmentList extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              TextWidget(
-                                edgeInsetsGeometry: EdgeInsets.zero,
-                                value:
-                                    '${getAllAppointment[index]!.healthPackagePrice!} AED',
-                                size: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                textColor: Properties.fontColor,
-                              ),
+
                             ],
                           )
                         ],

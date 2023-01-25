@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:somerian_health/global/properties.dart';
+import '../../../controller/doctor_appointment_list_controller.dart';
 import '../../../controller/home_controller.dart';
 import '../../../controller/menu_controller.dart';
 import '../../../global/db_paths.dart';
@@ -49,10 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final _controller = Get.put(MenuController());
   final _homeController = Get.put(HomeController());
   final _controllerCarousel = CarouselController();
+  final controller = Get.put(DoctorAppointmentListController());
 
   @override
   Widget build(BuildContext context) {
     _controller.getUserData();
+    //controller.getVisaBookingList();
 
     return SafeArea(
       child: Scaffold(

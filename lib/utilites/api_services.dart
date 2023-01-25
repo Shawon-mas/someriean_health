@@ -42,6 +42,7 @@ static const String USER_UPDATE_PROFILE_OTHER_PICTURE=BASE_URL+'/User/UpdateUser
   static const String VISA_SCREENING_EMIRATES=BASE_URL+'/GetAllVisaScreeningEmirate';
   static const String VISA_SCREENING_PACKAGES=BASE_URL+'/GetAllVisaScreeningPackage';
   static const String RESIDENCY_VISA_SCREENING_BOOKINGS=BASE_URL+'/Visa/AddVisaScreeningBooking';
+  static const String GET_VISA_SCREENING_BOOKINGS=BASE_URL+'/Visa/AllVisaScreeningBookingByUserID';
 //visa location
   static const String VISA_SCREENING_LOCATIONS=BASE_URL+'/GetAllVisaScreeningLocation';
   Map<String, String> defaultHeader = {
