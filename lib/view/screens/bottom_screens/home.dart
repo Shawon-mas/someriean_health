@@ -23,21 +23,18 @@ import '../book_appointment/appointment_type.dart';
 import '../home_screens/ambulance/ambulance_list.dart';
 import '../home_screens/contact_us/contact_us.dart';
 import '../home_screens/doctors_menu_screens/doctors_list.dart';
-import '../home_screens/doctors_menu_screens/doctors_menu.dart';
-import '../home_screens/e-pharmacy/epharmacy_item.dart';
 import '../home_screens/emergency/emergency_contact.dart';
 import '../home_screens/find_us/choose_location.dart';
-import '../home_screens/find_us/location_one.dart';
 import '../home_screens/health_packages/packages_list.dart';
 import '../home_screens/health_tip/health_tip.dart';
 import '../home_screens/home_care/home_care_facility.dart';
 import '../home_screens/insurance/insurance_list.dart';
 import '../home_screens/manage_appiontment/appointment_section.dart';
-import '../home_screens/manage_appiontment/manage_appionment.dart';
 import '../home_screens/medical_history/medical_history.dart';
 import '../home_screens/reports/reports_type.dart';
 import '../home_screens/specialties_menu/choose_specialty.dart';
 import '../home_screens/teleconsultation/video_calling.dart';
+import '../home_screens/visa/visa_screening_center.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -364,13 +361,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           // infoSnackBar(context,'Coming soon');
                         }),
                     HomeMenu(
-                        menuTittle: "E-pharmacy",
-                        imageMenu: 'assets/images/pharmacy.png',
+                        menuTittle: "Visa Screening",
+                        imageMenu: 'assets/images/visa.png',
                         onPressed: () {
-                          Navigator.push(
+                          Get.to(()=>VisaScreeningCenterScreen());
+                         /* Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => EpharmacyList()));
+                                  builder: (context) => EpharmacyList()));*/
                           //  infoSnackBar(context,'Coming soon');
                         }),
                   ],

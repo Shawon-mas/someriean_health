@@ -133,10 +133,10 @@ final visaScreeningBookingList = visaScreeningBookingListModelFromJson(response.
 @override
   void onInit() {
     // TODO: implement onInit
-  //_getAllAppointment();
- // _getHealthPackageBookingList();
+  _getAllAppointment();
+  _getHealthPackageBookingList();
  // getVisaBookingList();
-  _getVisaBookingList();
+ // _getVisaBookingList();
     super.onInit();
   }
 }
