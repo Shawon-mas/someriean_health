@@ -13,6 +13,7 @@ import '../../../controller/menu_controller.dart';
 import '../../../global/db_paths.dart';
 import '../../../global/global_constants.dart';
 import '../../../model/slider_model.dart';
+import '../../../model/visaScreeningBookingListModel.dart';
 import '../../../routes/routes.dart';
 import '../../../utilites/api_services.dart';
 import '../../../utilites/shared_prefs.dart';
@@ -44,15 +45,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _controller = Get.put(MenuController());
+  final menuController=Get.put(MenusController());
   final _homeController = Get.put(HomeController());
   final _controllerCarousel = CarouselController();
-  final controller = Get.put(DoctorAppointmentListController());
-
   @override
   Widget build(BuildContext context) {
-    _controller.getUserData();
-    //controller.getVisaBookingList();
+    menuController.getUserData();
+    DateTime now = DateTime.now();
+
+    DateTime start = now;
+    DateTime after = now.add(Duration(days: 180));
+
+    DateTime iterator = start;
+    List<Day> days = [];
+
+    while (iterator.isBefore(after)) {
+      days.add(Day(dateTime: iterator));
+      iterator = iterator.add(Duration(days: 1));
+    }
+    print(days);
 
     return SafeArea(
       child: Scaffold(

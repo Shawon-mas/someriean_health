@@ -149,7 +149,6 @@ class CompleteProfileController extends GetxController {
   _submitProfileNew(context) async {
     isUploading.value = true;
     var dob = '${selectedDate.value.year}-${selectedDate.value.month}-${selectedDate.value.day}';
-
     Map<String, dynamic> body = {
       ApiKeyName.USER_ID: await SharedPrefs().getUserId(),
       ApiKeyName.USER_FIRST_NAME: firstNameController.text,
@@ -184,6 +183,7 @@ class CompleteProfileController extends GetxController {
         /*Do the rest*/
       } catch (e) {
         /*Handle error*/
+        errorSnackBar(context, 'Something Went Wrong');
       }
     }
   }

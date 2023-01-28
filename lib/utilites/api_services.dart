@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:somerian_health/utilites/shared_prefs.dart';
 
 class ApiServices{
@@ -155,4 +156,17 @@ class ApiKeyName{
   static const String corVISA_SCREENING_COMPANY_NAME='visa_screening_user_company_name';
   static const String corVISA_SCREENING_COMPANY_REPRESENTATIVE_NAME='visa_screening_user_representative_name';
   static const String corVISA_SCREENING_COMPANY_NOP='visa_screening_user_number_of_people';
+}
+class Day {
+  final DateTime? dateTime;
+  Day({
+    this.dateTime,
+  });
+
+  String get day => DateFormat('EEEE').format(dateTime!);
+  String get date => DateFormat('yMMMd').format(dateTime!);
+  String toString() =>
+      '\t{\n\t\t"dayName": "$day",\n\t\t"date": "$date"\n\t}\n';
+
+  Map<String, String> toMap() => {'dayName': day, 'date': date};
 }

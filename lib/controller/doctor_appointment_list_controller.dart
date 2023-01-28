@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import '../global/global_constants.dart';
 import '../model/appointmentListResponseModel.dart';
 import '../model/healthPackageBookingListResponseModel.dart';
 import '../model/visaScreeningBookingListModel.dart';
@@ -11,6 +14,8 @@ import '../utilites/shared_prefs.dart';
 
 class DoctorAppointmentListController extends GetxController {
   var dataFetch = false.obs;
+  var dataFetchNew = false.obs;
+
 
   // var dataPackageFetch=false.obs;
   var selectIndex = 0.obs;
@@ -37,6 +42,11 @@ class DoctorAppointmentListController extends GetxController {
           print(response.body);
         } else {
           //   dataFetch.value=false;
+          dataFetch.value = true;
+          infoToast("No appointment List Found");
+
+
+
         }
       } catch (e) {
         print(e.toString());
@@ -59,11 +69,13 @@ class DoctorAppointmentListController extends GetxController {
         final healthPackageBookingList = healthPackageBookingListResponseModelFromJson(response.body);
         if (healthPackageBookingList!.status! && healthPackageBookingList.data != null) {
           packageAppointmentList.value = healthPackageBookingList.data!;
-          dataFetch.value = true;
+          dataFetchNew.value = true;
           //    Get.off(() => CompleteAppointmentScreen(controller: controller));
           print(response.body);
         } else {
           //   dataFetch.value=false;
+          dataFetchNew.value = true;
+          infoToast("No appointment List Found");
         }
       } catch (e) {
         print(e.toString());
@@ -75,7 +87,7 @@ class DoctorAppointmentListController extends GetxController {
     }
   }
 
-  _getVisaBookingList() async {
+  getVisaBookingList() async {
     Map<String, dynamic> body = {
       ApiKeyName.VISA_SCREENING_APP_USER_ID: await SharedPrefs().getUserId(),
     };
@@ -93,6 +105,9 @@ class DoctorAppointmentListController extends GetxController {
           visaAppointmentList.value = visaScreeningBookingListModel.data!;
           //  dataFetch.value=true;
           //    Get.off(() => CompleteAppointmentScreen(controller: controller));
+          for(var data in visaAppointmentList){
+            print(data!.visaScreeningUserPackageName!);
+          }
           print(response.body);
         } else {
           //   dataFetch.value=false;
@@ -123,10 +138,10 @@ final visaScreeningBookingList = visaScreeningBookingListModelFromJson(response.
   @override
   void onInit() {
     // TODO: implement onInit
-    //_getAllAppointment();
-    // _getHealthPackageBookingList();
-    // getVisaBookingList();
-    _getVisaBookingList();
+    _getAllAppointment();
+    _getHealthPackageBookingList();
+    getVisaBookingList();
+    //getVisaBookingList();
     super.onInit();
   }
 }

@@ -4,6 +4,7 @@ import 'package:pinput/pinput.dart';
 import 'package:somerian_health/controller/login_controller.dart';
 import 'package:somerian_health/view/screens/complete_profile_screen.dart';
 
+import '../../global/global_constants.dart';
 import '../../global/properties.dart';
 import '../widget/common_toolbar.dart';
 import '../widget/custom_button.dart';
@@ -77,12 +78,14 @@ class OtpScreen extends StatelessWidget {
               //      controller.registerUser(controller.otpController.text, verificationId, context);
                     controller.isVerifyingOtp.value=true;
                     if(controller.otpController.text==controller.otp.value){
-
                       print('Success');
                       controller.checkUserByNumber(context, controller);
 
                     }else{
+                      errorSnackBar(context, 'Wrong Otp');
+                      controller.isVerifyingOtp.value=false;
                       print('Invalid');
+
                     }
                   },
                 );

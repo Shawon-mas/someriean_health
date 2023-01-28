@@ -1,18 +1,16 @@
-import 'dart:convert';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:somerian_health/global/db_paths.dart';
-import 'package:somerian_health/global/global_constants.dart';
-
 import '../model/user/update_user_profile_model.dart';
 import '../utilites/api_services.dart';
 import '../utilites/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 
-class MenuController extends GetxController {
+class MenusController extends GetxController {
   var user = FirebaseAuth.instance.currentUser;
   var imagePath = "".obs;
   var userDoc =
@@ -70,4 +68,5 @@ class MenuController extends GetxController {
     }
 
   }
+
 }

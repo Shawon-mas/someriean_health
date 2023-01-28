@@ -1,16 +1,11 @@
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:somerian_health/global/db_paths.dart';
 import 'package:somerian_health/global/global_constants.dart';
-import 'package:somerian_health/model/selected_doctor_model.dart';
-import 'package:path/path.dart';
 import 'package:somerian_health/view/screens/bottombar_screen.dart';
 import '../model/healthPackageBookingResponseModel.dart';
 import '../model/healthPackageListResponseModel.dart';
@@ -21,31 +16,31 @@ import '../routes/routes.dart';
 import '../utilites/api_services.dart';
 import '../utilites/response_repository.dart';
 import '../utilites/shared_prefs.dart';
-import '../view/screens/home_screens/doctors_menu_screens/complete_appointment_screen.dart';
-import '../view/screens/home_screens/health_packages/complete_healthcare_screen.dart';
-import '../view/widget/general_button.dart';
 import 'package:http/http.dart' as http;
 
 class HealthcareController extends GetxController {
 
   var selectedDate = DateTime.now().obs;
   var selectedTime = TimeOfDay.fromDateTime(DateTime.now()).obs;
+
   var valueChoose = "".obs;
   var valuePayment = "".obs;
   var valueNationality = "".obs;
   var valueAppointment = "".obs;
+
   final gender = ['Male', 'Female', 'Others'];
   final paymentMethods = ['Cash on Board'];
   final appointmentType = ['Book for Self', 'Book for Company'];
   final nationality = ['Afghan', 'Albanian', 'Emirati', 'Bangladeshi'];
-  var isUploading = false.obs;
+  var   isUploading = false.obs;
+
   var firstNameController = TextEditingController();
-  var lastNameController = TextEditingController();
-  var mobileController = TextEditingController();
-  var genderController = TextEditingController();
+  var lastNameController =  TextEditingController();
+  var mobileController =    TextEditingController();
+  var genderController =    TextEditingController();
   var nationalityController = TextEditingController();
-  var emailController = TextEditingController();
-  var passportController = TextEditingController();
+  var emailController =       TextEditingController();
+  var passportController =    TextEditingController();
   var timeAndDateController = TextEditingController();
   var messageController = TextEditingController();
   var timeController = TextEditingController();
@@ -60,19 +55,15 @@ class HealthcareController extends GetxController {
 
   var bookForWhom=''.obs;
 
-  var selectedPackage=SelectedHealthPackageModel(
-    name: '',image: '',title: '',id: '',price: '',details: ''
-  );
+  var selectedPackage=SelectedHealthPackageModel(name: '',image: '',title: '',id: '',price: '',details: '');
 
   var currentUser = FirebaseAuth.instance.currentUser;
 
   var selectedFile = "Attachment (previous report file if available)".obs;
   var isProcessing = false.obs;
   var healthPackageList = <HealthPackageDatum?>[].obs;
-  final CollectionReference doctors =
-      FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
-  final CollectionReference patients =
-      FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
+  final CollectionReference doctors =  FirebaseFirestore.instance.collection(DbCollections.collectionDoctors);
+  final CollectionReference patients = FirebaseFirestore.instance.collection(DbCollections.collectionPatients);
   var isDataFetch = false.obs;
   var locations = <LocationDatum?>[].obs;
 
@@ -81,14 +72,14 @@ class HealthcareController extends GetxController {
   var selectedLocationName=''.obs;
 
   selectDate(BuildContext context) async {
+
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate.value,
         firstDate: DateTime(1950, 8),
         lastDate: DateTime(2101));
-    selectedDate.value = picked!;
-    dateController.text =
-        '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
+        selectedDate.value = picked!;
+        dateController.text = '${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}';
   }
 
   selectTime(BuildContext context) async {

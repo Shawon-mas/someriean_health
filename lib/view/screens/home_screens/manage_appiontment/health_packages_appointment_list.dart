@@ -16,7 +16,7 @@ class HealthPackagesAppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => controller.dataFetch.value == true
+      body: Obx(() => controller.dataFetchNew.value == true
           ? ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
@@ -47,6 +47,7 @@ class HealthPackagesAppointmentList extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
+
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

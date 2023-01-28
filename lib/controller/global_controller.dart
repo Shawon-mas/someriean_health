@@ -37,6 +37,8 @@ class GlobalController extends GetxController {
         Get.offAllNamed(login);
       }
     });
+
+
     //do server response here
   }
 

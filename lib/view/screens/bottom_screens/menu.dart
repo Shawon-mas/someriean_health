@@ -20,7 +20,7 @@ import '../menu_screen/language.dart';
 import '../menu_screen/my_profile/my_profile.dart';
 
 class MenuScreen extends StatelessWidget {
-  final _controller = Get.put(MenuController());
+  final _controller = Get.put(MenusController());
   MenuScreen({Key? key}) : super(key: key);
   final List<String> menuList = [
     'My Profile',

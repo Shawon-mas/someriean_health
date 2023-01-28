@@ -28,6 +28,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class DoctorAppointmentController extends GetxController {
+
   var name = "".obs;
   var isSelf="".obs;
   var tap=false.obs;

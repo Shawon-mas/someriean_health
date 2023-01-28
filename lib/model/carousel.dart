@@ -1,4 +1,5 @@
 class CarouselModel {
+
   CarouselModel({required this.id, required this.image});
 
   final String id;

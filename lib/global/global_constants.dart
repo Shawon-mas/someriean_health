@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
@@ -48,6 +49,18 @@ infoSnackBar(BuildContext context, String text) {
     duration: const Duration(seconds: 2),
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+infoToast(String text){
+      return  Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blueGrey,
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
 }
 
 getErrorSnack(String value){

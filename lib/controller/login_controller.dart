@@ -111,7 +111,8 @@ class LoginController extends GetxController {
           print(data['is_userexist']);
           if(data['is_userexist']==true)
           {
-            Get.to(()=> BottomBarScreen());
+            Get.offAll(()=> BottomBarScreen());
+            await SharedPrefs().isLogin(true);
           }else{
             Get.to(CompleteProfileScreen(mobileNumber: _controller.phoneController.text));
           }
