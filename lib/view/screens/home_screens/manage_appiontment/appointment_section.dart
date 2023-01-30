@@ -17,7 +17,7 @@ class _AppointmentSectionState extends State<AppointmentSection> with SingleTick
   late TabController tabController;
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -76,6 +76,9 @@ class _AppointmentSectionState extends State<AppointmentSection> with SingleTick
                         Tab(
                           text: 'Health Packages Appointment',
                         ),
+                        Tab(
+                          text: 'Visa Appointment',
+                        ),
 
                       ],
                     ),
@@ -91,6 +94,7 @@ class _AppointmentSectionState extends State<AppointmentSection> with SingleTick
                // VisaAppointmentList(),
                 DoctorAppointmentList(),
                 HealthPackagesAppointmentList(),
+                VisaAppointmentList(),
 
               ],
             ),

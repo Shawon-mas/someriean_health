@@ -29,44 +29,76 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       _selectedIndex = index;
     });
   }
+  Future<bool> showExitPopup() async {
+    return await showDialog( //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Exit App'),
+        content: Text('Do you want to exit an App?'),
+        actions:[
+
+
+
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(primary: Properties.primaryColor),
+            //return true when click on "Yes"
+            child:Text('Exit'),
+
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            style: ElevatedButton.styleFrom(primary: Colors.grey),
+            //return false when click on "NO"
+            child:Text('Cancel',style: TextStyle(color: Colors.black),),
+          ),
+
+        ],
+      ),
+    )??false; //if showDialouge had returned null, then return false
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              IconlyLight.home,
-            ),
-            label: 'Home',
-            backgroundColor: Properties.primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              IconlyLight.search,
-            ),
-            label: 'Search',
-            backgroundColor: Properties.primaryColor,
-          ),
-          BottomNavigationBarItem(icon: Icon(IconlyLight.paper), label: 'Report', backgroundColor: Properties.primaryColor),
-          BottomNavigationBarItem(
+    return WillPopScope(
+      onWillPop: showExitPopup,
+      child: Scaffold(
+        body: _widgetOptions[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(
               icon: Icon(
-                IconlyLight.profile,
+                IconlyLight.home,
               ),
-              label: 'Menu',
-              backgroundColor: Properties.primaryColor),
-        ],
-        //type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        backgroundColor: Properties.primaryColor,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        iconSize: 40,
-        onTap: _onItemTapped,
-        elevation: 5,
+              label: 'Home',
+              backgroundColor: Properties.primaryColor,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                IconlyLight.search,
+              ),
+              label: 'Search',
+              backgroundColor: Properties.primaryColor,
+            ),
+            BottomNavigationBarItem(icon: Icon(IconlyLight.paper), label: 'Report', backgroundColor: Properties.primaryColor),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  IconlyLight.profile,
+                ),
+                label: 'Menu',
+                backgroundColor: Properties.primaryColor),
+          ],
+          //type: BottomNavigationBarType.shifting,
+          currentIndex: _selectedIndex,
+          backgroundColor: Properties.primaryColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
+          iconSize: 40,
+          onTap: _onItemTapped,
+          elevation: 5,
+        ),
       ),
     );
   }

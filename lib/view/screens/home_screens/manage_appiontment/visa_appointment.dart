@@ -17,7 +17,7 @@ class VisaAppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => controller.dataFetch.value == true
+      body: Obx(() => controller.dataFetchVisa.value == true
           ? ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,

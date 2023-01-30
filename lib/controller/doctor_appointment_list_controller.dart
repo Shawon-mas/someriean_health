@@ -15,6 +15,7 @@ import '../utilites/shared_prefs.dart';
 class DoctorAppointmentListController extends GetxController {
   var dataFetch = false.obs;
   var dataFetchNew = false.obs;
+  var dataFetchVisa = false.obs;
 
 
   // var dataPackageFetch=false.obs;
@@ -103,14 +104,17 @@ class DoctorAppointmentListController extends GetxController {
             return;
           }
           visaAppointmentList.value = visaScreeningBookingListModel.data!;
-          //  dataFetch.value=true;
+
           //    Get.off(() => CompleteAppointmentScreen(controller: controller));
           for(var data in visaAppointmentList){
             print(data!.visaScreeningUserPackageName!);
           }
           print(response.body);
+          dataFetchVisa.value=true;
         } else {
           //   dataFetch.value=false;
+          dataFetchVisa.value = true;
+          infoToast("No appointment List Found");
         }
       } catch (e) {
         print(e.toString());

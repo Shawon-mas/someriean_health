@@ -104,7 +104,9 @@ class OtpScreen extends StatelessWidget {
                   ),
                   TextWidget(
                     textColor: Properties.colorTextBlue,
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     value: "Resend",
                     size: 16.sp,
                     fontWeight: FontWeight.w800,

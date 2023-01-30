@@ -16,13 +16,24 @@ import '../../../widget/text_widget.dart';
 
 class PersonalDetailsScreen extends StatelessWidget {
   final _controller = Get.put(PersonalDetailsController());
+  final ScrollController controller = ScrollController();
+
   PersonalDetailsScreen({
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    void _scrollDown() {
+      controller.animateTo(
+        controller.position.maxScrollExtent,
+        duration: Duration(seconds: 2),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,6 +99,7 @@ class PersonalDetailsScreen extends StatelessWidget {
                     onTap: () {
                       _controller.isEditable.value =
                           !_controller.isEditable.value;
+                      _scrollDown();
                     },
                     child: Container(
                       width: 30.w,
@@ -203,17 +215,6 @@ class PersonalDetailsScreen extends StatelessWidget {
                           child: CustomButton(
                             value: "Submit",
                             onPressed: () {
-                              /* _controller.storeValues(
-                  firstName: _controller.firstNameController.text,
-                  lastName: _controller.lastNameController.text,
-                  dob: _controller.selectedDate.value,
-                  mobileNo: mobileNumber,
-                  email: _controller.emailController.text,
-                  gender: _controller.valueChoose.value,
-                  nationality: _controller.valueNationality.value,
-                  passport: _controller.passportController.text,
-                  context: context,
-                );*/
                               _controller.checkFieldCheck(context);
                             },
                             isLoading: _controller.isUploading.value,

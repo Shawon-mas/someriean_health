@@ -109,7 +109,7 @@ class PersonalDetailsController extends GetxController {
             print(updateUserProfileModel);
 
           }*/
-          Get.to(()=>MenuScreen());
+          Get.off(()=>MenuScreen());
           isUploading.value = false;
           successSnackBar(context, "Submitted successfully");
         }
